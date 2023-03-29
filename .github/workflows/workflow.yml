@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Checkout
-        uses: codacy/codacy-coverage-reporter-action@v1
+        uses: ziishaned/jest-reporter-action@v0.1.1
         with:
-          run: npm run test:unit
-          coverage-reports: ./
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          test-command: "yarn jest --coverage"
