@@ -10,10 +10,8 @@ jobs:
     steps:  
       - name: Unit testing
         uses: actions/checkout@v3
-      - name: Unit testing
-        run: |
+      - run: |
           npm install
           npm run test:unit
         with:
-          name: Coverage unit testing
           path: path/to/coverage/report
