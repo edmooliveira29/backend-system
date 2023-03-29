@@ -8,11 +8,9 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Checkout
-        uses: actions/checkout@v3
-      - run: yarn
-      - run: npm run test:unit
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          path: './coverage/lcov-report'
+          test-command: npm run test:unit
+          coverage-reports: ./
