@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:unit": "jest"
+    "test:unit": "npx jest --ci --json --coverage --testLocationInResults --outputFile=report.json"
   },
   "author": "Edmo",
   "license": "ISC",
