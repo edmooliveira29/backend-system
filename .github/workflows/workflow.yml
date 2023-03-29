@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test-unit:
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,5 +20,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install -g node-gyp
+    - run: npm install
     - run: npm run test
