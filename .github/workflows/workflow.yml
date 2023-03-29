@@ -1,24 +1,17 @@
-name: GitHub CI
+name: Backend-Clean
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:
   test-unit:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.13.0]
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm install
-    - run: npm run test
+      - name: Unit testing
+        uses: actions/checkout@v3
+      - name: Unit testing
+        run: |
+          npm install
+          npm run test:unit
+   
