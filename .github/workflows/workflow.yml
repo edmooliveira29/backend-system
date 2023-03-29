@@ -12,5 +12,5 @@ jobs:
       - name: Checkout
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          test-command: npm run test:unit
+          run: npm run test:unit
           coverage-reports: ./
