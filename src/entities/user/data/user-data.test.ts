@@ -1,4 +1,4 @@
-import { type UserData } from './use-data'
+import { type UserData } from './user-data'
 
 test('Should return user data', () => {
   const state: UserData = { name: 'user', email: 'email@email.com', password: 'password' }

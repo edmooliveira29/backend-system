@@ -1,4 +1,4 @@
-import { type UserData } from './data/use-data'
+import { type UserData } from './data/user-data'
 
 export class UserEntity {
   public readonly users: UserData
