@@ -4,6 +4,6 @@ module.exports = {
   testEnvironment: 'node',
   rootDir: 'src',
   verbose: true,
-  coverageDirectory: '<rootDir>'
+  coverageDirectory: '../coverage'
 
 }

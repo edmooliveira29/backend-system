@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES2022",                          
-    "module": "ESNext",                    
-    "lib": ["es6"],                     
-    "outDir": "build",                          
-    "rootDir": "src",
-    "strict": true,         
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": [
+      "es6"
+    ],
+    "outDir": "build",
+    "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
     "moduleResolution": "nodenext"
   },
   "include": [
-    "src"
-, "coverage"  ],
+    "src",
+  ],
   "exclude": [
     "*.spec.ts",
     "*.test.ts"
