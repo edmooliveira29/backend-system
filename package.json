@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:unit": "jest --coverage",
+    "test:unit": "jest --coverage ",
+    "test:unit:dev": "jest --watch ",
     "lint": "eslint . --fix",
     "prepare": "husky install"
   },
