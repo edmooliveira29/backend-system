@@ -1,9 +1,9 @@
+import { type UserData } from './data/use-data'
+
 export class UserEntity {
-  public readonly name: string
-  public readonly password: string
-  constructor (name: string, password: string) {
-    this.name = name
-    this.password = password
+  public readonly users: UserData
+  constructor (users: UserData) {
+    this.users = users
     Object.freeze(this)
   }
 }
