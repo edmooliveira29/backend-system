@@ -1,18 +1,17 @@
 import { type UserEntity } from '../../../entities/user/user-entity'
-import { type UserPort } from './user-port'
 describe('User Port Interface', () => {
   let user: UserEntity
   let userPortMock: UserPort
 
   beforeAll(() => {
     user = {
-      user: {
-        email: 'user@email.com',
-        name: 'user',
-        password: 'password',
-        token: 'anyToken',
-        expiration: new Date('01-01-01')
-      }
+      id: 'anyId',
+      email: 'user@email.com',
+      name: 'user',
+      password: 'password',
+      token: 'anyToken',
+      expiration: new Date('01-01-01')
+
     }
 
     userPortMock = {
