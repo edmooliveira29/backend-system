@@ -1,6 +1,18 @@
 import { type UserData } from './user-data'
 
 test('Should return user data', () => {
-  const state: UserData = { name: 'user', email: 'email@email.com', password: 'password' }
-  expect(state).toEqual({ email: 'email@email.com', name: 'user', password: 'password' })
+  const user: UserData = {
+    email: 'user@email.com',
+    name: 'user',
+    password: 'password',
+    token: 'anyToken',
+    expiration: new Date('01-01-01')
+  }
+  expect(user).toEqual({
+    email: 'user@email.com',
+    name: 'user',
+    password: 'password',
+    token: 'anyToken',
+    expiration: new Date('01-01-01')
+  })
 })

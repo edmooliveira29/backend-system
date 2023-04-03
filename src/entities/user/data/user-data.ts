@@ -1,5 +1,7 @@
 export interface UserData {
-  name: string
   email: string
+  name: string
   password: string
+  token: string
+  expiration: Date
 }
