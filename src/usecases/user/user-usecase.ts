@@ -13,7 +13,7 @@ export class UserUseCase implements IUserPort {
     if (emailValidation.isValid()) {
       return 'Successfully authenticated user'
     } else {
-      return 'Invalid email'
+      return 'Email is invalid'
     }
   }
 
