@@ -17,7 +17,7 @@ describe('Email Validation', () => {
 
     validateMock = new ValidationUser(user)
   })
-  
+
   test('should return true if email is valid', () => {
     expect(validateMock.emailIsValid()).toStrictEqual(true)
   })

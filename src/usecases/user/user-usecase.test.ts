@@ -4,39 +4,37 @@ import { UserUseCase } from './user-usecase'
 
 describe('User Use Case', () => {
   let iPortMock: IUserPort
+  let userEntityMock: UserEntity
+  let userUseCaseMock: UserUseCase
   beforeAll(() => {
-    iPortMock = {
-      authenticate: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn()
-    }
-  })
-  test('Should return message if name was created with success', async () => {
-    const userEntityMock: UserEntity = {
+    userEntityMock = {
       id: 'anyid',
       name: 'username',
       password: 'password',
-      email: 'email@exemplo.com',
+      email: 'invalidemail@exemplo.com',
       expiration: new Date('01-01-01'),
       token: 'token'
-
     }
-    const userUseCaseMock = new UserUseCase(iPortMock)
+
+    iPortMock = {
+      create: jest.fn()
+    }
+
+    userUseCaseMock = new UserUseCase(iPortMock)
+  })
+  test('Should return message if name was created with success', async () => {
     expect(await userUseCaseMock.create(userEntityMock)).toEqual('Successfully created user')
   })
 
   test('Should return message if email is invalid', async () => {
-    const userEntityMock: UserEntity = {
-      id: 'anyid',
-      name: 'username',
-      password: 'password',
-      email: 'invalidemail@exemplocom',
-      expiration: new Date('01-01-01'),
-      token: 'token'
-
-    }
-    const userUseCaseMock = new UserUseCase(iPortMock)
+    userEntityMock.email = 'invalidemail@exemplocom'
     expect(await userUseCaseMock.create(userEntityMock)).toEqual('Email is not valid')
   })
 
+  test('Should return message if name is invalid', async () => {
+    userEntityMock.email = 'invalidemail@exemplo.com'
+    userEntityMock.name = 'a'
+
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('User is not valid')
+  })
 })
