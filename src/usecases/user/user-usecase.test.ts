@@ -3,12 +3,15 @@ import { type IUserPort } from './port/user-port'
 import { UserUseCase } from './user-usecase'
 
 describe('User Use Case', () => {
-  test('Should return message if user was authenticated with success', async () => {
-    const iPortMock: IUserPort = {
-      authenticate: jest.fn(async () => await Promise.resolve('token')),
-      create: jest.fn(async () => await Promise.resolve('token')),
-      update: jest.fn(async () => await Promise.resolve('token'))
+  let iPortMock: IUserPort
+  beforeAll(() => {
+    iPortMock = {
+      authenticate: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn()
     }
+  })
+  test('Should return message if name was created with success', async () => {
     const userEntityMock: UserEntity = {
       id: 'anyid',
       name: 'username',
@@ -19,15 +22,10 @@ describe('User Use Case', () => {
 
     }
     const userUseCaseMock = new UserUseCase(iPortMock)
-    expect(await userUseCaseMock.authenticate(userEntityMock)).toEqual('Successfully authenticated user')
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Successfully created user')
   })
 
-  test('Should return error if  email is invalid', async () => {
-    const iPortMock: IUserPort = {
-      authenticate: jest.fn(async () => await Promise.resolve('token')),
-      create: jest.fn(async () => await Promise.resolve('token')),
-      update: jest.fn(async () => await Promise.resolve('token'))
-    }
+  test('Should return message if email is invalid', async () => {
     const userEntityMock: UserEntity = {
       id: 'anyid',
       name: 'username',
@@ -38,6 +36,7 @@ describe('User Use Case', () => {
 
     }
     const userUseCaseMock = new UserUseCase(iPortMock)
-    expect(await userUseCaseMock.authenticate(userEntityMock)).toEqual('Email is invalid')
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Email is not valid')
   })
+
 })

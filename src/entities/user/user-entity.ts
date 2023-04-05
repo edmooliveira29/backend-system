@@ -1,4 +1,4 @@
-interface UserData {
+export interface UserData {
   id: string
   email: string
   name: string
@@ -22,5 +22,5 @@ export class UserEntity {
     this.token = user.token
     this.expiration = user.expiration
     Object.freeze(this)
-  }
+  }  
 }
