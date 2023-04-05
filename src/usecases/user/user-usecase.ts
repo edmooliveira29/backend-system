@@ -10,7 +10,7 @@ export class UserUseCase {
 
   async create (user: UserEntity): Promise<string | undefined> {
     const validation = new ValidationUser(user)
-    console.log(!validation.nameIsValid())
+
     if (!validation.emailIsValid()) {
       return 'Email is not valid'
     } else if (!validation.nameIsValid()) {

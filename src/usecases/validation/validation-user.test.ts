@@ -24,6 +24,7 @@ describe('Email Validation', () => {
 
   test('should return false if email is invalid', () => {
     user.email = 'invalidEmailemail.com'
+    validateMock = new ValidationUser(user)
     expect(validateMock.emailIsValid()).toStrictEqual(false)
   })
 
@@ -33,7 +34,7 @@ describe('Email Validation', () => {
 
   test('should return false if name is invalid', () => {
     user.name = 'a'
-    const validateMock = new ValidationUser(user)
+    validateMock = new ValidationUser(user)
     expect(validateMock.nameIsValid()).toStrictEqual(false)
   })
 })
