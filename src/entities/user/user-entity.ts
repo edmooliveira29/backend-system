@@ -6,6 +6,7 @@ interface UserData {
   token: string
   expiration: Date
 }
+
 export class UserEntity {
   id: string
   email: string
