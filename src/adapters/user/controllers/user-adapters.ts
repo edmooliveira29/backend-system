@@ -2,7 +2,8 @@
 import { type IUserCreatePort } from '../../../usecases/user/port/user-port'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
 import { MissingParamError } from '../errors/missing-param-error'
-import { type UserHttpRequest, type UserHttpResponse } from '../ports/http-user-adapter'
+import { type UserHttpRequest } from '../ports/user-http-request'
+import { type UserHttpResponse } from '../ports/user-http-response'
 
 export class UserAdapter {
   public readonly userUseCase: IUserCreatePort

@@ -1,5 +1,5 @@
 import { ServerError } from '../user/errors/server-error'
-import { type UserHttpResponse } from '../user/ports/http-user-adapter'
+import { type UserHttpResponse } from '../user/ports/user-http-response'
 
 export const badRequest = (error: Error): UserHttpResponse => ({
   statusCode: 400,

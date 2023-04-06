@@ -1,5 +1,5 @@
 import { type IUserCreatePort } from '../../../usecases/user/port/user-port'
-import { type UserHttpRequest } from '../ports/http-user-adapter'
+import { type UserHttpRequest } from '../ports/user-http-request'
 import { UserAdapter } from './user-adapters'
 
 describe('User Adapter', () => {
