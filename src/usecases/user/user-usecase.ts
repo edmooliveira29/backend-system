@@ -1,10 +1,10 @@
 import { type UserEntity } from '../../entities/user/user-entity'
 import { ValidationUser } from '../validation/validation-user'
-import { type IUserCreatePort } from './port/user-port'
+import { type IUserCreateAdapter } from './port/user-port'
 
 export class UserUseCase {
-  public readonly port: IUserCreatePort
-  constructor (port: IUserCreatePort) {
+  public readonly port: IUserCreateAdapter
+  constructor (port: IUserCreateAdapter) {
     this.port = port
   }
 

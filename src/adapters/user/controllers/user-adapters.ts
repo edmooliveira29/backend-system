@@ -1,15 +1,15 @@
 
-import { type IUserCreatePort } from '../../../usecases/user/port/user-port'
+import { type IUserCreateAdapter } from '../../../usecases/user/port/user-port'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
 import { MissingParamError } from '../errors/missing-param-error'
 import { type UserHttpRequest } from '../ports/user-http-request'
 import { type UserHttpResponse } from '../ports/user-http-response'
 
 export class UserAdapter {
-  public readonly userUseCase: IUserCreatePort
+  public readonly userUseCase: IUserCreateAdapter
 
-  constructor (IUserCreatePort: IUserCreatePort) {
-    this.userUseCase = IUserCreatePort
+  constructor (IUserCreateAdapter: IUserCreateAdapter) {
+    this.userUseCase = IUserCreateAdapter
   }
 
   async create (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {

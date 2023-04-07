@@ -8,13 +8,12 @@ interface UserData {
 }
 
 export class UserEntity {
-  id: string
   email: string
+  expiration: Date
+  id: string
   name: string
   password: string
   token: string
-  expiration: Date
-
   constructor (user: UserData) {
     this.id = user.id
     this.email = user.email

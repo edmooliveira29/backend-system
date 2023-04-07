@@ -1,6 +1,11 @@
 
-import { type UserEntity } from '../../../entities/user/user-entity'
-
-export interface IUserCreatePort {
-  create: (user: UserEntity) => Promise<string>
+export interface IUserCreateAdapter {
+  create: (user: {
+    id: string
+    email: string
+    name: string
+    password: string
+    token: string
+    expiration: Date
+  }) => Promise<string>
 }
