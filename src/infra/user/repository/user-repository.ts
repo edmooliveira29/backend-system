@@ -6,7 +6,6 @@ export class UserRepository implements IUserCreateData {
   async create (user: UserEntity): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
     const exists = await this.exists(user.email)
-    console.log(exists)
     if (!exists) {
       await userCollection.insertOne(user)
       return 'User created successfully'

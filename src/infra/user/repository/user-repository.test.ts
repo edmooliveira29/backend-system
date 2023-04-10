@@ -10,7 +10,7 @@ describe('Mongodb User repository', () => {
     await MongoConnection.disconnect()
   })
 
-  beforeAll(async () => {
+  afterEach(async () => {
     await MongoConnection.clearCollection('users')
   })
 
@@ -29,20 +29,45 @@ describe('Mongodb User repository', () => {
 
   test('Should return error if exist user with same email', async () => {
     const sut = new UserRepository()
-
-    const userAdded = await sut.create({
+    const userMock = {
       id: 'anyId',
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
       expiration: new Date('01-01-01')
-    })
+    }
+    await sut.create(userMock)
+    const userAdded = await sut.create(userMock)
     expect(userAdded).toStrictEqual(new Error('There is already a user with this email'))
   })
 
-  // test('when user is not added, it should not exist', async () => {
-  //   const sut = new UserRepository()
-  //   expect(await sut.exists('any_email@mail.com')).toBeFalsy()
-  // })
+  test('Return true with user exist', async () => {
+    const sut = new UserRepository()
+    const userMock = {
+      id: 'anyId',
+      name: 'anyName',
+      email: 'email@email.com',
+      password: 'password',
+      token: 'anyToken',
+      expiration: new Date('01-01-01')
+    }
+    await sut.create(userMock)
+
+    expect(await sut.exists('email@email.com')).toBeTruthy()
+  })
+
+  test('Return false with user exist', async () => {
+    const sut = new UserRepository()
+    const userMock = {
+      id: 'anyId',
+      name: 'anyName',
+      email: 'email@email.com',
+      password: 'password',
+      token: 'anyToken',
+      expiration: new Date('01-01-01')
+    }
+    await sut.create(userMock)
+    expect(await sut.exists('email_whong@email.com')).toBeFalsy()
+  })
 })
