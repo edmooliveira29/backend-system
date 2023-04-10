@@ -1,9 +1,9 @@
 import { type UserEntity } from '../../entities/user/user-entity'
-import { type IUserCreateAdapter } from './port/user-port'
+import { type IUserCreateUseCase } from './port/user-port'
 import { UserUseCase } from './user-usecase'
 
 describe('User Use Case', () => {
-  let iPortMock: IUserCreateAdapter
+  let iPortMock: IUserCreateUseCase
   let userEntityMock: UserEntity
   let userUseCaseMock: UserUseCase
   beforeAll(() => {

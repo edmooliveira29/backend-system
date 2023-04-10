@@ -1,5 +1,5 @@
 
-export interface IUserCreateAdapter {
+export interface IUserCreateUseCase {
   create: (user: {
     id: string
     email: string

@@ -1,8 +1,8 @@
 import { type UserEntity } from '../../../entities/user/user-entity'
-import { type IUserCreateAdapter } from './user-port'
+import { type IUserCreateUseCase } from './user-port'
 describe('User Port Interface', () => {
   let user: UserEntity
-  let userPortMock: IUserCreateAdapter
+  let userPortMock: IUserCreateUseCase
 
   beforeAll(() => {
     user = {
