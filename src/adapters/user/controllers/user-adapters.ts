@@ -5,7 +5,7 @@ import { MissingParamError } from '../errors/missing-param-error'
 import { type UserHttpRequest } from '../ports/user-http-request'
 import { type UserHttpResponse } from '../ports/user-http-response'
 
-export class UserAdapter {
+export class UserController {
   public readonly userUseCase: IUserCreateUseCase
 
   constructor (IUserCreateUseCase: IUserCreateUseCase) {

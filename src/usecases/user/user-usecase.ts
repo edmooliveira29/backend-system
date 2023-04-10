@@ -8,7 +8,7 @@ export class UserUseCase {
     this.port = port
   }
 
-  async create (user: UserEntity): Promise<string | undefined> {
+  async create (user: UserEntity): Promise<string> {
     const validation = new ValidationUser(user)
     if (!validation.emailIsValid()) {
       return 'Email is not valid'

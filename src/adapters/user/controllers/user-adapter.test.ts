@@ -1,16 +1,16 @@
 import { type IUserCreateUseCase } from '../../../usecases/user/port/user-port'
 import { type UserHttpRequest } from '../ports/user-http-request'
-import { UserAdapter } from './user-adapters'
+import { UserController } from './user-adapters'
 
 describe('User Adapter', () => {
-  let sut: UserAdapter
+  let sut: UserController
   let userHttpRequestMock: UserHttpRequest
   let IUserCreateUseCaseMock: IUserCreateUseCase
   beforeAll(() => {
     IUserCreateUseCaseMock = {
       create: jest.fn()
     }
-    sut = new UserAdapter(IUserCreateUseCaseMock)
+    sut = new UserController(IUserCreateUseCaseMock)
     userHttpRequestMock = {
       body: {
         id: 'anyId',
@@ -27,7 +27,7 @@ describe('User Adapter', () => {
     IUserCreateUseCaseMock = {
       create: jest.fn().mockResolvedValue('Successfully created user')
     }
-    sut = new UserAdapter(IUserCreateUseCaseMock)
+    sut = new UserController(IUserCreateUseCaseMock)
 
     expect(await sut.create(userHttpRequestMock)).toStrictEqual({
       statusCode: 200,
@@ -47,7 +47,7 @@ describe('User Adapter', () => {
     IUserCreateUseCaseMock = {
       create: jest.fn().mockResolvedValue('Email is not valid ')
     }
-    sut = new UserAdapter(IUserCreateUseCaseMock)
+    sut = new UserController(IUserCreateUseCaseMock)
     const response = await sut.create(userHttpRequestMock)
     expect(response?.statusCode).toEqual(500)
   })
