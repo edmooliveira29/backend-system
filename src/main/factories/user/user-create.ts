@@ -1,6 +1,6 @@
-import { UserController } from '../../adapters/user/controllers/user-adapters'
-import { UserRepository } from '../../infra/user/repository/user-repository'
-import { UserUseCase } from '../../usecases/user/user-usecase'
+import { UserController } from '../../../adapters/user/controllers/user-adapters'
+import { UserRepository } from '../../../infra/user/repository/user-repository'
+import { UserUseCase } from '../../../usecases/user/user-usecase'
 
 export const UserCreateFactory = (): UserController => {
   const userRepository = new UserRepository()
