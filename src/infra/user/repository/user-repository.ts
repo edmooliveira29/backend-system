@@ -7,8 +7,14 @@ export class UserRepository implements IUserCreateData {
     const userCollection = MongoConnection.getCollection('users')
     const exists = await this.exists(user.email)
     if (!exists) {
-      await userCollection.insertOne(user)
-      return 'User created successfully'
+      const userInserted = await userCollection.insertOne(user)
+
+      return {
+        data: {
+          ...user,
+          id: userInserted.insertedId
+        }
+      }
     } else {
       return new Error('There is already a user with this email')
     }

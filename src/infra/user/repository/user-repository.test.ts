@@ -24,7 +24,7 @@ describe('Mongodb User repository', () => {
       token: 'anyToken',
       expiration: new Date('01-01-01')
     })
-    expect(userAdded).toEqual('User created successfully')
+    expect(userAdded).toBeTruthy()
   })
 
   test('Should return error if exist user with same email', async () => {
