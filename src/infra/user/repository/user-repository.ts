@@ -1,9 +1,15 @@
-import { type IUserCreateData } from '../../../usecases/user/port/user-adapters'
-import { type UserEntity } from '../../../entities/user/user-entity'
 import { MongoConnection } from '../../helpers/mongo-helper'
+import { type IUserCreateUseCase } from '../../../usecases/user/port/user-port'
 
-export class UserRepository implements IUserCreateData {
-  async create (user: UserEntity): Promise<any> {
+export class UserRepository implements IUserCreateUseCase {
+  async create (user: {
+    id?: any
+    email: string
+    name: string
+    password: string
+    token: string
+    expiration: Date
+  }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
     const exists = await this.exists(user.email)
     if (!exists) {
