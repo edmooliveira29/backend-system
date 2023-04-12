@@ -8,6 +8,10 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
+      - name: Start MongoDB v5.2
+        uses: supercharge/mongodb-github-action@1.2.0
+        with:
+          mongodb-version: 5.2
       - name: Checkout
         uses: actions/checkout@v3
       - run: yarn
