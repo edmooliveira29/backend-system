@@ -1,5 +1,5 @@
 interface UserData {
-  id: string
+  id?: any
   email: string
   name: string
   password: string
@@ -10,7 +10,7 @@ interface UserData {
 export class UserEntity {
   email: string
   expiration: Date
-  id: string
+  id: any
   name: string
   password: string
   token: string
