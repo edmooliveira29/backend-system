@@ -35,6 +35,6 @@ describe('User Use Case', () => {
     userEntityMock.email = 'invalidemail@exemplo.com'
     userEntityMock.name = 'a'
 
-    expect(await userUseCaseMock.create(userEntityMock)).toEqual('User is not valid')
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Name is not valid')
   })
 })
