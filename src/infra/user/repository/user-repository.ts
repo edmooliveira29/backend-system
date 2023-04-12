@@ -1,7 +1,7 @@
 import { MongoConnection } from '../../helpers/mongo-helper'
-import { type IUserCreateUseCase } from '../../../usecases/user/port/user-port'
+import { type IUserDataAccess } from '../../../adapters/user/ports/user-data-access'
 
-export class UserRepository implements IUserCreateUseCase {
+export class UserRepository implements IUserDataAccess {
   async create (user: {
     id?: any
     email: string
