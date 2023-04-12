@@ -1,7 +1,8 @@
 
 import { type IUserCreateUseCase } from '../../../usecases/user/port/user-port'
-import { badRequest, ok, serverError } from '../../helpers/http-helper'
+import { badRequest, internalError, ok } from '../../helpers/http-helper'
 import { MissingParamError } from '../errors/missing-param-error'
+import { ServerError } from '../errors/server-error'
 import { type UserHttpRequest } from '../ports/user-http-request'
 import { type UserHttpResponse } from '../ports/user-http-response'
 
@@ -29,7 +30,7 @@ export class UserController {
     }
     const createUserResponse = await this.userUseCase.create(userData)
     if (createUserResponse !== 'Successfully created user') {
-      return serverError(createUserResponse)
+      return internalError(new ServerError(createUserResponse))
     }
 
     return ok(userData)
