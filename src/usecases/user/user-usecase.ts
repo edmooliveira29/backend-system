@@ -9,9 +9,12 @@ export class UserUseCase implements IUserDataAccess {
     this.port = iUserCreateUseCase
   }
 
-  async create (user: UserEntity): Promise<any> {
+  async create (user: UserEntity): Promise<string> {
     const validation = new ValidationUser(user)
-    if (!validation.emailIsValid()) {
+    const validationPassword: any = validation.passwordIsValid()
+    if (!validationPassword.isValid) {
+      return validationPassword.message
+    } else if (!validation.emailIsValid()) {
       return 'Email is not valid'
     } else if (!validation.nameIsValid()) {
       return 'Name is not valid'

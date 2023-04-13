@@ -37,4 +37,40 @@ describe('Email Validation', () => {
     validateMock = new ValidationUser(user)
     expect(validateMock.nameIsValid()).toStrictEqual(false)
   })
+
+  test('Should return false if password more then 8 caractheres', () => {
+    user.password = 'passwor'
+    validateMock = new ValidationUser(user)
+    expect(validateMock.passwordIsValid()).toStrictEqual({ isValid: false, message: 'Password must be at least 8 characters long' })
+  })
+
+  test('Should return false if password is not includes numerics digits', () => {
+    user.password = 'Password'
+    validateMock = new ValidationUser(user)
+    expect(validateMock.passwordIsValid()).toStrictEqual({ isValid: false, message: 'Password must be at least 1 digit' })
+  })
+
+  test('Should return false if password is not includes uppercase letter', () => {
+    user.password = 'password1'
+    validateMock = new ValidationUser(user)
+    expect(validateMock.passwordIsValid()).toStrictEqual({ isValid: false, message: 'Password must be at least 1 uppercase letter' })
+  })
+
+  test('Should return false if password is not includes lowercase letter', () => {
+    user.password = 'PASSWORD1*'
+    validateMock = new ValidationUser(user)
+    expect(validateMock.passwordIsValid()).toStrictEqual({ isValid: false, message: 'Password must be at least 1 lowercase letter' })
+  })
+
+  test('Should return false if password is not includes special characters', () => {
+    user.password = 'Password1'
+    validateMock = new ValidationUser(user)
+    expect(validateMock.passwordIsValid()).toStrictEqual({ isValid: false, message: 'Password must be at least 1 special characters' })
+  })
+
+  test('Should return true if password isvalid', () => {
+    user.password = 'Password1*'
+    validateMock = new ValidationUser(user)
+    expect(validateMock.passwordIsValid()).toStrictEqual({ isValid: true })
+  })
 })
