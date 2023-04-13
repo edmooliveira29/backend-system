@@ -21,7 +21,7 @@ describe('Register Routes', () => {
       .send({
         name: 'Name Test',
         email: 'email-test@gmail.com',
-        password: 'anyPassword',
+        password: 'anyPassword1*',
         token: 'anyToken',
         sessionToken: new Date()
       })
@@ -34,7 +34,7 @@ describe('Register Routes', () => {
       .send({
         name: 'Name Test',
         email: 'email-testgmail.com',
-        password: 'anyPassword',
+        password: 'anyPassword*1',
         token: 'anyToken',
         sessionToken: new Date()
       })
@@ -48,7 +48,7 @@ describe('Register Routes', () => {
       .send({
         name: 'a',
         email: 'email-test@gmail.com',
-        password: 'anyPassword',
+        password: 'anyPassword*1',
         token: 'anyToken',
         sessionToken: new Date()
       })

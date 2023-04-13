@@ -10,7 +10,7 @@ describe('User Use Case', () => {
     userEntityMock = {
       id: 'anyid',
       name: 'username',
-      password: 'password',
+      password: 'Password*1',
       email: 'invalidemail@exemplo.com',
       sessionToken: new Date('01-01-01'),
       token: 'token'
@@ -32,9 +32,8 @@ describe('User Use Case', () => {
   })
 
   test('Should return message if name is invalid', async () => {
-    userEntityMock.email = 'invalidemail@exemplo.com'
-    userEntityMock.name = 'a'
+    userEntityMock.password = 'Password*'
 
-    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Name is not valid')
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Password must be at least 1 digit')
   })
 })
