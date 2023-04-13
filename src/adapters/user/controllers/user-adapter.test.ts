@@ -18,7 +18,7 @@ describe('User Adapter', () => {
         email: 'email@email.com',
         password: 'password',
         token: 'anyToken',
-        expiration: new Date('01-01-01')
+        sessionToken: new Date('01-01-01')
       }
     }
   })
@@ -37,7 +37,7 @@ describe('User Adapter', () => {
         email: 'email@email.com',
         password: 'password',
         token: 'anyToken',
-        expiration: new Date('01-01-01')
+        sessionToken: new Date('01-01-01')
       }
     })
   })

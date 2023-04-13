@@ -5,11 +5,11 @@ import { type IUserDataAccess } from '../../usecases/user/port/user-data-access'
 
 export class UserUseCase implements IUserDataAccess {
   public readonly port: IUserCreateUseCase
-  constructor(iUserCreateUseCase: IUserCreateUseCase) {
+  constructor (iUserCreateUseCase: IUserCreateUseCase) {
     this.port = iUserCreateUseCase
   }
 
-  async create(user: UserEntity): Promise<any> {
+  async create (user: UserEntity): Promise<any> {
     const validation = new ValidationUser(user)
     if (!validation.emailIsValid()) {
       return 'Email is not valid'

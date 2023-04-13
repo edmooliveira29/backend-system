@@ -26,7 +26,7 @@ export class UserController {
       email: userHttpRequest.body.email,
       password: userHttpRequest.body.password,
       token: userHttpRequest.body.token,
-      expiration: userHttpRequest.body.expiration
+      sessionToken: userHttpRequest.body.sessionToken
     }
     const createUserResponse = await this.userUseCase.create(userData)
     if (createUserResponse !== 'Successfully created user') {

@@ -22,7 +22,7 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      expiration: new Date('01-01-01')
+      sessionToken: new Date('01-01-01')
     })
     expect(userAdded).toBeTruthy()
   })
@@ -35,7 +35,7 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      expiration: new Date('01-01-01')
+      sessionToken: new Date('01-01-01')
     }
     await sut.create(userMock)
     const userAdded = await sut.create(userMock)
@@ -50,7 +50,7 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      expiration: new Date('01-01-01')
+      sessionToken: new Date('01-01-01')
     }
     await sut.create(userMock)
 
@@ -65,7 +65,7 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      expiration: new Date('01-01-01')
+      sessionToken: new Date('01-01-01')
     }
     await sut.create(userMock)
     expect(await sut.exists('email_whong@email.com')).toBeFalsy()

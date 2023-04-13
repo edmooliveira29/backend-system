@@ -12,7 +12,7 @@ describe('User Use Case', () => {
       name: 'username',
       password: 'password',
       email: 'invalidemail@exemplo.com',
-      expiration: new Date('01-01-01'),
+      sessionToken: new Date('01-01-01'),
       token: 'token'
     }
 

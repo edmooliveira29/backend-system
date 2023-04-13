@@ -8,7 +8,7 @@ export class UserRepository implements IUserDataAccess {
     name: string
     password: string
     token: string
-    expiration: Date
+    sessionToken: Date
   }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
     const exists = await this.exists(user.email)

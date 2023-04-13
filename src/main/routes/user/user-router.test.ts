@@ -23,7 +23,7 @@ describe('Register Routes', () => {
         email: 'email-test@gmail.com',
         password: 'anyPassword',
         token: 'anyToken',
-        expiration: new Date()
+        sessionToken: new Date()
       })
       .expect(200)
   }, 20000)
@@ -36,7 +36,7 @@ describe('Register Routes', () => {
         email: 'email-testgmail.com',
         password: 'anyPassword',
         token: 'anyToken',
-        expiration: new Date()
+        sessionToken: new Date()
       })
     expect(user.statusCode).toBe(500)
     expect(JSON.parse(user.text)).toStrictEqual('Server error: Email is not valid.')
@@ -50,7 +50,7 @@ describe('Register Routes', () => {
         email: 'email-test@gmail.com',
         password: 'anyPassword',
         token: 'anyToken',
-        expiration: new Date()
+        sessionToken: new Date()
       })
     expect(user.statusCode).toBe(500)
     expect(JSON.parse(user.text)).toStrictEqual('Server error: Name is not valid.')
@@ -63,7 +63,7 @@ describe('Register Routes', () => {
         name: 'a',
         email: 'email-test@gmail.com',
         token: 'anyToken',
-        expiration: new Date()
+        sessionToken: new Date()
       })
     expect(user.statusCode).toBe(400)
     expect(JSON.parse(user.text)).toStrictEqual('Missing param: password')
