@@ -1,13 +1,13 @@
 {
   "name": "backend-clean",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "test:unit": "jest --coverage ",
     "test:unit:dev": "jest --watchAll",
     "lint": "eslint . --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "rimraf build && tsc",
+    "start": "nodemon ./src/main/server.ts"
   },
   "author": "Edmo",
   "license": "ISC",
@@ -33,6 +33,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "fs": "0.0.1-security",
-    "mongodb": "^5.2.0"
+    "mongodb": "^5.2.0",
+    "nodemon": "^2.0.22"
   }
 }
