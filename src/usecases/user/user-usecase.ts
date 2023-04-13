@@ -1,14 +1,15 @@
 import { type UserEntity } from '../../entities/user/user-entity'
 import { ValidationUser } from '../validation/validation-user'
 import { type IUserCreateUseCase } from './port/user-port'
+import { type IUserDataAccess } from '../../usecases/user/port/user-data-access'
 
-export class UserUseCase {
+export class UserUseCase implements IUserDataAccess {
   public readonly port: IUserCreateUseCase
-  constructor (port: IUserCreateUseCase) {
-    this.port = port
+  constructor(iUserCreateUseCase: IUserCreateUseCase) {
+    this.port = iUserCreateUseCase
   }
 
-  async create (user: UserEntity): Promise<any> {
+  async create(user: UserEntity): Promise<any> {
     const validation = new ValidationUser(user)
     if (!validation.emailIsValid()) {
       return 'Email is not valid'

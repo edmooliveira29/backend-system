@@ -18,21 +18,21 @@ describe('Email Validation', () => {
     validateMock = new ValidationUser(user)
   })
 
-  test('should return true if email is valid', () => {
+  test('Should return true if email is valid', () => {
     expect(validateMock.emailIsValid()).toStrictEqual(true)
   })
 
-  test('should return false if email is invalid', () => {
+  test('Should return false if email is invalid', () => {
     user.email = 'invalidEmailemail.com'
     validateMock = new ValidationUser(user)
     expect(validateMock.emailIsValid()).toStrictEqual(false)
   })
 
-  test('should return true if name is valid', () => {
+  test('Should return true if name is valid', () => {
     expect(validateMock.nameIsValid()).toStrictEqual(true)
   })
 
-  test('should return false if name is invalid', () => {
+  test('Should return false if name is invalid', () => {
     user.name = 'a'
     validateMock = new ValidationUser(user)
     expect(validateMock.nameIsValid()).toStrictEqual(false)

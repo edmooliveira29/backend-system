@@ -1,5 +1,5 @@
 import { MongoConnection } from '../../helpers/mongo-helper'
-import { type IUserDataAccess } from '../../../adapters/user/ports/user-data-access'
+import { type IUserDataAccess } from '../../../usecases/user/port/user-data-access'
 
 export class UserRepository implements IUserDataAccess {
   async create (user: {

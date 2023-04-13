@@ -15,7 +15,7 @@ describe('Register Routes', () => {
     await MongoConnection.clearCollection('users')
   })
 
-  test('should return an account on success', async () => {
+  test('Should return 200 if user to be created with success', async () => {
     await request(app)
       .post('/v1/api/user')
       .send({
