@@ -42,30 +42,41 @@ describe('User Adapter', () => {
     })
   })
 
-  test('Should return statusCode 500 id email is invalid', async () => {
+  test('Should return statusCode 400 id email is invalid', async () => {
     userHttpRequestMock.body.email = 'emailexample.com'
     IUserCreateUseCaseMock = {
-      create: jest.fn().mockResolvedValue('Email is not valid ')
+      create: jest.fn().mockResolvedValue('Email is not valid')
     }
     sut = new UserController(IUserCreateUseCaseMock)
     const response = await sut.create(userHttpRequestMock)
-    expect(response?.statusCode).toEqual(500)
+    expect(response?.statusCode).toEqual(400)
   })
 
   test('Should return error if name not required', async () => {
     delete userHttpRequestMock.body.name
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: name', statusCode: 400 })
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: name.', statusCode: 400 })
   })
 
   test('Should return error if email not required', async () => {
     userHttpRequestMock.body.name = 'name'
     delete userHttpRequestMock.body.email
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: email', statusCode: 400 })
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: email.', statusCode: 400 })
   })
 
   test('Should return error if password not required', async () => {
     userHttpRequestMock.body.email = 'email@example.com'
     delete userHttpRequestMock.body.password
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: password', statusCode: 400 })
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: password.', statusCode: 400 })
+  })
+
+  test('Should return error if internal error happen', async () => {
+    IUserCreateUseCaseMock = {
+      create: jest.fn().mockImplementationOnce(() => {
+        throw new Error('Internal error')
+      })
+    }
+    userHttpRequestMock.body.password = 'Password*1'
+    sut = new UserController(IUserCreateUseCaseMock)
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Server error: Internal error.', statusCode: 500 })
   })
 })
