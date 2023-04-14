@@ -1,8 +1,9 @@
 
 import { type IUserCreateUseCase } from '../../../usecases/user/port/user-port'
-import { badRequest, internalError, ok } from '../../helpers/http-helper'
+import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError } from '../errors/invalid-param-error'
 import { MissingParamError } from '../errors/missing-param-error'
+import { NotFound } from '../errors/not-found'
 import { ServerError } from '../errors/server-error'
 import { type UserHttpRequest } from '../ports/user-http-request'
 import { type UserHttpResponse } from '../ports/user-http-response'
@@ -36,6 +37,26 @@ export class UserController {
         return badRequest(new InvalidParamError(createUserResponse))
       }
       return ok(userData)
+    } catch (error: any) {
+      return internalError(new ServerError(error.message))
+    }
+  }
+
+  async login (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
+    try {
+      const userData = {
+        id: userHttpRequest.body.id,
+        name: userHttpRequest.body.name,
+        email: userHttpRequest.body.email,
+        password: userHttpRequest.body.password,
+        token: userHttpRequest.body.token,
+        sessionId: userHttpRequest.body.sessionId
+      }
+      const createUserResponse = await this.userUseCase.login(userData)
+      if (createUserResponse === 'User not found') {
+        return noContent(new NotFound(createUserResponse))
+      }
+      return ok({ message: createUserResponse })
     } catch (error: any) {
       return internalError(new ServerError(error.message))
     }

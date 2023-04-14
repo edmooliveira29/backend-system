@@ -14,3 +14,8 @@ export const internalError = (error: Error): UserHttpResponse => ({
   statusCode: 500,
   body: { message: error.message }
 })
+
+export const noContent = (error: Error): UserHttpResponse => ({
+  statusCode: 204,
+  body: { message: error.message }
+})

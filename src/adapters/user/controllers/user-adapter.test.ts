@@ -25,7 +25,7 @@ describe('User Adapter', () => {
     }
   })
 
-  test('Should return status 200 if successful', async () => {
+  test('Should return status 200 if successfuly', async () => {
     IUserCreateUseCaseMock = {
       create: jest.fn().mockResolvedValue('Successfully created user'),
       login: jest.fn()
@@ -98,5 +98,34 @@ describe('User Adapter', () => {
     userHttpRequestMock.body.password = 'Password*1'
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Server error: Internal error.' }, statusCode: 500 })
+  })
+
+  test('Should return error if any error happen', async () => {
+    IUserCreateUseCaseMock = {
+      create: jest.fn(),
+      login: jest.fn().mockImplementationOnce(() => {
+        throw new Error('Internal error')
+      })
+    }
+    sut = new UserController(IUserCreateUseCaseMock)
+    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Server error: Internal error.' }, statusCode: 500 })
+  })
+
+  test('Should return error if not found user', async () => {
+    IUserCreateUseCaseMock = {
+      create: jest.fn(),
+      login: jest.fn().mockResolvedValue('User not found')
+    }
+    sut = new UserController(IUserCreateUseCaseMock)
+    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Not Found: User not found.' }, statusCode: 204 })
+  })
+
+  test('Should return status 200 if successfully authenticated user.', async () => {
+    IUserCreateUseCaseMock = {
+      create: jest.fn(),
+      login: jest.fn().mockResolvedValue('Successfully authenticated user')
+    }
+    sut = new UserController(IUserCreateUseCaseMock)
+    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Successfully authenticated user' }, statusCode: 200 })
   })
 })
