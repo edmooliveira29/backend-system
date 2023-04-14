@@ -39,4 +39,13 @@ export class UserRepository implements IUserDataAccess {
       return false
     }
   }
+
+  async login (user: { email: string, password: string }): Promise<any> {
+    const userFound = await this.findUserByEmail(user.email)
+    if (userFound) {
+      return userFound
+    } else {
+      return 'User not found'
+    }
+  }
 }

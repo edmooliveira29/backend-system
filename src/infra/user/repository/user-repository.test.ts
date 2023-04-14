@@ -56,4 +56,24 @@ describe('Mongodb User repository', () => {
 
     expect(await sut.exists('email@email.com')).toBeTruthy()
   })
+
+  test('Return true with authentication with sucessfuly', async () => {
+    const sut = new UserRepository()
+    const userMock = {
+      id: 'anyId',
+      name: 'anyName',
+      email: 'email@email.com',
+      password: 'Password1*',
+      token: 'anyToken',
+      sessionId: new Date('01-01-01')
+    }
+    await sut.create(userMock)
+
+    expect(await sut.login({ email: 'email@email.com', password: 'Password1*' })).toBeTruthy()
+  })
+
+  test('Return message if user not found to authentication', async () => {
+    const sut = new UserRepository()
+    expect(await sut.login({ email: 'email@email.com', password: 'Password1*' })).toBe('User not found')
+  })
 })
