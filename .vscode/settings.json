@@ -1,5 +1,6 @@
 {
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
-    "typescript.format.insertSpaceBeforeFunctionParenthesis": true
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "typescript.format.insertSpaceAfterConstructor": true
 }
