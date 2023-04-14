@@ -8,4 +8,6 @@ export interface IUserCreateUseCase {
     token: string
     sessionId: Date
   }) => Promise<string>
+
+  login: (user: { email: string, password: string }) => Promise<string>
 }

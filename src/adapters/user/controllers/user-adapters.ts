@@ -10,7 +10,7 @@ import { type UserHttpResponse } from '../ports/user-http-response'
 export class UserController {
   public readonly userUseCase: IUserCreateUseCase
 
-  constructor(IUserCreateUseCase: IUserCreateUseCase) {
+  constructor (IUserCreateUseCase: IUserCreateUseCase) {
     this.userUseCase = IUserCreateUseCase
   }
 

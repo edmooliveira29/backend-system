@@ -8,7 +8,9 @@ describe('User Adapter', () => {
   let IUserCreateUseCaseMock: IUserCreateUseCase
   beforeAll(() => {
     IUserCreateUseCaseMock = {
-      create: jest.fn()
+      create: jest.fn(),
+      login: jest.fn()
+
     }
     sut = new UserController(IUserCreateUseCaseMock)
     userHttpRequestMock = {
@@ -25,7 +27,9 @@ describe('User Adapter', () => {
 
   test('Should return status 200 if successful', async () => {
     IUserCreateUseCaseMock = {
-      create: jest.fn().mockResolvedValue('Successfully created user')
+      create: jest.fn().mockResolvedValue('Successfully created user'),
+      login: jest.fn()
+
     }
     sut = new UserController(IUserCreateUseCaseMock)
 
@@ -45,7 +49,9 @@ describe('User Adapter', () => {
   test('Should return statusCode 400 id email is invalid', async () => {
     userHttpRequestMock.body.email = 'emailexample.com'
     IUserCreateUseCaseMock = {
-      create: jest.fn().mockResolvedValue('Email is not valid')
+      create: jest.fn().mockResolvedValue('Email is not valid'),
+      login: jest.fn()
+
     }
     sut = new UserController(IUserCreateUseCaseMock)
     const response = await sut.create(userHttpRequestMock)
@@ -73,7 +79,9 @@ describe('User Adapter', () => {
     IUserCreateUseCaseMock = {
       create: jest.fn().mockImplementationOnce(() => {
         throw new Error('Internal error')
-      })
+      }),
+      login: jest.fn()
+
     }
     userHttpRequestMock.body.password = 'Password*1'
     sut = new UserController(IUserCreateUseCaseMock)
@@ -84,7 +92,8 @@ describe('User Adapter', () => {
     IUserCreateUseCaseMock = {
       create: jest.fn().mockImplementationOnce(() => {
         throw new Error('Internal error')
-      })
+      }),
+      login: jest.fn()
     }
     userHttpRequestMock.body.password = 'Password*1'
     sut = new UserController(IUserCreateUseCaseMock)
