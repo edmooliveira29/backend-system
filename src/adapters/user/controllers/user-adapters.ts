@@ -32,7 +32,18 @@ export class UserController {
       if (createUserResponse !== 'Successfully created user') {
         return badRequest(new InvalidParamError(createUserResponse))
       }
-      return ok(userData)
+      const dataRespose = {
+        message: 'Successfully created user',
+        data: {
+          id: userData.id,
+          name: userData.name,
+          email: userData.email,
+          token: userData.token,
+          sessionId: userData.sessionId
+        }
+
+      }
+      return ok(dataRespose)
     } catch (error: any) {
       return internalError(new ServerError(error.message))
     }
@@ -57,6 +68,7 @@ export class UserController {
       if (Object.prototype.hasOwnProperty.call(userReponseUseCase.data, 'passwordValid')) {
         return badRequest(new InvalidParamError(userReponseUseCase.data.message))
       }
+      delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, data: userReponseUseCase.data })
     } catch (error: any) {
       return internalError(new ServerError(error.message))

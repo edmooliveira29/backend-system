@@ -36,12 +36,14 @@ describe('User Adapter', () => {
     expect(await sut.create(userHttpRequestMock)).toStrictEqual({
       statusCode: 200,
       body: {
-        id: 'anyId',
-        name: 'anyName',
-        email: 'email@email.com',
-        password: 'password',
-        token: 'anyToken',
-        sessionId: new Date('01-01-01')
+        data: {
+          id: 'anyId',
+          name: 'anyName',
+          email: 'email@email.com',
+          token: 'anyToken',
+          sessionId: new Date('01-01-01')
+        },
+        message: 'Successfully created user'
       }
     })
   })
