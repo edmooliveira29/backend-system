@@ -5,18 +5,19 @@ import { type IUserDataAccess } from '../../usecases/user/port/user-data-access'
 
 export class UserUseCase implements IUserDataAccess {
   public readonly port: IUserCreateUseCase
+  public readonly validation: ValidationUser
   constructor (iUserCreateUseCase: IUserCreateUseCase) {
     this.port = iUserCreateUseCase
+    this.validation = new ValidationUser()
   }
 
   async create (user: UserEntity): Promise<string> {
-    const validation = new ValidationUser(user)
-    const validationPassword: any = validation.passwordIsValid()
+    const validationPassword: any = this.validation.passwordIsValid(user.password)
     if (!validationPassword.isValid) {
       return validationPassword.message
-    } else if (!validation.emailIsValid()) {
+    } else if (!this.validation.emailIsValid(user.email)) {
       return 'Email is not valid'
-    } else if (!validation.nameIsValid()) {
+    } else if (!this.validation.nameIsValid(user.name)) {
       return 'Name is not valid'
     } else {
       await this.port.create(user)
@@ -25,14 +26,15 @@ export class UserUseCase implements IUserDataAccess {
   }
 
   async login (user: { email: string, password: string }): Promise<any> {
-    const userFound = await this.port.login(user)
-    if (userFound.data) {
-      return {
-        message: 'Successfully authenticated user',
-        data: userFound.data
-      }
-    } else {
+    const userRepository = await this.port.login(user)
+    if (!userRepository.data) {
       return { message: 'User not found' }
+    }
+    const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
+    if (validationPassword.passwordValid) {
+      return { message: 'Successfully authenticated user', data: userRepository.data }
+    } else {
+      return validationPassword
     }
   }
 }
