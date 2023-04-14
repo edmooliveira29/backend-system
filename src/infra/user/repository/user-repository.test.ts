@@ -67,17 +67,16 @@ describe('Mongodb User repository', () => {
       token: 'anyToken',
       sessionId: new Date('01-01-01')
     }
-    const userFound = await sut.create(userMock)
-
+    jest.spyOn(sut, 'findUserByEmail').mockResolvedValue(userMock)
     expect(await sut.login({ email: 'email@email.com', password: 'Password1*' }))
-      .toBe({
+      .toStrictEqual({
         message: 'User authenticated successfully',
-        data: userFound
+        data: userMock
       })
   })
 
   test('Return message if user not found to authentication', async () => {
     const sut = new UserRepository()
-    expect(await sut.login({ email: 'email@email.com', password: 'Password1*' })).toBe({ message: 'User not found' })
+    expect(await sut.login({ email: 'emailnotcreated@email.com', password: 'Password1*' })).toStrictEqual({ message: 'User not found' })
   })
 })

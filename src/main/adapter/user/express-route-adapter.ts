@@ -14,7 +14,6 @@ export const createUserAdapterRoute = (controller: UserController) => {
   }
 }
 
-
 export const loginUserAdapterRoute = (controller: UserController) => {
   return async (request: Request, response: Response) => {
     const httpRequest: UserHttpRequest = {
