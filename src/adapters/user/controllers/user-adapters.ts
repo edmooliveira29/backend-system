@@ -48,11 +48,11 @@ export class UserController {
         token: userHttpRequest.body.token,
         sessionId: userHttpRequest.body.sessionId
       }
-      const createUserResponse = await this.userUseCase.login(userData)
-      if (createUserResponse === 'User not found') {
-        return noContent(new NotFound(createUserResponse))
+      const userFound = await this.userUseCase.login(userData)
+      if (!userFound.data) {
+        return noContent(new NotFound(userFound))
       }
-      return ok({ message: createUserResponse })
+      return ok({ message: userFound.message, data: userFound.data })
     } catch (error: any) {
       return internalError(new ServerError(error.message))
     }

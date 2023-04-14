@@ -67,13 +67,17 @@ describe('Mongodb User repository', () => {
       token: 'anyToken',
       sessionId: new Date('01-01-01')
     }
-    await sut.create(userMock)
+    const userFound = await sut.create(userMock)
 
-    expect(await sut.login({ email: 'email@email.com', password: 'Password1*' })).toBeTruthy()
+    expect(await sut.login({ email: 'email@email.com', password: 'Password1*' }))
+      .toBe({
+        message: 'User authenticated successfully',
+        data: userFound
+      })
   })
 
   test('Return message if user not found to authentication', async () => {
     const sut = new UserRepository()
-    expect(await sut.login({ email: 'email@email.com', password: 'Password1*' })).toBe('User not found')
+    expect(await sut.login({ email: 'email@email.com', password: 'Password1*' })).toBe({ message: 'User not found' })
   })
 })

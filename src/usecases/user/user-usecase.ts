@@ -26,8 +26,11 @@ export class UserUseCase implements IUserDataAccess {
 
   async login (user: { email: string, password: string }): Promise<any> {
     const userFound = await this.port.login(user)
-    if (userFound) {
-      return 'Successfully authenticated user'
+    if (userFound.data) {
+      return {
+        message: 'Successfully authenticated user',
+        data: userFound.data
+      }
     } else {
       return 'User not found'
     }

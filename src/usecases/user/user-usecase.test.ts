@@ -48,16 +48,16 @@ describe('User Use Case', () => {
   test('Should return message if user is valid to authentication', async () => {
     iPortMock = {
       create: jest.fn(),
-      login: jest.fn().mockReturnValue(true)
+      login: jest.fn().mockReturnValue({ message: 'Successfully authenticated user', data: 'return data' })
     }
     userUseCaseMock = new UserUseCase(iPortMock)
-    expect(await userUseCaseMock.login(userEntityMock)).toEqual('Successfully authenticated user')
+    expect(await userUseCaseMock.login(userEntityMock)).toEqual({ data: 'return data', message: 'Successfully authenticated user' })
   })
 
   test('Should return message if user is not valid to authentication', async () => {
     iPortMock = {
       create: jest.fn(),
-      login: jest.fn().mockReturnValue(false)
+      login: jest.fn().mockReturnValue({ message: 'User not found' })
     }
     userUseCaseMock = new UserUseCase(iPortMock)
 

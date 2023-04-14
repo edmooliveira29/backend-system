@@ -123,9 +123,16 @@ describe('User Adapter', () => {
   test('Should return status 200 if successfully authenticated user.', async () => {
     IUserCreateUseCaseMock = {
       create: jest.fn(),
-      login: jest.fn().mockResolvedValue('Successfully authenticated user')
+      login: jest.fn().mockResolvedValue({ message: 'Successfully authenticated user', data: 'return data' })
     }
     sut = new UserController(IUserCreateUseCaseMock)
-    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Successfully authenticated user' }, statusCode: 200 })
+    expect(await sut.login(userHttpRequestMock))
+      .toStrictEqual({
+        body: {
+          message: 'Successfully authenticated user',
+          data: 'return data'
+        },
+        statusCode: 200
+      })
   })
 })
