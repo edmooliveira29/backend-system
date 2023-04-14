@@ -60,19 +60,19 @@ describe('User Adapter', () => {
 
   test('Should return error if name not required', async () => {
     delete userHttpRequestMock.body.name
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: name.', statusCode: 400 })
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Missing param: name.' }, statusCode: 400 })
   })
 
   test('Should return error if email not required', async () => {
     userHttpRequestMock.body.name = 'name'
     delete userHttpRequestMock.body.email
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: email.', statusCode: 400 })
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Missing param: email.' }, statusCode: 400 })
   })
 
   test('Should return error if password not required', async () => {
     userHttpRequestMock.body.email = 'email@example.com'
     delete userHttpRequestMock.body.password
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: password.', statusCode: 400 })
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Missing param: password.' }, statusCode: 400 })
   })
 
   test('Should return error if internal error without message ', async () => {
@@ -123,16 +123,25 @@ describe('User Adapter', () => {
   test('Should return status 200 if successfully authenticated user.', async () => {
     IUserCreateUseCaseMock = {
       create: jest.fn(),
-      login: jest.fn().mockResolvedValue({ message: 'Successfully authenticated user', data: 'return data' })
+      login: jest.fn().mockResolvedValue({ message: 'Successfully authenticated user', data: 'data json' })
     }
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.login(userHttpRequestMock))
       .toStrictEqual({
         body: {
           message: 'Successfully authenticated user',
-          data: 'return data'
+          data: 'data json'
         },
         statusCode: 200
       })
+  })
+
+  test('Should return status 400 if password is invalid.', async () => {
+    IUserCreateUseCaseMock = {
+      create: jest.fn(),
+      login: jest.fn().mockResolvedValue({ data: { message: 'Password is invalid', passwordValid: false } })
+    }
+    sut = new UserController(IUserCreateUseCaseMock)
+    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Invalid param: Password is invalid.' }, statusCode: 400 })
   })
 })

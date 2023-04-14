@@ -2,7 +2,7 @@ import { type UserHttpResponse } from '../user/ports/user-http-response'
 
 export const badRequest = (error: Error): UserHttpResponse => ({
   statusCode: 400,
-  body: error.message
+  body: { message: error.message }
 })
 
 export const ok = (data: any): UserHttpResponse => ({

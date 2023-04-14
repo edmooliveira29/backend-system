@@ -48,11 +48,16 @@ export class UserController {
         token: userHttpRequest.body.token,
         sessionId: userHttpRequest.body.sessionId
       }
-      const userFound = await this.userUseCase.login(userData)
-      if (!userFound.data) {
-        return noContent(new NotFound(userFound.message))
+      const userReponseUseCase = await this.userUseCase.login(userData)
+
+      if (!userReponseUseCase.data) {
+        return noContent(new NotFound(userReponseUseCase.message))
       }
-      return ok({ message: userFound.message, data: userFound.data })
+
+      if (Object.prototype.hasOwnProperty.call(userReponseUseCase.data, 'passwordValid')) {
+        return badRequest(new InvalidParamError(userReponseUseCase.data.message))
+      }
+      return ok({ message: userReponseUseCase.message, data: userReponseUseCase.data })
     } catch (error: any) {
       return internalError(new ServerError(error.message))
     }
