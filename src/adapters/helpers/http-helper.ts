@@ -12,5 +12,5 @@ export const ok = (data: any): UserHttpResponse => ({
 
 export const internalError = (error: Error): UserHttpResponse => ({
   statusCode: 500,
-  body: error.message
+  body: { message: error.message }
 })

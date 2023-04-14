@@ -18,7 +18,7 @@ describe('User Adapter', () => {
         email: 'email@email.com',
         password: 'password',
         token: 'anyToken',
-        sessionToken: new Date('01-01-01')
+        sessionId: new Date('01-01-01')
       }
     }
   })
@@ -37,7 +37,7 @@ describe('User Adapter', () => {
         email: 'email@email.com',
         password: 'password',
         token: 'anyToken',
-        sessionToken: new Date('01-01-01')
+        sessionId: new Date('01-01-01')
       }
     })
   })
@@ -69,7 +69,7 @@ describe('User Adapter', () => {
     expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Missing param: password.', statusCode: 400 })
   })
 
-  test('Should return error if internal error happen', async () => {
+  test('Should return error if internal error without message ', async () => {
     IUserCreateUseCaseMock = {
       create: jest.fn().mockImplementationOnce(() => {
         throw new Error('Internal error')
@@ -77,6 +77,17 @@ describe('User Adapter', () => {
     }
     userHttpRequestMock.body.password = 'Password*1'
     sut = new UserController(IUserCreateUseCaseMock)
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: 'Server error: Internal error.', statusCode: 500 })
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Server error: Internal error.' }, statusCode: 500 })
+  })
+
+  test('Should return error if internal error without message', async () => {
+    IUserCreateUseCaseMock = {
+      create: jest.fn().mockImplementationOnce(() => {
+        throw new Error('Internal error')
+      })
+    }
+    userHttpRequestMock.body.password = 'Password*1'
+    sut = new UserController(IUserCreateUseCaseMock)
+    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Server error: Internal error.' }, statusCode: 500 })
   })
 })

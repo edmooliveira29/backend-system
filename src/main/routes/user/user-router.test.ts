@@ -23,7 +23,7 @@ describe('Register Routes', () => {
         email: 'email-test@gmail.com',
         password: 'anyPassword1*',
         token: 'anyToken',
-        sessionToken: new Date()
+        sessionId: new Date()
       })
       .expect(200)
   }, 20000)
@@ -36,7 +36,7 @@ describe('Register Routes', () => {
         email: 'email-testgmail.com',
         password: 'anyPassword*1',
         token: 'anyToken',
-        sessionToken: new Date()
+        sessionId: new Date()
       })
     expect(user.statusCode).toBe(400)
     expect(JSON.parse(user.text)).toStrictEqual('Invalid param: Email is not valid.')
@@ -50,7 +50,7 @@ describe('Register Routes', () => {
         email: 'email-test@gmail.com',
         password: 'anyPassword*1',
         token: 'anyToken',
-        sessionToken: new Date()
+        sessionId: new Date()
       })
     expect(user.statusCode).toBe(400)
     expect(JSON.parse(user.text)).toStrictEqual('Invalid param: Name is not valid.')
@@ -63,7 +63,7 @@ describe('Register Routes', () => {
         name: 'a',
         email: 'email-test@gmail.com',
         token: 'anyToken',
-        sessionToken: new Date()
+        sessionId: new Date()
       })
     expect(user.statusCode).toBe(400)
     expect(JSON.parse(user.text)).toStrictEqual('Missing param: password.')

@@ -8,13 +8,12 @@ export class UserRepository implements IUserDataAccess {
     name: string
     password: string
     token: string
-    sessionToken: Date
+    sessionId: Date
   }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
     const exists = await this.exists(user.email)
     if (!exists) {
       const userInserted = await userCollection.insertOne(user)
-
       return {
         data: {
           ...user,
@@ -22,7 +21,7 @@ export class UserRepository implements IUserDataAccess {
         }
       }
     } else {
-      return new Error('There is already a user with this email')
+      throw new Error('There is already a user with this email')
     }
   }
 

@@ -12,7 +12,7 @@ describe('Email Validation', () => {
       name: 'user',
       password: 'password',
       token: 'anyToken',
-      sessionToken: new Date('01-01-01')
+      sessionId: new Date('01-01-01')
     }
 
     validateMock = new ValidationUser(user)

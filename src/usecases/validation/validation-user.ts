@@ -20,7 +20,7 @@ export class ValidationUser {
   }
 
   nameIsValid (): boolean {
-    if (this.name.trim().length < 2 || this.name.trim().length > 255) {
+    if (this.name.length <= 2 || this.name.length > 255) {
       return false
     } else {
       return true
@@ -43,7 +43,7 @@ export class ValidationUser {
         message: 'Password must be at least 1 uppercase letter',
         isValid: false
       }
-    } else if (!(/[a-]/).test(this.password)) {
+    } else if (!(/[a-z]/).test(this.password)) {
       return {
         message: 'Password must be at least 1 lowercase letter',
         isValid: false

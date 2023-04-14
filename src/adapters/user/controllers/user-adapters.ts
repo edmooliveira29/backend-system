@@ -10,7 +10,7 @@ import { type UserHttpResponse } from '../ports/user-http-response'
 export class UserController {
   public readonly userUseCase: IUserCreateUseCase
 
-  constructor (IUserCreateUseCase: IUserCreateUseCase) {
+  constructor(IUserCreateUseCase: IUserCreateUseCase) {
     this.userUseCase = IUserCreateUseCase
   }
 
@@ -22,7 +22,7 @@ export class UserController {
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
         token: userHttpRequest.body.token,
-        sessionToken: userHttpRequest.body.sessionToken
+        sessionId: userHttpRequest.body.sessionId
       }
       const fildsRequired = ['name', 'password', 'email']
       for (const field of fildsRequired) {

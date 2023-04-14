@@ -4,12 +4,12 @@ interface UserData {
   name: string
   password: string
   token: string
-  sessionToken: Date
+  sessionId: Date
 }
 
 export class UserEntity {
   email: string
-  sessionToken: Date
+  sessionId: Date
   id: any
   name: string
   password: string
@@ -20,7 +20,7 @@ export class UserEntity {
     this.name = user.name
     this.password = user.password
     this.token = user.token
-    this.sessionToken = user.sessionToken
+    this.sessionId = user.sessionId
     Object.freeze(this)
   }
 }
