@@ -15,7 +15,6 @@ describe('Login Routes', () => {
     await MongoConnection.clearCollection('users')
   })
 
-  
   test.only('Should return 200 if user was authenticated with succesfuly ', async () => {
     await request(app)
       .post('/v1/api/user')

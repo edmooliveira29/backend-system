@@ -61,6 +61,6 @@ describe('User Use Case', () => {
     }
     userUseCaseMock = new UserUseCase(iPortMock)
 
-    expect(await userUseCaseMock.login(userEntityMock)).toEqual('User not found')
+    expect(await userUseCaseMock.login(userEntityMock)).toEqual({"message": "User not found"})
   })
 })

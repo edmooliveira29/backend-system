@@ -114,10 +114,10 @@ describe('User Adapter', () => {
   test('Should return error if not found user', async () => {
     IUserCreateUseCaseMock = {
       create: jest.fn(),
-      login: jest.fn().mockResolvedValue('User not found')
+      login: jest.fn().mockResolvedValue({ message: 'User not found' })
     }
     sut = new UserController(IUserCreateUseCaseMock)
-    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Not Found: User not found.' }, statusCode: 204 })
+    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Not Found: User not found.' }, statusCode: 404 })
   })
 
   test('Should return status 200 if successfully authenticated user.', async () => {

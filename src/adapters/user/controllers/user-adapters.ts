@@ -50,7 +50,7 @@ export class UserController {
       }
       const userFound = await this.userUseCase.login(userData)
       if (!userFound.data) {
-        return noContent(new NotFound(userFound))
+        return noContent(new NotFound(userFound.message))
       }
       return ok({ message: userFound.message, data: userFound.data })
     } catch (error: any) {

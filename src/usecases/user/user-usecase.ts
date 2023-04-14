@@ -32,7 +32,7 @@ export class UserUseCase implements IUserDataAccess {
         data: userFound.data
       }
     } else {
-      return 'User not found'
+      return { message: 'User not found' }
     }
   }
 }
