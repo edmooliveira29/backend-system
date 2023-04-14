@@ -5,11 +5,11 @@ import { type IUserDataAccess } from '../../usecases/user/port/user-data-access'
 
 export class UserUseCase implements IUserDataAccess {
   public readonly port: IUserCreateUseCase
-  constructor(iUserCreateUseCase: IUserCreateUseCase) {
+  constructor (iUserCreateUseCase: IUserCreateUseCase) {
     this.port = iUserCreateUseCase
   }
 
-  async create(user: UserEntity): Promise<string> {
+  async create (user: UserEntity): Promise<string> {
     const validation = new ValidationUser(user)
     const validationPassword: any = validation.passwordIsValid()
     if (!validationPassword.isValid) {
@@ -27,9 +27,9 @@ export class UserUseCase implements IUserDataAccess {
   async login (user: UserEntity): Promise<string> {
     const userFound = await this.port.login(user)
     if (userFound) {
-      return 'Successfully authenticated user.'
+      return 'Successfully authenticated user'
     } else {
-      return 'User not found.'
+      return 'User not found'
     }
   }
 }

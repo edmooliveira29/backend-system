@@ -33,6 +33,13 @@ describe('User Use Case', () => {
   })
 
   test('Should return message if name is invalid', async () => {
+    userEntityMock.name = 'na'
+    userEntityMock.email = 'valid@exemplo.com'
+
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Name is not valid')
+  })
+
+  test('Should return message if name is invalid', async () => {
     userEntityMock.password = 'Password*'
 
     expect(await userUseCaseMock.create(userEntityMock)).toEqual('Password must be at least 1 digit')
@@ -44,7 +51,7 @@ describe('User Use Case', () => {
       login: jest.fn().mockReturnValue(true)
     }
     userUseCaseMock = new UserUseCase(iPortMock)
-    expect(await userUseCaseMock.login(userEntityMock)).toEqual('Successfully authenticated user.')
+    expect(await userUseCaseMock.login(userEntityMock)).toEqual('Successfully authenticated user')
   })
 
   test('Should return message if user is not valid to authentication', async () => {
@@ -54,6 +61,6 @@ describe('User Use Case', () => {
     }
     userUseCaseMock = new UserUseCase(iPortMock)
 
-    expect(await userUseCaseMock.login(userEntityMock)).toEqual('User not found.')
+    expect(await userUseCaseMock.login(userEntityMock)).toEqual('User not found')
   })
 })
