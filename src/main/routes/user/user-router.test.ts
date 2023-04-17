@@ -2,7 +2,7 @@ import request from 'supertest'
 import app from '../../config/app'
 import { MongoConnection } from '../../../infra/helpers/mongo-helper'
 import dotenv from 'dotenv'
-dotenv.config({ path: '.env.development' })
+dotenv.config()
 describe('Register Routes', () => {
   beforeAll(async () => {
     await MongoConnection.connect(process.env.MONGO_URL as string)

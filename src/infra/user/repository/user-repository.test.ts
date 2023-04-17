@@ -2,7 +2,7 @@
 import { MongoConnection } from '../../helpers/mongo-helper'
 import { UserRepository } from './user-repository'
 import dotenv from 'dotenv'
-dotenv.config({ path: '.env.development' })
+dotenv.config()
 console.log(process.env.MONGO_URL)
 
 describe('Mongodb User repository', () => {

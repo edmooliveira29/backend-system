@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - run: npm install
-      - run: echo "${{ vars.MONGO_URL }}" > .env.development
+      - run: echo "${{ vars.MONGO_URL }}" > .env
       - run: npm run test:unit:dev
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

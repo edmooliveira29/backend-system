@@ -2,7 +2,7 @@ import request from 'supertest'
 import app from '../../config/app'
 import { MongoConnection } from '../../../infra/helpers/mongo-helper'
 import dotenv from 'dotenv'
-dotenv.config({ path: '.env.development' })
+dotenv.config()
 
 describe('Login Routes', () => {
   beforeAll(async () => {
