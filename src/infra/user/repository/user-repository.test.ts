@@ -3,6 +3,8 @@ import { MongoConnection } from '../../helpers/mongo-helper'
 import { UserRepository } from './user-repository'
 import dotenv from 'dotenv'
 dotenv.config({ path: '.env.development' })
+console.log(process.env.MONGO_URL)
+
 describe('Mongodb User repository', () => {
   beforeAll(async () => {
     await MongoConnection.connect(process.env.MONGO_URL as string)
