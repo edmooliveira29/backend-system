@@ -14,8 +14,9 @@ jobs:
           mongodb-version: 4.2
       - name: Checkout
         uses: actions/checkout@v3
-      - run: yarn
-      - run: npm run test:unit
+      - run: npm install
+      - run: echo "${{ secrets.MONGO_URL }}" > .env.development
+      - run: npm run test:unit:dev
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
