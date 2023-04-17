@@ -11,7 +11,8 @@ describe('User Port Interface', () => {
       name: 'user',
       password: 'password',
       token: 'anyToken',
-      sessionId: new Date('01-01-01')
+      sessionId: new Date('01-01-01'),
+      createdAt: new Date('01-01-01').toLocaleString()
 
     }
 

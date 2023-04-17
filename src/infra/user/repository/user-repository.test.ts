@@ -23,7 +23,8 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      sessionId: new Date('01-01-01')
+      sessionId: new Date('01-01-01'),
+      createdAt: new Date('01-01-01').toLocaleString()
     })
     expect(userAdded).toBeTruthy()
   })
@@ -36,7 +37,8 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      sessionId: new Date('01-01-01')
+      sessionId: new Date('01-01-01'),
+      createdAt: new Date('01-01-01').toLocaleString()
     }
     await sut.create(userMock)
     expect(async () => await sut.create(userMock)).rejects.toStrictEqual(new Error('There is already a user with this email'))
@@ -50,7 +52,8 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      sessionId: new Date('01-01-01')
+      sessionId: new Date('01-01-01'),
+      createdAt: new Date('01-01-01').toLocaleString()
     }
     await sut.create(userMock)
 
@@ -65,7 +68,8 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'Password1*',
       token: 'anyToken',
-      sessionId: new Date('01-01-01')
+      sessionId: new Date('01-01-01'),
+      createdAt: new Date('01-01-01')
     }
     jest.spyOn(sut, 'findUserByEmail').mockResolvedValue(userMock)
     expect(await sut.login({ email: 'email@email.com', password: 'Password1*' }))

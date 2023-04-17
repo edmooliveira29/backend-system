@@ -13,7 +13,8 @@ describe('User Use Case', () => {
       password: 'Password*1',
       email: 'invalidemail@exemplo.com',
       sessionId: new Date('01-01-01'),
-      token: 'token'
+      token: 'token',
+      createdAt: new Date('01-01-01').toISOString()
     }
 
     iPortMock = {

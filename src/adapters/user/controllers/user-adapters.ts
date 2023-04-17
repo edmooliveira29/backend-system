@@ -19,7 +19,8 @@ export class UserController {
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
         token: userHttpRequest.body.token,
-        sessionId: userHttpRequest.body.sessionId
+        sessionId: userHttpRequest.body.sessionId,
+        createdAt: new Date().toLocaleString()
       }
       const fildsRequired = ['name', 'password', 'email']
       for (const field of fildsRequired) {
@@ -39,7 +40,8 @@ export class UserController {
           name: userData.name,
           email: userData.email,
           token: userData.token,
-          sessionId: userData.sessionId
+          sessionId: userData.sessionId,
+          createdAt: new Date().toLocaleString()
         }
 
       }
@@ -57,7 +59,8 @@ export class UserController {
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
         token: userHttpRequest.body.token,
-        sessionId: userHttpRequest.body.sessionId
+        sessionId: userHttpRequest.body.sessionId,
+        createdAt: userHttpRequest.body.createdAt
       }
       const userReponseUseCase = await this.userUseCase.login(userData)
 
