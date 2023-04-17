@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { MongoConnection } from '../../helpers/mongo-helper'
 import { UserRepository } from './user-repository'
-
+import dotenv from 'dotenv'
+dotenv.config({ path: '.env.development' })
 describe('Mongodb User repository', () => {
   beforeAll(async () => {
-    await MongoConnection.connect('mongodb://localhost:27017')
+    await MongoConnection.connect(process.env.MONGO_URL as string)
   })
 
   afterAll(async () => {
