@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "test:unit": "jest --coverage ",
-    "test:unit:dev": "NODE_ENV=development jest --watchAll",
+    "test:unit:dev": "jest --watchAll",
     "lint": "eslint . --fix",
     "prepare": "husky install",
     "build": "rimraf build && tsc",
-    "start": "NODE_ENV=production nodemon ./src/main/server.ts"
+    "start": "nodemon ./src/main/server.ts"
   },
   "author": "Edmo",
   "license": "ISC",
