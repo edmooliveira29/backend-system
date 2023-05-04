@@ -26,8 +26,11 @@
                 "code": 150
             }
         ],
-        "@typescript-eslint/strict-boolean-expressions": "off"    },
+        "@typescript-eslint/strict-boolean-expressions": "off"
+    },
     "ignorePatterns": [
-        "*.test.js"
+        "*.test.js",
+        "build",
+        "swagger"
     ]
 }

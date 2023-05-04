@@ -3,13 +3,16 @@
     "target": "ES2022",
     "module": "CommonJS",
     "lib": [
-      "es6"
+      "ES2022"
     ],
     "outDir": "build",
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src",
@@ -17,5 +20,6 @@
   "exclude": [
     "*.spec.ts",
     "*.test.ts"
-  ]
+  ],
+
 }
