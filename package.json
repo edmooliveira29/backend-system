@@ -8,7 +8,7 @@
     "prepare": "husky install",
     "build": "rimraf build && tsc",
     "start": "nodemon ./src/main/server.ts",
-    "start-production": "npm run build && pm2 src/main/server.ts"
+    "start-production": "npm run build && pm2 build/main/server.js"
   },
   "author": "Edmo",
   "license": "ISC",
