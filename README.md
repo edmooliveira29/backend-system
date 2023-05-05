@@ -35,6 +35,66 @@ nvm alias default 16.0.0
 ```
 
 
+## Installing MongoDB 6.0.2
+
+This guide will walk you through the installation process for MongoDB 6.0.2.
+
+### Step 1: Import the MongoDB GPG Key
+
+Run the following command to import the MongoDB GPG Key:
+
+```sh
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+```
+
+### Step 2: Create a list file for MongoDB
+
+For Ubuntu 20.04 (Focal) users, run the following command to create a list file:
+
+```sh
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+```
+
+For Ubuntu 18.04 (Bionic) users, run the following command instead:
+
+```sh
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+```
+
+### Step 3: Reload the local package database
+
+Run the following command to reload the local package database:
+
+```sh
+sudo apt-get update
+```
+
+### Step 4: Install MongoDB
+
+Run the following command to install MongoDB 6.0.2:
+
+```sh
+sudo apt-get install -y mongodb-org
+```
+
+### Step 5: Start MongoDB
+
+Run the following command to start MongoDB:
+
+```sh
+sudo systemctl start mongod
+```
+
+### Step 6: Verify that MongoDB is running
+
+Run the following command to verify that MongoDB is running:
+
+```sh
+sudo systemctl status mongod
+```
+
+You should see the status "active (running)" if MongoDB is running correctly.
+
 ### Setting Up 2FA Access to GitHub
 
 GitHub offers various forms of authentication, and we recommend using a personal access token (PAT) that can be created on the security settings page of your GitHub account.
