@@ -1,5 +1,5 @@
 {
-  "name": "backend-clean",
+  "name": "api-backend",
   "version": "1.0.0",
   "scripts": {
     "test:unit": "jest --coverage ",
@@ -8,7 +8,7 @@
     "prepare": "husky install",
     "build": "rimraf build && tsc",
     "start": "nodemon ./src/main/server.ts",
-    "start-production": "npm run build && pm2 build/main/server.js"
+    "start-production": "npm run build && pm2 start build/main/server.js --name=api-backend"
   },
   "author": "Edmo",
   "license": "ISC",

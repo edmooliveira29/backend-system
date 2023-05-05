@@ -1,4 +1,4 @@
-name: Backend-Clean
+name: api-backend
 
 on:
   push:
