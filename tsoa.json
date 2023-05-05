@@ -1,9 +1,0 @@
-{
-  "entryFile": "src/main/server.ts",
-  "noImplicitAdditionalProperties": "throw-on-extras",
-  "controllerPathGlobs": ["/home/edmo/Documents/Project/backend-clean/src/adapters/user/controllers/user-adapters.ts"],
-  "spec": { 
-    "outputDirectory": "./swagger",
-    "specVersion": 3
-  }
-}
