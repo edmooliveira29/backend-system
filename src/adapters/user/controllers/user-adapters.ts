@@ -1,10 +1,8 @@
-import { Route, Post, Body, SuccessResponse } from 'tsoa'
 import { type UserHttpRequest, type UserHttpResponse } from '../ports'
 import { type IUserCreateUseCase } from '../../../usecases/user/port/user-port'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
 
-@Route('user')
 export class UserController {
   public readonly userUseCase: IUserCreateUseCase
 
@@ -12,8 +10,7 @@ export class UserController {
     this.userUseCase = IUserCreateUseCase
   }
 
-  @Post('/')
-  async create (@Body() userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
+  async create (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
     try {
       const userData = {
         id: userHttpRequest.body.id,
@@ -52,8 +49,6 @@ export class UserController {
       return internalError(new ServerError(error.message))
     }
   }
-
-  @SuccessResponse('200', 'Created')
 
   async login (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
     try {

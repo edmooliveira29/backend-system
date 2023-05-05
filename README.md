@@ -34,6 +34,7 @@ For example, to set Node.js v16.0.0 as the default, run:
 nvm alias default 16.0.0
 ```
 
+
 ### Setting Up 2FA Access to GitHub
 
 GitHub offers various forms of authentication, and we recommend using a personal access token (PAT) that can be created on the security settings page of your GitHub account.
