@@ -1,6 +1,4 @@
-## Backend Repository Installation
-
-This guide describes how to install and run the backend repository, which uses MongoDB v6.0.5, as well as how to set up access to GitHub with two-factor authentication (2FA).
+## **Backend Repository Installation**
 
 ### Prerequisites
 
