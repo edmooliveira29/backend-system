@@ -1,12 +1,12 @@
-## **Backend Repository Installation**
+# **Backend Repository Installation**
 
-### Prerequisites
+### **Pre-requisites**
 
 - A linux-based operating system, such as Ubuntu.
 - Git installed on your machine.
 - A GitHub account with 2FA enabled.
 
-### Using NVM
+### **Using NVM**
 
 To install NVM, open the terminal and run the following command:
 
@@ -36,7 +36,7 @@ To set the default Node.js version to be used, run the following command:
 nvm alias default v18.16.0
 ```
 
-### Install mongoDB using version 6.0.2
+### **Install mongoDB using version 6.0.2**
 Create a README to install MongoDB Community Edition on Ubuntu using the apt package manager:
 
 1. Import the public key used by the package management system. If gnupg is not already installed, install it using the following command:
@@ -109,7 +109,7 @@ sudo systemctl status mongod
 This README is based on the official MongoDB documentation: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
 
 
-### Setting Up 2FA Access to GitHub
+### **Setting Up 2FA Access to GitHub**
 
 GitHub offers various forms of authentication, and we recommend using a personal access token (PAT) that can be created on the security settings page of your GitHub account.
 
@@ -129,7 +129,7 @@ To create a PAT, follow the steps below:
 
 7. Copy the generated token to a safe location. You will only see the token once, so be sure to copy it immediately.
 
-### Cloning the Repository
+### **Cloning the Repository**
 
 To clone the repository, open the terminal and run the following command:
 
@@ -137,7 +137,7 @@ To clone the repository, open the terminal and run the following command:
 git clone https://{YOUR ACCESS KEY}@github.com/edmooliveira29/backend-system.git
 ```
 
-### Installing Dependencies
+### **Installing Dependencies**
 
 To install the project dependencies, run the following command in the project root directory:
 
@@ -145,7 +145,7 @@ To install the project dependencies, run the following command in the project ro
 npm install
 ```
 
-### Running the Repository
+### **Running the Repository**
 
 To run the repository, run the following command in the project root directory:
 
@@ -153,7 +153,7 @@ To run the repository, run the following command in the project root directory:
 npm start
 ```
 
-### Running the Tests
+### **Running the Tests**
 
 To run the tests, run the following command in the project root directory:
 
@@ -161,5 +161,5 @@ To run the tests, run the following command in the project root directory:
 npm run test:unit
 ```
 
-### Author
+### **Author**
 Edmo de Oliveira Leite (edmooliveira29@gmail.com)

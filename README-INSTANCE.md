@@ -104,3 +104,65 @@ To configure NGINX in project, follow the steps below inside vm instance.
    ```
 
    This configuration is based on the official NGINX documentation: https://www.nginx.com/resources/wiki/start/topics/tutorials/install/
+   
+### **Create Certificate SSL to API**
+To issue an SSL certificate for a specific IP, you can follow these steps:
+
+1. Ensure that the IP address of your server is pointing to the correct domain name. This can be done by adding an *A* record in your domain provider's DNS withe the IP address of the server VM.
+
+2. Install Certbot on your server. Certbot is an automated tool for issuing free SSL certificates from Let's Encrypt.
+To install Certbot on your server, you can follow these steps:
+
+   2.1. Update your system's package manager:
+
+   ```
+   sudo apt-get update
+   ```
+
+   2.2. Install Certbot's package:
+
+   ```
+   sudo apt-get install certbot
+   ```
+
+   2.3. Run the following command to generate a new certificate:
+
+   ```
+   sudo certbot certonly --cert-name subdominio.dominio --standalone -d api.edmopuc.online --agree-tos --email email@email.com
+   ```
+
+   2.4. Certbot will ask you to confirm whether you want to allow it to modify firewall settings to allow HTTPS traffic. Select the option that corresponds to your needs.
+
+   2.5. Wait for Certbot to obtain and install the new SSL certificate.
+
+   2.6. Check that the Nginx configuration file for your site is pointing to the correct path for the SSL certificate and key file.
+
+   ```
+   server {
+    listen 80;
+    server_name subdominio.dominio;
+    return 301 https://$host$request_uri;
+   }
+
+   server {
+       listen 443 ssl;
+       server_name subdominio.dominio;
+       ssl on;
+       ssl_certificate /etc/letsencrypt/live/subdominio.dominio/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/subdominio.dominio/privkey.pem;
+
+       location / {
+           proxy_pass http://localhost:5000;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+       }
+      }
+   ```
+
+   2.7. Restart the Nginx service to load the new configuration.
+
+   ```
+   sudo systemctl restart nginx
+   ```
+
+   With these steps, you should have a new SSL certificate configured on your server and Nginx should be configured to use it correctly.
