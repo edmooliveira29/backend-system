@@ -8,7 +8,7 @@
     "prepare": "husky install",
     "build": "rimraf build && tsc",
     "start": "nodemon ./src/main/server.ts",
-    "start-production": "npm run build && sudo service mongod start && pm2 start ./build/main/server.js --name=api-backend --watch"
+    "start-production": "pm2 stop api-backend && npm run build && sudo service mongod start && pm2 start ./build/main/server.js --name=api-backend --watch"
   },
   "author": "Edmo",
   "license": "ISC",
