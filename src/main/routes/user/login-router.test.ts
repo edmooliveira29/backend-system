@@ -19,7 +19,7 @@ describe('Login Routes', () => {
 
   test.only('Should return 200 if user was authenticated with succesfuly ', async () => {
     await request(app)
-      .post('/v1/api/user')
+      .post('/v1/user')
       .send({
         name: 'Name Test',
         email: 'email@gmail.com',
@@ -28,7 +28,7 @@ describe('Login Routes', () => {
         sessionId: new Date()
       })
     await request(app)
-      .post('/v1/api/login')
+      .post('/v1/login')
       .send({
         email: 'email@gmail.com',
         password: 'Password1*'
@@ -37,7 +37,7 @@ describe('Login Routes', () => {
 
   // test('Should return error 204 with user not found', async () => {
   //   const user = await request(app)
-  //     .post('/v1/api/login')
+  //     .post('/v1/login')
   //     .send({
   //       email: 'emailinvalid@gmail.com',
   //       password: 'anyPassword*1'
@@ -48,7 +48,7 @@ describe('Login Routes', () => {
 
   // test('Should return error 400 with name is invalid', async () => {
   //   const user = await request(app)
-  //     .post('/v1/api/user')
+  //     .post('/v1/user')
   //     .send({
   //       name: 'a',
   //       email: 'email-test@gmail.com',
@@ -62,7 +62,7 @@ describe('Login Routes', () => {
 
   // test('Should return error 400 if password is not provided', async () => {
   //   const user = await request(app)
-  //     .post('/v1/api/user')
+  //     .post('/v1/user')
   //     .send({
   //       name: 'a',
   //       email: 'email-test@gmail.com',

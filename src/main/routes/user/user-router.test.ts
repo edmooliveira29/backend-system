@@ -18,7 +18,7 @@ describe('Register Routes', () => {
 
   test('Should return 200 if user to be created with success', async () => {
     await request(app)
-      .post('/v1/api/user')
+      .post('/v1/user')
       .send({
         name: 'Name Test',
         email: 'email-test@gmail.com',
@@ -31,7 +31,7 @@ describe('Register Routes', () => {
 
   test('Should return error 400 with email is invalid', async () => {
     const user = await request(app)
-      .post('/v1/api/user')
+      .post('/v1/user')
       .send({
         name: 'Name Test',
         email: 'email-testgmail.com',
@@ -45,7 +45,7 @@ describe('Register Routes', () => {
 
   test('Should return error 400 with name is invalid', async () => {
     const user = await request(app)
-      .post('/v1/api/user')
+      .post('/v1/user')
       .send({
         name: 'a',
         email: 'email-test@gmail.com',
@@ -59,7 +59,7 @@ describe('Register Routes', () => {
 
   test('Should return error 400 if password is not provided', async () => {
     const user = await request(app)
-      .post('/v1/api/user')
+      .post('/v1/user')
       .send({
         name: 'a',
         email: 'email-test@gmail.com',
