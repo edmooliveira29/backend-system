@@ -21,3 +21,18 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: './coverage'
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
+
+      - name: SSH into instance
+        run: |
+          ssh -o StrictHostKeyChecking=no -i mykey edmooliveira29_gmail_com@34.139.16.117 'cd project-system/backend-system/ && npm run start-production'
