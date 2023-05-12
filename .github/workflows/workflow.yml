@@ -35,4 +35,3 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
           script: |
             ls -a
-            cd project-system/backend-system/ && npm run start-production
