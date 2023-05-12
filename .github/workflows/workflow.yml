@@ -21,9 +21,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: './coverage'
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -35,3 +33,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
           script: |
             ls -a
+            cd project-system/backend-system/
