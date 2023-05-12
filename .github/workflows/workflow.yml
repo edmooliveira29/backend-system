@@ -23,16 +23,15 @@ jobs:
           path: './coverage'
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.5.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
-
       - name: SSH into instance
-        run: |
-          ssh -o StrictHostKeyChecking=no -i mykey edmooliveira29_gmail_com@34.139.16.117 'cd project-system/backend-system/ && npm run start-production'
+        uses: appleboy/ssh-action@master
+        with:
+          host: 34.139.16.117
+          username: edmooliveira29_gmail_com
+          key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
+          script: |
+            cd project-system/backend-system/ && npm run start-production
