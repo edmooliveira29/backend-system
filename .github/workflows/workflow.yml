@@ -41,9 +41,7 @@ jobs:
         cd ../edmooliveira29_gmail_com && \
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash && \
         ls -a && \
-        export NVM_DIR=".nvm" \
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && \
+        export NVM_DIR=".nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && \
         source .bashrc && \
         nvm install 18 && \
         nvm list"
