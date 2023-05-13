@@ -28,12 +28,11 @@ jobs:
     steps:
     - name: Authenticate with gcloud
       run: |
-        echo "$GCP_SA_KEY" 
+        echo ${{ secrets.GCP_SA_KEY }}
         echo "$GCP_SA_KEY" > key.json
         gcloud auth activate-service-account --key-file=key.json
         gcloud config set project api-8702109450667741338-992005
-    env:
-      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
         
     # - name: Set permissions for SSH private key
     #   run: |
