@@ -37,23 +37,10 @@ jobs:
         echo "$GCP_SA_KEY" > key.json
         echo key.json
         gcloud auth activate-service-account --key-file=key.json --project=api-8702109450667741338-992005
-        gcloud compute ssh system --zone us-east1-b --command="cd .. && \
-        cd edmooliveira29_gmail_com/project-system/backend-system/ && which npm"
-    #     
-    # - name: Set permissions for SSH private key
-    #   run: |
-    #     chmod 600 /root/.ssh/id_rsa
-
-    # - name: SSH into Google instance
-    #   run: |
-    #     ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa edmooliveira29_gmail_com@34.139.16.117 "cd project-system/backend-system/ && ls -a && npm run start-production"
-    #       # run: |
-    #       #   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-    #       #   sudo apt-get install -y nodejs
+        gcloud compute ssh system --zone us-east1-b --command="which npm"
+    
     #       #   gcloud compute ssh system --zone us-east1-b --command="cd .. && \
     #       #     cd edmooliveira29_gmail_com/project-system/backend-system/ && \
     #       #     ls -a && npm run start-production"          
-    #       # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 --command="ls -a && cd ~ && cd project-system/backend-system/ && ls -a && npm run start-production"
-    #       # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 
-        
+
 
