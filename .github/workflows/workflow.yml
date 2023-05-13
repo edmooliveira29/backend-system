@@ -28,7 +28,7 @@ jobs:
     steps:
     - name: Authenticate with gcloud
       env:
-        GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        GCP_SA_KEY: ${{ secrets.GCP_JSON_KEY }}
       run: |
         cat "$GCP_SA_KEY" > key.json
         cat key.json
