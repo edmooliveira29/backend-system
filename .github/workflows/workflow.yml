@@ -37,15 +37,13 @@ jobs:
         echo "$GCP_SA_KEY" > key.json
         echo key.json
         gcloud auth activate-service-account --key-file=key.json --project=api-8702109450667741338-992005
-        gcloud compute ssh system --zone us-east1-b --command="ls -a && \
-        cd ../edmooliveira29_gmail_com && \
+        gcloud compute ssh system --zone us-east1-b --command=" cd ../edmooliveira29_gmail_com && \
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash && \
         export NVM_DIR=\"$HOME/.nvm\" && \
         [ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\" && \
         [ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\" && \
         source $HOME/.bashrc && \
-        nvm install 18 && \
-        nvm list"
+        nvm install 18"
     
     #       #   gcloud compute ssh system --zone us-east1-b --command="cd .. && \
     #       #     cd edmooliveira29_gmail_com/project-system/backend-system/ && \
