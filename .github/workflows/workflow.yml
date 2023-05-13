@@ -36,11 +36,10 @@ jobs:
       run: |
         echo "$GCP_SA_KEY" > key.json
         echo key.json
-        which npm
         gcloud auth activate-service-account --key-file=key.json --project=api-8702109450667741338-992005
-        gcloud compute ssh system --zone us-east1-b --command="cd .. && \
+        gcloud compute ssh system --zone us-east1-b --command="cd .. && which npm && \
         cd edmooliveira29_gmail_com/project-system/backend-system/ && \
-        ls -a && /opt/hostedtoolcache/node/18.16.0/x64/bin/npm run start-production"
+        ls -a && npm run start-production"
     #     
     # - name: Set permissions for SSH private key
     #   run: |
