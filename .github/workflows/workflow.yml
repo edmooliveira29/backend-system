@@ -22,20 +22,18 @@ jobs:
         with:
           path: './coverage'
   deploy:
-    needs: test-unit
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Configurar ambiente
         uses: actions/checkout@v2
 
-      - name: SSH into instance
-        uses: appleboy/ssh-action@master
+      - name: Autenticar no GCP
+        uses: google-github-actions/setup-gcloud@v0.4.0
         with:
-          host: 34.139.16.117
-          username: edmooliveira29_gmail_com
-          key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
-          script: |
-            ls -a
-            cd project-system/backend-system/
-            ls -a
-            npm run start-production
+          version: '342.0.0'
+          service_account_key: ${{ secrets.GCP_KEY }}
+
+      - name: Executar comando no GCE
+        run: |
+          gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 --command "cd project-system/backend-system/ && npm run start-production"
