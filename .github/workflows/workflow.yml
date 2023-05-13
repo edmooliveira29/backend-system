@@ -41,9 +41,9 @@ jobs:
         cd ../edmooliveira29_gmail_com && \
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash && \
         ls -a && \
-        source .bashrc"
-      #  nvm install 18 && \
-      #  nvm list"
+        source .bashrc && \
+        nvm install 18 && \
+        nvm list"
     
     #       #   gcloud compute ssh system --zone us-east1-b --command="cd .. && \
     #       #     cd edmooliveira29_gmail_com/project-system/backend-system/ && \
