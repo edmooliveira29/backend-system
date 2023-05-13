@@ -33,6 +33,15 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
+      
+    - name: Install Node.js and npm
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y nodejs npm
+        
+    - name: Set permissions for SSH private key
+      run: |
+        chmod 600 /root/.ssh/id_rsa
 
     - name: SSH into Google instance
       run: |
@@ -45,5 +54,5 @@ jobs:
           #     ls -a && npm run start-production"          
           # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 --command="ls -a && cd ~ && cd project-system/backend-system/ && ls -a && npm run start-production"
           # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 
-          
+        
 
