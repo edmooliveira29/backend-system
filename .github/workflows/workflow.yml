@@ -26,33 +26,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
-      
+   
     - name: Install Node.js and npm
       run: |
-        sudo apt-get update
-        sudo apt-get install -y nodejs npm
+        ls
+        gcloud compute ssh system
         
-    - name: Set permissions for SSH private key
-      run: |
-        chmod 600 /root/.ssh/id_rsa
+    # - name: Set permissions for SSH private key
+    #   run: |
+    #     chmod 600 /root/.ssh/id_rsa
 
-    - name: SSH into Google instance
-      run: |
-        ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa edmooliveira29_gmail_com@34.139.16.117 "cd project-system/backend-system/ && ls -a && npm run start-production"
-          # run: |
-          #   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-          #   sudo apt-get install -y nodejs
-          #   gcloud compute ssh system --zone us-east1-b --command="cd .. && \
-          #     cd edmooliveira29_gmail_com/project-system/backend-system/ && \
-          #     ls -a && npm run start-production"          
-          # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 --command="ls -a && cd ~ && cd project-system/backend-system/ && ls -a && npm run start-production"
-          # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 
+    # - name: SSH into Google instance
+    #   run: |
+    #     ssh -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa edmooliveira29_gmail_com@34.139.16.117 "cd project-system/backend-system/ && ls -a && npm run start-production"
+    #       # run: |
+    #       #   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    #       #   sudo apt-get install -y nodejs
+    #       #   gcloud compute ssh system --zone us-east1-b --command="cd .. && \
+    #       #     cd edmooliveira29_gmail_com/project-system/backend-system/ && \
+    #       #     ls -a && npm run start-production"          
+    #       # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 --command="ls -a && cd ~ && cd project-system/backend-system/ && ls -a && npm run start-production"
+    #       # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 
         
 
