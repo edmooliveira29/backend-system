@@ -29,7 +29,7 @@ jobs:
    
     - name: Install Node.js and npm
       run: |
-        echo "$GCP_JSON_KEY" > key.json
+        echo "${{secrets.GCP_JSON_KEY}}" > key.json
         gcloud auth activate-service-account --key-file=key.json
         gcloud config set project api-8702109450667741338-992005
         # gcloud compute ssh system
