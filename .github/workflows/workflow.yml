@@ -36,4 +36,4 @@ jobs:
 
       - name: Executar comando no GCE
         run: |
-          gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 --command "cd project-system/backend-system/ && npm run start-production"
+          gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 --command "cd project-system/backend-system/ && ls -a && npm run start-production"
