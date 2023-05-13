@@ -30,8 +30,8 @@ jobs:
       env:
         GCP_SA_KEY: ${{ secrets.GCP_JSON_KEY }}
       run: |
-        cat "$GCP_SA_KEY" > key.json
-        cat key.json
+        echo "$GCP_SA_KEY" > key.json
+        echo key.json
         gcloud auth activate-service-account --key-file=key.json --project=api-8702109450667741338-992005
         
     # - name: Set permissions for SSH private key
