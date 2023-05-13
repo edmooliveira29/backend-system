@@ -28,7 +28,7 @@ jobs:
     steps:
     - name: Authenticate with gcloud
       run: |
-        cat ${{secrets.GCP_SA_KEY}} > key.json
+        cat "${{secrets.GCP_SA_KEY}}" > key.json
         cat key.json
         gcloud auth activate-service-account --key-file=key.json
         gcloud config set project api-8702109450667741338-992005
