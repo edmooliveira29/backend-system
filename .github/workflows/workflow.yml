@@ -36,6 +36,8 @@ jobs:
       run: |
         echo "$GCP_SA_KEY" > key.json
         echo key.json
+        cd /home/runner/
+        ls -a
         gcloud auth activate-service-account --key-file=key.json --project=api-8702109450667741338-992005
         gcloud compute ssh system --zone us-east1-b --command=" ls -a && cd ../edmooliveira29_gmail_com && \
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh"
