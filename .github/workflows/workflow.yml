@@ -41,11 +41,11 @@ jobs:
 
       - name: Access Google Instance
         run: |
-          curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+          curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
           sudo apt-get install -y nodejs
           gcloud compute ssh system --zone us-east1-b --command="cd .. && \
             cd edmooliveira29_gmail_com/project-system/backend-system/ && \
-            ls -a && nvm -v && npm run start-production"          
+            ls -a && npm run start-production"          
           # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 --command="ls -a && cd ~ && cd project-system/backend-system/ && ls -a && npm run start-production"
           # gcloud compute ssh system --zone us-east1-b --project api-8702109450667741338-992005 
           
