@@ -36,7 +36,7 @@ jobs:
       run: |
         echo "$GCP_SA_KEY" > key.json
         echo key.json
-        cd /home/runner/.ssh/
+        cd /home/runner
         ls -a
     #    gcloud compute os-login --account=<service-account> ssh-keys remove --key=key.json
     #    gcloud auth activate-service-account --key-file=key.json --project=api-8702109450667741338-992005
