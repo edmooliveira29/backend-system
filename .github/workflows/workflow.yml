@@ -35,4 +35,4 @@ jobs:
       - name: Deploy to GCP
         run: |
           gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
-          gcloud compute ssh system --zone us-east1 --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
+          gcloud compute ssh system --zone us-east1-b --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
