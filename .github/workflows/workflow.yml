@@ -23,10 +23,33 @@ jobs:
     # needs: test-unit
     runs-on: ubuntu-latest
     steps:
-    - name: Authenticate with gcloud and deploy
-      env:
-        GCP_SA_KEY: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-      run: |
-        echo "$GCP_SA_KEY" > key.json
-        gcloud auth activate-service-account --key-file=key.json --project=${{secrets.PROJECT_ID_GOOGLE}}
-        gcloud compute ssh system --zone us-east1-b --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v0.5.0
+        with:
+          version: '343.0.0'
+          service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
+      
+      - name: SSH to GCP instance
+        uses: google-github-actions/ssh-compute@v0.4.0
+        with:
+          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
+          zone: ${{secrets.ZONE_INSTANCE_GOOGLE}} 
+          instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
+          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{secrets.USER_INSTANCE_GOOGLE}}
+          script: |
+            echo "Hello, SSH!"
+            gcloud compute ssh system --zone ${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
+
+
+
+
+    # runs-on: ubuntu-latest
+    # steps:
+    # - name: Authenticate with gcloud and deploy
+    #   env:
+    #     GCP_SA_KEY: 
+    #   run: |
+    #     echo "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}" > key.json
+    #     gcloud auth activate-service-account --key-file=key.json --project=${{secrets.PROJECT_ID_GOOGLE}}
