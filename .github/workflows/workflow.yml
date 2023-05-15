@@ -26,17 +26,20 @@ jobs:
     runs-on: ubuntu-latest
           
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Authenticate with gcloud
         uses: google-github-actions/auth@v1.1.1
         with:
           credentials_json: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+          credentials: |
+            {
+              "client_id": "${{ secrets.CLIENT_ID_GOOGLE }}",
+              "client_secret": "${{ secrets.CLIENT_SECRET_GOOGLE }}",
+              "token_format": "full"
+            }
       
       - name: Set up Google Cloud SDK
         run: |
-          gcloud config set project  ${{ secrets.PROJECT_ID_GOOGLE  }}
+          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE  }}
           gcloud compute ssh system --zone us-east1-b --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
 
           
