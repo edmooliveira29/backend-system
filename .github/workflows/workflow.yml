@@ -33,8 +33,7 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
 
       - name: Executar comandos via SSH
-        run: |
-          gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --project=${{ secrets.PROJECT_ID_GOOGLE }} --zone= ${{secrets.ZONE_INSTANCE_GOOGLE}} --command="ls && echo 'Hello, world!'"
+        run: gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command="ls && echo 'Hello, world!'"
     # steps:
     #   - name: Set up Python
     #     uses: actions/setup-python@v2
