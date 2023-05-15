@@ -23,27 +23,44 @@ jobs:
     # needs: test-unit
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+
+      - name: Configurar ambiente do Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.3.0
         with:
-          python-version: 3.7
-      - name: Set up gcloud CLI
-        uses: google-github-actions/setup-gcloud@v1.1.1
-        with:
-          version: '343.0.0'
-          service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
-      - name: SSH to GCP instance
-        uses: google-github-actions/ssh-compute@v0.1.5
-        with:
-          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
-          zone: ${{secrets.ZONE_INSTANCE_GOOGLE}} 
-          instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
-          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          username: ${{secrets.USER_INSTANCE_GOOGLE}}
-          script: |
-            echo "Hello, SSH!"
-            gcloud compute ssh system --zone ${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: <seu-id-de-projeto>
+
+      - name: Executar comandos via SSH
+        run: |
+          gcloud compute ssh <nome-da-instancia> \
+            --project=${{ secrets.PROJECT_ID_GOOGLE }} \
+            --zone= ${{secrets.ZONE_INSTANCE_GOOGLE}}  \
+            --command="ls && echo 'Hello, world!'"
+    # steps:
+    #   - name: Set up Python
+    #     uses: actions/setup-python@v2
+    #     with:
+    #       python-version: 3.7
+
+    #   - name: Set up gcloud CLI
+    #     uses: google-github-actions/setup-gcloud@v0.3.0
+    #     with:
+    #       service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+    #       project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
+
+    #   - name: SSH to GCP instance
+    #     uses: google-github-actions/ssh-compute@v0.4.0
+    #     with:
+    #       project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
+    #       zone: ${{secrets.ZONE_INSTANCE_GOOGLE}} 
+    #       instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
+    #       private_key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
+    #       username: ${{secrets.USER_INSTANCE_GOOGLE}}
+    #       script: |
+    #         echo "Hello, SSH!"
+    #         gcloud compute ssh system --zone ${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
 
 
 
