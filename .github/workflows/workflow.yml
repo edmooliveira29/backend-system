@@ -1,9 +1,7 @@
 name: api-backend
-
 on:
   push:
     branches: [ main ]
-
 jobs:
   # test-unit:
   #   runs-on: ubuntu-latest
@@ -15,31 +13,21 @@ jobs:
   #     - name: Checkout
   #       uses: actions/checkout@v3
   #     - run: npm install
-  #     - run: echo "MONGO_URL=${{vars.MONGO_URL_DEVELOPMENT}}" >> .env
+  #     - run: echo "MONGO_URL=${{vars.MONGO_URL}}" >> .env
   #     - run: npm run test:unit
   #     - name: Upload artifact
   #       uses: actions/upload-pages-artifact@v1
   #       with:
   #         path: './coverage'
-
   deploy:
+    # needs: test-unit
     runs-on: ubuntu-latest
-          
     steps:
-      - name: Authenticate with gcloud
-        uses: google-github-actions/auth@v1.1.1
-        with:
-          credentials_json: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-          credentials: |
-            {
-              "client_id": "${{ secrets.CLIENT_ID_GOOGLE }}",
-              "client_secret": "${{ secrets.CLIENT_SECRET_GOOGLE }}",
-              "token_format": "full"
-            }
-      
-      - name: Set up Google Cloud SDK
-        run: |
-          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE  }}
-          gcloud compute ssh system --zone us-east1-b --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
-
-          
+    - name: Authenticate with gcloud
+      env:
+        GCP_SA_KEY: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+      run: |
+        echo "$GCP_SA_KEY" > key.json
+        echo key.json
+        gcloud auth activate-service-account --key-file=key.json --project=${{secrets.PROJECT_ID_GOOGLE}}
+        gcloud compute ssh system --zone us-east1-b --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
