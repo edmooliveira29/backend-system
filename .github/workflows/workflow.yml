@@ -26,14 +26,18 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v2
 
-      - name: Configurar ambiente do Google Cloud SDK
+      - name: Configure Google Cloud SDK environment
         uses: google-github-actions/setup-gcloud@v0.3.0
         with:
           service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
           project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
+          
 
-      - name: Executar comandos via SSH
-        run: gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
+      - name: Run commands via SSH
+        run: | 
+          echo "${{secrets.ACCOUNT_KEY_JSON_GOOGLE}}" > key.json
+          gcloud auth activate-service-account --key-file=key.json  
+          gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
     # steps:
     #   - name: Set up Python
     #     uses: actions/setup-python@v2
