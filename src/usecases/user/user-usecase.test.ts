@@ -25,25 +25,25 @@ describe('User Use Case', () => {
     userUseCaseMock = new UserUseCase(iPortMock)
   })
   test('Should return message if name was created with success', async () => {
-    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Successfully created user')
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Usuário criado com sucesso')
   })
 
   test('Should return message if email is invalid', async () => {
     userEntityMock.email = 'invalidemail@exemplocom'
-    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Email is not valid')
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('E-mail não é valido')
   })
 
   test('Should return message if name is invalid', async () => {
     userEntityMock.name = 'na'
     userEntityMock.email = 'valid@exemplo.com'
 
-    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Name is not valid')
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Nome não é valido')
   })
 
   test('Should return message if name is invalid', async () => {
     userEntityMock.password = 'Password*'
 
-    expect(await userUseCaseMock.create(userEntityMock)).toEqual('Password must be at least 1 digit')
+    expect(await userUseCaseMock.create(userEntityMock)).toEqual('A senha deve conter pelo menos 1 dígito')
   })
 
   test('Should return message if user is valid to authentication', async () => {
@@ -53,17 +53,17 @@ describe('User Use Case', () => {
     }
     userUseCaseMock = new UserUseCase(iPortMock)
     expect(await userUseCaseMock.login(userEntityMock))
-      .toEqual({ data: userEntityMock, message: 'Successfully authenticated user' })
+      .toEqual({ data: userEntityMock, message: 'Usuário autenticado com sucesso' })
   })
 
   test('Should return message if user is not valid to authentication', async () => {
     iPortMock = {
       create: jest.fn(),
-      login: jest.fn().mockReturnValue({ message: 'User not found' })
+      login: jest.fn().mockReturnValue({ message: 'Usuário não encontrado' })
     }
     userUseCaseMock = new UserUseCase(iPortMock)
 
-    expect(await userUseCaseMock.login(userEntityMock)).toEqual({ message: 'User not found' })
+    expect(await userUseCaseMock.login(userEntityMock)).toEqual({ message: 'Usuário não encontrado' })
   })
 
   test('Should return error message if password is invalid on authentication', async () => {
@@ -74,6 +74,6 @@ describe('User Use Case', () => {
     }
     userUseCaseMock = new UserUseCase(iPortMock)
     expect(await userUseCaseMock.login({ password: 'Password*1', email: userEntityMock.email }))
-      .toEqual({ data: { passwordValid: false, message: 'Password is invalid. Please try again' } })
+      .toEqual({ data: { passwordValid: false, message: 'Senha inválida. Tente novamente' } })
   })
 })

@@ -39,33 +39,39 @@ describe('Email Validation', () => {
 
   test('Should return false if password more then 8 caractheres', () => {
     user.password = 'passwor'
-    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ isValid: false, message: 'Password must be at least 8 characters long' })
+    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ isValid: false, message: 'A senha deve conter pelo menos 8 caracteres' })
   })
 
   test('Should return false if password is not includes numerics digits', () => {
     user.password = 'Password'
-    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ isValid: false, message: 'Password must be at least 1 digit' })
+    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ isValid: false, message: 'A senha deve conter pelo menos 1 dígito' })
   })
 
   test('Should return false if password is not includes uppercase letter', () => {
     user.password = 'password1'
-    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ isValid: false, message: 'Password must be at least 1 uppercase letter' })
+    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({
+      isValid: false,
+      message: 'A senha deve conter pelo menos uma letra maiúscula'
+    })
   })
 
   test('Should return false if password is not includes lowercase letter', () => {
     user.password = 'PASSWORD1*'
-    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ isValid: false, message: 'Password must be at least 1 lowercase letter' })
+    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({
+      isValid: false,
+      message: 'A senha deve conter pelo menos uma letra minúscula'
+    })
   })
 
   test('Should return false if password is not includes special characters', () => {
     user.password = 'Password1'
     expect(validateMock.passwordIsValid(user.password))
-      .toStrictEqual({ isValid: false, message: 'Password must be at least 1 special characters' })
+      .toStrictEqual({ isValid: false, message: 'A senha deve conter pelo menos um caracter especial' })
   })
 
   test('Should return true if password is invalid', () => {
     expect(validateMock.comparePassword('PASSWORD', 'Password'))
-      .toStrictEqual({ data: { message: 'Password is invalid. Please try again', passwordValid: false } })
+      .toStrictEqual({ data: { message: 'Senha inválida. Tente novamente', passwordValid: false } })
   })
 
   test('Should return true if password is valid', () => {

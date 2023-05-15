@@ -22,7 +22,7 @@ export class UserRepository implements IUserDataAccess {
         }
       }
     } else {
-      throw new Error('There is already a user with this email')
+      throw new Error('Já existe um usuário com este e-mail')
     }
   }
 
@@ -44,9 +44,9 @@ export class UserRepository implements IUserDataAccess {
   async login (user: { email: string, password: string }): Promise<any> {
     const userFound = await this.findUserByEmail(user.email)
     if (userFound) {
-      return { message: 'User authenticated successfully', data: userFound }
+      return { message: 'Usuário autenticado com sucesso', data: userFound }
     } else {
-      return { message: 'User not found' }
+      return { message: 'Usuário não encontrado' }
     }
   }
 }

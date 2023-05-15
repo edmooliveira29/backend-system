@@ -20,27 +20,27 @@ export class ValidationUser {
   passwordIsValid (password: string): object {
     if ((password.length < 8)) {
       return {
-        message: 'Password must be at least 8 characters long',
+        message: 'A senha deve conter pelo menos 8 caracteres',
         isValid: false
       }
     } else if (!(/[0-9]/).test(password)) {
       return {
-        message: 'Password must be at least 1 digit',
+        message: 'A senha deve conter pelo menos 1 dígito',
         isValid: false
       }
     } else if (!(/[A-Z]/).test(password)) {
       return {
-        message: 'Password must be at least 1 uppercase letter',
+        message: 'A senha deve conter pelo menos uma letra maiúscula',
         isValid: false
       }
     } else if (!(/[a-z]/).test(password)) {
       return {
-        message: 'Password must be at least 1 lowercase letter',
+        message: 'A senha deve conter pelo menos uma letra minúscula',
         isValid: false
       }
     } else if (!(/[^a-zA-Z0-9]+/g).test(password)) {
       return {
-        message: 'Password must be at least 1 special characters',
+        message: 'A senha deve conter pelo menos um caracter especial',
         isValid: false
       }
     } else {
@@ -56,7 +56,7 @@ export class ValidationUser {
     } else {
       return {
         data: {
-          message: 'Password is invalid. Please try again',
+          message: 'Senha inválida. Tente novamente',
           passwordValid: false
         }
       }

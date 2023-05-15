@@ -17,13 +17,13 @@ describe('User Port Interface', () => {
     }
 
     userPortMock = {
-      create: jest.fn().mockResolvedValue('Successfully created user'),
+      create: jest.fn().mockResolvedValue('Usuário criado com sucesso'),
       login: jest.fn()
 
     }
   })
 
   test('Should return the message user created with success', async () => {
-    expect(await userPortMock.create(user)).toEqual('Successfully created user')
+    expect(await userPortMock.create(user)).toEqual('Usuário criado com sucesso')
   })
 })

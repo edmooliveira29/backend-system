@@ -28,7 +28,7 @@ describe('User Adapter', () => {
 
   test('Should return status 200 if successfuly', async () => {
     IUserCreateUseCaseMock = {
-      create: jest.fn().mockResolvedValue('Successfully created user'),
+      create: jest.fn().mockResolvedValue('Usuário criado com sucesso'),
       login: jest.fn()
 
     }
@@ -45,7 +45,7 @@ describe('User Adapter', () => {
           sessionId: new Date('01-01-01'),
           createdAt: new Date().toLocaleString()
         },
-        message: 'Successfully created user'
+        message: 'Usuário criado com sucesso'
       }
     })
   })
@@ -53,7 +53,7 @@ describe('User Adapter', () => {
   test('Should return statusCode 400 id email is invalid', async () => {
     userHttpRequestMock.body.email = 'emailexample.com'
     IUserCreateUseCaseMock = {
-      create: jest.fn().mockResolvedValue('Email is not valid'),
+      create: jest.fn().mockResolvedValue('E-mail não é valido'),
       login: jest.fn()
 
     }
@@ -118,22 +118,22 @@ describe('User Adapter', () => {
   test('Should return error if not found user', async () => {
     IUserCreateUseCaseMock = {
       create: jest.fn(),
-      login: jest.fn().mockResolvedValue({ message: 'User not found' })
+      login: jest.fn().mockResolvedValue({ message: 'Usuário não encontrado' })
     }
     sut = new UserController(IUserCreateUseCaseMock)
-    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Not Found: User not found.' }, statusCode: 404 })
+    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Not Found: Usuário não encontrado.' }, statusCode: 404 })
   })
 
-  test('Should return status 200 if successfully authenticated user.', async () => {
+  test('Should return status 200 if Usuário autenticado com sucesso.', async () => {
     IUserCreateUseCaseMock = {
       create: jest.fn(),
-      login: jest.fn().mockResolvedValue({ message: 'Successfully authenticated user', data: 'data json' })
+      login: jest.fn().mockResolvedValue({ message: 'Usuário autenticado com sucesso', data: 'data json' })
     }
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.login(userHttpRequestMock))
       .toStrictEqual({
         body: {
-          message: 'Successfully authenticated user',
+          message: 'Usuário autenticado com sucesso',
           data: 'data json'
         },
         statusCode: 200

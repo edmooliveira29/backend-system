@@ -35,7 +35,7 @@ describe('Login Routes', () => {
       }).expect(200)
   }, 20000)
 
-  // test('Should return error 204 with user not found', async () => {
+  // test('Should return error 204 with Usuário não encontrado', async () => {
   //   const user = await request(app)
   //     .post('/v1/login')
   //     .send({
@@ -43,7 +43,7 @@ describe('Login Routes', () => {
   //       password: 'anyPassword*1'
   //     })
   //   expect(user.statusCode).toBe(204)
-  //   expect(JSON.parse(user.text)).toStrictEqual('Not Found: User not found.')
+  //   expect(JSON.parse(user.text)).toStrictEqual('Not Found: Usuário não encontrado.')
   // }, 20000)
 
   // test('Should return error 400 with name is invalid', async () => {
@@ -57,7 +57,7 @@ describe('Login Routes', () => {
   //       sessionId: new Date()
   //     })
   //   expect(user.statusCode).toBe(400)
-  //   expect(JSON.parse(user.text)).toStrictEqual('Invalid param: Name is not valid.')
+  //   expect(JSON.parse(user.text)).toStrictEqual('Invalid param: Nome não é valido.')
   // }, 20000)
 
   // test('Should return error 400 if password is not provided', async () => {

@@ -29,11 +29,11 @@ export class UserController {
       }
 
       const createUserResponse = await this.userUseCase.create(userData)
-      if (createUserResponse !== 'Successfully created user') {
+      if (createUserResponse !== 'Usuário criado com sucesso') {
         return badRequest(new InvalidParamError(createUserResponse))
       }
       const dataRespose = {
-        message: 'Successfully created user',
+        message: 'Usuário criado com sucesso',
         data: {
           id: userData.id,
           name: userData.name,

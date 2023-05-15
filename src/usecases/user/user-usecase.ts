@@ -16,23 +16,23 @@ export class UserUseCase implements IUserDataAccess {
     if (!validationPassword.isValid) {
       return validationPassword.message
     } else if (!this.validation.emailIsValid(user.email)) {
-      return 'Email is not valid'
+      return 'E-mail não é valido'
     } else if (!this.validation.nameIsValid(user.name)) {
-      return 'Name is not valid'
+      return 'Nome não é valido'
     } else {
       await this.port.create(user)
-      return 'Successfully created user'
+      return 'Usuário criado com sucesso'
     }
   }
 
   async login (user: { email: string, password: string }): Promise<any> {
     const userRepository = await this.port.login(user)
     if (!userRepository.data) {
-      return { message: 'User not found' }
+      return { message: 'Usuário não encontrado' }
     }
     const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
     if (validationPassword.passwordValid) {
-      return { message: 'Successfully authenticated user', data: userRepository.data }
+      return { message: 'Usuário autenticado com sucesso', data: userRepository.data }
     } else {
       return validationPassword
     }

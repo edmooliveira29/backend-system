@@ -40,7 +40,7 @@ describe('Register Routes', () => {
         sessionId: new Date()
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Invalid param: Email is not valid.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Invalid param: E-mail não é valido.' })
   }, 20000)
 
   test('Should return error 400 with name is invalid', async () => {
@@ -54,7 +54,7 @@ describe('Register Routes', () => {
         sessionId: new Date()
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Invalid param: Name is not valid.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Invalid param: Nome não é valido.' })
   }, 20000)
 
   test('Should return error 400 if password is not provided', async () => {
