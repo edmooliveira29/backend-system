@@ -24,17 +24,19 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-
+          
     steps:
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1.1.1
-        with:
-          service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Deploy to GCP
+      - name: Authenticate with gcloud
+        uses: google-github-actions/auth@v1.1.1
+        with:
+          credentials: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+      
+      - name: Set up Google Cloud SDK
         run: |
-          echo ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }} > key.json
-          gcloud auth activate-service-account --key-file=key.json
-          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
+          gcloud config set project PROJECT_ID_GOOGLE
           gcloud compute ssh system --zone us-east1-b --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
+
+          
