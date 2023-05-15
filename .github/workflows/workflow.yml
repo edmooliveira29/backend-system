@@ -23,16 +23,14 @@ jobs:
     # needs: test-unit
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v2
-
-      - name: Configure Google Cloud SDK environment
-        uses: google-github-actions/setup-gcloud@v0.3.0
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
         with:
-          service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
-          
+          credentials_json: '${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}'
 
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+          
       - name: Run commands via SSH
         run: | 
           echo "${{secrets.ACCOUNT_KEY_JSON_GOOGLE}}" > key.json
