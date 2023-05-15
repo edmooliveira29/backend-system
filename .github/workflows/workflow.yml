@@ -36,5 +36,5 @@ jobs:
         run: |
           echo ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }} > key.json
           gcloud auth activate-service-account --key-file=key.json
-          gcloud config set project PROJECT_ID
+          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
           gcloud compute ssh system --zone us-east1-b --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
