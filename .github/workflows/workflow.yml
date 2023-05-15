@@ -30,11 +30,11 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.3.0
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
-          project_id: <seu-id-de-projeto>
+          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
 
       - name: Executar comandos via SSH
         run: |
-          gcloud compute ssh <nome-da-instancia> \
+          gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} \
             --project=${{ secrets.PROJECT_ID_GOOGLE }} \
             --zone= ${{secrets.ZONE_INSTANCE_GOOGLE}}  \
             --command="ls && echo 'Hello, world!'"
