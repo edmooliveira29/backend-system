@@ -31,7 +31,7 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
       
       - name: SSH to GCP instance
-        uses: google-github-actions/ssh-compute@v0.4.0
+        uses: google-github-actions/ssh-compute@v0.1.5
         with:
           project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
           zone: ${{secrets.ZONE_INSTANCE_GOOGLE}} 
