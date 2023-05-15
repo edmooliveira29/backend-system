@@ -28,6 +28,5 @@ jobs:
         GCP_SA_KEY: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
       run: |
         echo "$GCP_SA_KEY" > key.json
-        gcloud auth activate-access-token ${{secrets.CLIENT_SECRET_GOOGLE}}
         gcloud auth activate-service-account --key-file=key.json --project=${{secrets.PROJECT_ID_GOOGLE}}
         gcloud compute ssh system --zone us-east1-b --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
