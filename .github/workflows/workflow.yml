@@ -30,9 +30,9 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.5.1
         with:
           service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-          project_id: ${{ secrets.PROJECT_ID }}
+          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
 
       - name: Deploy to GCP
         run: |
-          gcloud config set project ${{ secrets.PROJECT_ID }}
+          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
           gcloud compute ssh system --zone us-east1 --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
