@@ -35,7 +35,6 @@ jobs:
           
       - name: Run commands via SSH
         run: |
-          echo $ACCOUNT_KEY_JSON_GOOGLE
           echo "$ACCOUNT_KEY_JSON_GOOGLE" > key.json
           cat key.json
           gcloud auth activate-service-account --key-file=key.json  
