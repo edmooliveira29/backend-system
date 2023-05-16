@@ -23,7 +23,7 @@ jobs:
     # needs: test-unit
     runs-on: ubuntu-latest
     env: 
-      ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+      ACCOUNT_KEY_JSON_GOOGLE: "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}"
     steps:
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
