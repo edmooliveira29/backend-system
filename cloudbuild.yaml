@@ -1,9 +1,0 @@
-steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  id: Update staging server
-  entrypoint: /bin/sh
-  args:
-  - '-c'
-  - |
-    set -x && \
-    gcloud compute ssh system --zone=us-east1-b --command='/bin/sh /home/edmooliveira29_gmail_com/run-deploy.sh'
