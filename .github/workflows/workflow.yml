@@ -33,7 +33,7 @@ jobs:
           
       - name: Run commands via SSH
         run: | 
-          echo "${{secrets.ACCOUNT_KEY_JSON_GOOGLE}}" | base64 --decode > key.json
+          echo "${{secrets.ACCOUNT_KEY_JSON_GOOGLE}}" | --decode > key.json
           cat key.json
           gcloud auth activate-service-account --key-file=key.json  
           gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
