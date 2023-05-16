@@ -33,7 +33,7 @@ jobs:
           
       - name: Run commands via SSH
         run: |
-          echo "{
+          {
             "type": "service_account",
             "project_id": "api-8702109450667741338-992005",
             "private_key_id": "6de2881e5701e46ad65ec5fc359a2bddeb48af8e",
@@ -45,7 +45,7 @@ jobs:
             "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
             "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/system%40api-8702109450667741338-992005.iam.gserviceaccount.com",
             "universe_domain": "googleapis.com"
-          }" > key.json
+          } > key.json
           cat key.json
           gcloud auth activate-service-account --key-file=key.json  
           gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
