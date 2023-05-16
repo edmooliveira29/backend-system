@@ -37,7 +37,7 @@ jobs:
           instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
           zone: '${{secrets.ZONE_INSTANCE_GOOGLE}}'
           ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
-          command: 'echo Hello world'
+          command: gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --tunnel-through-iap
     # runs-on: ubuntu-latest
     # env: 
     #   ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
