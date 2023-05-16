@@ -34,8 +34,8 @@ jobs:
 
       - name: Authenticate with Google Cloud
         run: |
-          cat ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
           echo "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}" >> key.json
+          echo "============================="
           cat key.json
           gcloud auth activate-service-account --key-file=./key.json
 
