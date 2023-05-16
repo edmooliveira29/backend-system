@@ -37,7 +37,7 @@ jobs:
         run: |
           echo $ACCOUNT_KEY_JSON_GOOGLE
           echo "$ACCOUNT_KEY_JSON_GOOGLE" > key.json
-          echo key.json
+          cat key.json
           gcloud auth activate-service-account --key-file=key.json  
           gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
     # steps:
