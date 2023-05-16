@@ -1,23 +1,47 @@
 name: api-backend
-
 on:
   push:
     branches: [ main ]
-
 jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
-      - name: Start MongoDB v4.2
-        uses: supercharge/mongodb-github-action@1.2.0
+    - name: Start MongoDB v4.2
+      uses: supercharge/mongodb-github-action@1.2.0
+      with:
+        mongodb-version: 4.2
+    - name: Checkout
+      uses: actions/checkout@v3
+    - run: |- 
+        npm install
+        echo "MONGO_URL=${{secrets.MONGO_URL}}" >> .env
+    - name: Running unit tests
+      run: npm run test:unit
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: './coverage'
+  deploy:
+    needs: test-unit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v0
         with:
-          mongodb-version: 4.2
-      - name: Checkout
-        uses: actions/checkout@v3
-      - run: npm install
-      - run: echo "MONGO_URL=${{vars.MONGO_URL}}" >> .env
-      - run: npm run test:unit
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: './coverage'
+          service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
+
+      - name: Set project with default
+        run: |- 
+          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
+
+      - name: Running command
+        run: |-
+          gcloud compute ssh ${{ secrets.NAME_INSTANCE_GOOGLE }} \
+          --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} \
+          --command='/home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
+          
+      - name: Deleting user-profiles
+        run: |- 
+          for i in $(gcloud compute os-login ssh-keys list | grep -v FINGERPRINT); do echo $i; gcloud compute os-login ssh-keys remove --key $i; done
