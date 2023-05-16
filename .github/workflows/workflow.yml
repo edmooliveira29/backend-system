@@ -28,9 +28,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Google Cloud SDK
-        uses: gcr.io/cloud-builders/gcloud
-        with:
-          args: ['components', 'install', 'beta']
+        run: |
+          curl https://sdk.cloud.google.com | bash > /dev/null
+          exec -l $SHELL
 
       - name: Authenticate with Google Cloud
         run: |
@@ -39,12 +39,15 @@ jobs:
 
       - name: Configure Google Cloud project
         run: |
-          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
+          gcloud config set project ${{secrets.PROJECT_ID_GOOGLE}}
+
+      - name: Install beta component
+        run: |
+          gcloud components install beta
 
       - name: Run gcloud command
-        uses: gcr.io/cloud-builders/gcloud
-        with:
-          args: ['ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh']
+        run: |
+          gcloud beta ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh
     # runs-on: ubuntu-latest
     # env: 
     #   ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
