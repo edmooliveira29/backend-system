@@ -22,55 +22,45 @@ jobs:
   deploy:
     # needs: test-unit
     runs-on: ubuntu-latest
-    env: 
-      ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+
     steps:
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v1'
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: gcr.io/cloud-builders/gcloud
         with:
-          credentials_json: "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}"
+          args: ['components', 'install', 'beta']
 
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
-          
-      - name: Run commands via SSH
+      - name: Authenticate with Google Cloud
         run: |
-          echo "$ACCOUNT_KEY_JSON_GOOGLE" >> key.json
-          cat key.json
-          gcloud auth activate-service-account --key-file=key.json  
-          gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
-    # steps:
-    #   - name: Set up Python
-    #     uses: actions/setup-python@v2
-    #     with:
-    #       python-version: 3.7
+          echo ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }} > key.json
+          gcloud auth activate-service-account --key-file=key.json
 
-    #   - name: Set up gcloud CLI
-    #     uses: google-github-actions/setup-gcloud@v0.3.0
-    #     with:
-    #       service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-    #       project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
+      - name: Configure Google Cloud project
+        run: |
+          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
 
-    #   - name: SSH to GCP instance
-    #     uses: google-github-actions/ssh-compute@v0.4.0
-    #     with:
-    #       project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
-    #       zone: ${{secrets.ZONE_INSTANCE_GOOGLE}} 
-    #       instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
-    #       private_key: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
-    #       username: ${{secrets.USER_INSTANCE_GOOGLE}}
-    #       script: |
-    #         echo "Hello, SSH!"
-    #         gcloud compute ssh system --zone ${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
-
-
-
-
+      - name: Run gcloud command
+        uses: gcr.io/cloud-builders/gcloud
+        with:
+          args: ['ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh']
     # runs-on: ubuntu-latest
+    # env: 
+    #   ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
     # steps:
-    # - name: Authenticate with gcloud and deploy
-    #   env:
-    #     GCP_SA_KEY: 
-    #   run: |
-    #     echo "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}" > key.json
-    #     gcloud auth activate-service-account --key-file=key.json --project=${{secrets.PROJECT_ID_GOOGLE}}
+    #   - id: 'auth'
+    #     uses: 'google-github-actions/auth@v1'
+    #     with:
+    #       credentials_json: "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}"
+
+    #   - name: 'Set up Cloud SDK'
+    #     uses: 'google-github-actions/setup-gcloud@v1'
+          
+    #   - name: Run commands via SSH
+    #     run: |
+    #       echo "$ACCOUNT_KEY_JSON_GOOGLE" >> key.json
+    #       cat key.json
+    #       gcloud auth activate-service-account --key-file=key.json  
+    #       gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
+  
