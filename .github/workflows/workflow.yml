@@ -39,8 +39,8 @@ jobs:
           instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
           zone: '${{secrets.ZONE_INSTANCE_GOOGLE}}'
           ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
-          command: gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
-          run: |-
+          run: |
+            gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh' --troubleshoot
             echo '${{ steps.compute-ssh.outputs.stdout }}'
             echo '${{ steps.compute-ssh.outputs.stderr }}'      
     # runs-on: ubuntu-latest
