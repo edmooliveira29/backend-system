@@ -22,6 +22,8 @@ jobs:
   deploy:
     # needs: test-unit
     runs-on: ubuntu-latest
+    env: 
+      ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
     steps:
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
@@ -33,19 +35,7 @@ jobs:
           
       - name: Run commands via SSH
         run: |
-          {
-            "type": "service_account",
-            "project_id": "api-8702109450667741338-992005",
-            "private_key_id": "6de2881e5701e46ad65ec5fc359a2bddeb48af8e",
-            "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDiBd19bUmjCkfM\n8fDVaxIIAOVjgInqO9s+5zT8Vdgpq8E0tGvv6kLDUP5/1lysapb+WmbGNDd2Xmut\nlFm3nm/jlZKNM9HU/tpAMW39pFJXD1VdK5c3uTHtbMl+0EtwsHLLCFEYwVlq4CRg\nmcF50ezX5uBxSvYBIcf1oPEwtJM/8wCbgfx9i4Jvm5PWMtwYbZHQ0bdY9BXO+GT8\nR6ncTg5opGQ8ZIlBsLVOOuyFkACemQ8r9Qfd6RBpfe2ijlO4BBJ2empC6PvEAOU2\nr91KuBsY4xgh5U6cgPspdzw3x95QCStSiz44A52bQsCiXKHg1kVt9FxpYM0gphvi\n4Z7y52XTAgMBAAECggEAM1gAvhbe9O4HbHuDaX/Gm1HUyhsveSm6vtnX1ACON70g\nCSB5KoltPCBAh/rCl5opDcOseBbxiG6fiFFcZhVUNn9KSNA+OOPh4VY5Nbany8Yc\nbqtR0SM9P8GILkoT8RfsI8oSXgzCCsC7EsSqykkRQ+RbFPFh29T4Lwit8ZH7pzlX\nm4CiVMKgHx46Oim16npHm73ETcw9P23hmiYfzZzDHeIvnCqltMHgtFJaYw6UMWE3\nijEYIClKP08erL6zNAqzwh/Ut0pX/kN+TMvQzOfYKQdzEgzWApzzGDVIt6pJ+3kl\npzMmfgqpE57EHljE/ETMn9FJQlVUUA32ohoN65MGuQKBgQD0Zq7VZEX9821aFnOp\n9cZRyv0Zaf9WR6lzmuSI21OPTB5/CsV65jU+4V8UeRW9EmrdZkuOutyOjO44tcxe\nZgkkDqeP8U7xfvQ0PQmfX0cJ15Vqul+Nuov5mQH2I6dgQ9/Cp1dcvQmvmyRDlHjj\n9EanRkr1e1Z7YCTgTlDARVmz6QKBgQDsv+Yhh3ZAga1bBkI1QM1wqzqYSJZpgSZt\n77zFRQdzEmyKWhHSaj5H/ChX/pEhN5rzGHlPtU7KFxJga1HVxUu2ESoqmDBTOGk4\nTMMymeXBfs090DYKw7pSi17KrwIE6IntABnTetYKVYPr4wOkhoRod9i0uIjZ1OTj\nBY4gcvOiWwKBgQCKXWPX3cgeaOVc3l8nNsTLY7981ty/DR0rHOMLdBhPhUmypPd+\nh7xXWCKLJa4f98BWjeZy7OmXLsRjiNEmFGBScJV+0Z/e6v/4XyIGf1tpgArQfKlC\nRP2gFnbc0fydbG/O9QxprYBBUfTq6bCzZYVmiE5Bwk0I1jqqXswqvlh1mQKBgQDC\nUy0w/kB46DgDy9pSXbODNHjvAD29sc16VVprzaI0uL2wvgd838npSjdPKtuzGTIt\nMTx5yYc3Z8Kks9JDFiNz+RjUR4D6/gWXuaJLCXlF3q/Wee2x3kA0esM+uHF+1+RG\nTVvlcyD28IRM/VRDGkraeOy+Qe3KZu3MzgV/6vrBmwKBgQCna3wa1fXrx/B5f8T2\n4g1J65RDXUJiiMFYSrEUU4nefVZb3hezwa6ErpGkfSxUF4tMoWkN4uVdYw+gl/ea\nBA26OQGYr1kBtykpCNQWskv0xk04cdsgs90C9H4sg24edLtR0nbzJa3qADuQwRLr\n5/KYXiSItO5LFPxaFD5ef1L6Jg==\n-----END PRIVATE KEY-----\n",
-            "client_email": "system@api-8702109450667741338-992005.iam.gserviceaccount.com",
-            "client_id": "102989076498445970482",
-            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-            "token_uri": "https://oauth2.googleapis.com/token",
-            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-            "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/system%40api-8702109450667741338-992005.iam.gserviceaccount.com",
-            "universe_domain": "googleapis.com"
-          } > key.json
+          echo "$ACCOUNT_KEY_JSON_GOOGLE" >> key.json
           cat key.json
           gcloud auth activate-service-account --key-file=key.json  
           gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls && /bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
