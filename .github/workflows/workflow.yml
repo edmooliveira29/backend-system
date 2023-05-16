@@ -40,7 +40,7 @@ jobs:
           zone: '${{secrets.ZONE_INSTANCE_GOOGLE}}'
           ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
           command: cd /home/${{secrets.USER_INSTANCE_GOOGLE}}/ && sudo chmod +x run-deploy.sh && ./run-deploy.sh
-          script: who
+          scripts: who
       - id: 'outputs'
         run: |-
           echo '${{ steps.compute-ssh.outputs.stdout }}'
