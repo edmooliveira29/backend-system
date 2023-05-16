@@ -23,18 +23,19 @@ jobs:
     # needs: test-unit
     runs-on: ubuntu-latest
     env: 
-      ACCOUNT_KEY_JSON_GOOGLE: "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}"
+      ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
     steps:
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: $ACCOUNT_KEY_JSON_GOOGLE
+          credentials_json: "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}"
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
           
       - name: Run commands via SSH
-        run: | 
+        run: |
+          echo $ACCOUNT_KEY_JSON_GOOGLE
           echo "$ACCOUNT_KEY_JSON_GOOGLE" > key.json
           echo key.json
           gcloud auth activate-service-account --key-file=key.json  
