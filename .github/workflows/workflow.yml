@@ -36,13 +36,7 @@ jobs:
           instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
           zone: '${{secrets.ZONE_INSTANCE_GOOGLE}}'
           ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
-          command: | 
-            cd /home/${{secrets.USER_INSTANCE_GOOGLE}}/project-system/backend-system
-            git pull
-            /home/edmooliveira29_gmail_com/.nvm/versions/node/v18.16.0/bin/pm2 stop api-backend
-            /home/edmooliveira29_gmail_com/.nvm/versions/node/v18.16.0/bin/npm run build
-            service mongod start
-            /home/edmooliveira29_gmail_com/.nv>
+          command: cd /home/${{secrets.USER_INSTANCE_GOOGLE}}/project-system/backend-system && git pull && /home/edmooliveira29_gmail_com/.nvm/versions/node/v18.16.0/bin/pm2 stop api-backend && /home/edmooliveira29_gmail_com/.nvm/versions/node/v18.16.0/bin/npm run build &&service mongod start && /home/edmooliveira29_gmail_com/.nv>
 
       - id: 'output'
         run: |-
