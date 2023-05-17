@@ -24,26 +24,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure gcloud
+        uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          node-version: 18
-      - uses: 'actions/checkout@v3'
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v0'
-        with:
-          credentials_json: '${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}'
-    
-      - id: 'compute-ssh'
-        uses: 'google-github-actions/ssh-compute@v0'
-        with:
-          instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
-          zone: '${{secrets.ZONE_INSTANCE_GOOGLE}}'
-          ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
-          command: cd /home/${{secrets.USER_INSTANCE_GOOGLE}}/ && ./run-deploy.sh
-      - id: 'output'
+          service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
+      - name: Running command
         run: |-
-          echo '${{ steps.compute-ssh.outputs.stdout }}'
-          echo '${{ steps.compute-ssh.outputs.stderr }}'
+          gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='ls -a'
     # runs-on: ubuntu-latest
     # env: 
     #   ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
