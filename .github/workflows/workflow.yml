@@ -38,7 +38,7 @@ jobs:
 
       - name: Running command
         run: |-
-          gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='cd /home/edmooliveira29_gmail_com/project-system/backend-system & ls -a && echo 'export PATH="$PATH:/home/edmooliveira29_gmail_com/.nvm/versions/node/v18.16.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"' >> ~/.bashrc && cat ~/.bashrc && npm run start-production'
+          gcloud compute ssh ${{secrets.NAME_INSTANCE_GOOGLE}} --zone=${{secrets.ZONE_INSTANCE_GOOGLE}} --command='cd /home/edmooliveira29_gmail_com/project-system/backend-system & ls -a && echo 'export PATH="$PATH:/home/edmooliveira29_gmail_com/.nvm/versions/node/v18.16.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"' >> ~/.bashrc && cat ~/.bashrc && source ~/.bashrc && npm run start-production'
     # runs-on: ubuntu-latest
     # env: 
     #   ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
