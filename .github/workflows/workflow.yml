@@ -42,8 +42,6 @@ jobs:
           --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} \
           --command='sudo chmod +rx /home/edmooliveira29_gmail_com/project-system/backend-system && \
           cd /home/edmooliveira29_gmail_com/project-system/backend-system && \
-          cat ~/.bashrc && \
-          source ~/.bashrc && \
           nvm -v && \
           npm run start-production'
           
