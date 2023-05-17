@@ -40,7 +40,7 @@ jobs:
         run: |-
           gcloud compute ssh ${{ secrets.NAME_INSTANCE_GOOGLE }} \
           --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} \
-          --command='chmod +rx /home/edmooliveira29_gmail_com/project-system/backend-system && \
+          --command='sudo chmod +rx /home/edmooliveira29_gmail_com/project-system/backend-system && \
           ls -ld /home/edmooliveira29_gmail_com/project-system/backend-system $$ \
           cd /home/edmooliveira29_gmail_com/project-system/backend-system && \
           ls -a && \
