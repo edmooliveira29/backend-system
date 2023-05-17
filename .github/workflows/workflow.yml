@@ -44,7 +44,7 @@ jobs:
           cd /home/edmooliveira29_gmail_com/project-system/backend-system && \
           who && \
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash && \
-          source ~./.bashrc
+          source ~/.bashrc
           nvm -v && \
           npm run start-production'
           
