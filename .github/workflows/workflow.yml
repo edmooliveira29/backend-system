@@ -39,7 +39,7 @@ jobs:
           instance_name: ${{secrets.NAME_INSTANCE_GOOGLE}}
           zone: '${{secrets.ZONE_INSTANCE_GOOGLE}}'
           ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
-          command: npm -v
+          script: sudo npm -v
           # command: cd /home/${{secrets.USER_INSTANCE_GOOGLE}}/ && ./run-deploy.sh
       - id: 'output'
         run: |
