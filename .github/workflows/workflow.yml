@@ -38,6 +38,7 @@ jobs:
 
       - name: Running command
         run: |-
+          gcloud compute os-login remove-profile
           gcloud compute ssh ${{ secrets.NAME_INSTANCE_GOOGLE }} \
           --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} \
           --command='/home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
