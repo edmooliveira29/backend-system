@@ -35,9 +35,8 @@ jobs:
 
       - name: Set project with default
         run: |- 
-          echo "${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}"> key.json
-          gcloud compute os-login ssh-keys remove --key=key.json
-                    gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
+          for i in $(gcloud compute os-login ssh-keys list | grep -v FINGERPRINT); do echo $i; gcloud compute os-login ssh-keys remove --key $i; done
+          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
 
       - name: Running command
         run: |-
