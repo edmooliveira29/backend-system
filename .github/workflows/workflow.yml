@@ -34,7 +34,10 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
 
       - name: Set project with default
-        run: gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
+        run: |- 
+          /home/runner/.ssh/
+          la -l
+          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
 
       - name: Running command
         run: |-
