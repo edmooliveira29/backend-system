@@ -40,7 +40,7 @@ jobs:
         run: |-
           gcloud compute ssh ${{ secrets.NAME_INSTANCE_GOOGLE }} \
           --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} \
-          --command='/bin/sh /home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
+          --command='/home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
           
     # runs-on: ubuntu-latest
     # env: 
