@@ -35,7 +35,6 @@ jobs:
 
       - name: Set project with default
         run: |- 
-          for i in $(gcloud compute os-login ssh-keys list | grep -v FINGERPRINT); do echo $i; gcloud compute os-login ssh-keys remove --key $i; done
           gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
 
       - name: Running command
@@ -44,6 +43,9 @@ jobs:
           --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} \
           --command='/home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
           
+      - name: Deleting user-profiles
+        run: |- 
+          for i in $(gcloud compute os-login ssh-keys list | grep -v FINGERPRINT); do echo $i; gcloud compute os-login ssh-keys remove --key $i; done
     # runs-on: ubuntu-latest
     # env: 
     #   ACCOUNT_KEY_JSON_GOOGLE: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
