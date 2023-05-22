@@ -20,7 +20,7 @@ jobs:
       #   with:
       #     path: './coverage'
   deploy:
-    # needs: test-unit
+    needs: test-unit
     runs-on: ubuntu-latest
 
     steps:
