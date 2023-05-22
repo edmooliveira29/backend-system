@@ -41,6 +41,7 @@ jobs:
         run: |-
           gcloud compute ssh ${{ secrets.NAME_INSTANCE_GOOGLE }} \
           --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} \
+          --ssh-key-file=/home/runner/.ssh/google_compute_engine \
           --command='/home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
           
       - name: Deleting user-profiles
