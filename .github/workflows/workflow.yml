@@ -24,10 +24,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Set up Node 18
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
 
-      - name: Configure gcloud
+      - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
