@@ -10,8 +10,11 @@ jobs:
   #       uses: supercharge/mongodb-github-action@1.2.0
   #       with:
   #         mongodb-version: 4.2
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
+       - name: Checkout
+         uses: actions/checkout@v3
+         run: |- 
+           echo "test"
+
   #     - run: npm install
   #     - run: echo "MONGO_URL=${{vars.MONGO_URL}}" >> .env
   #     - run: npm run test:unit
@@ -25,12 +28,12 @@ jobs:
 
     steps:
       - name: Set up Node 18
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
 
       - name: Set up gcloud
-        uses: google-github-actions/setup-gcloud@v0.2.0
+        uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
           project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
