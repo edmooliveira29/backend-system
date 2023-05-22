@@ -24,11 +24,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Node 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
       - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v0
         with:
@@ -43,7 +38,6 @@ jobs:
         run: |-
           gcloud compute ssh ${{ secrets.NAME_INSTANCE_GOOGLE }} \
           --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} \
-          --ssh-key-file=/home/runner/.ssh/google_compute_engine \
           --command='/home/${{secrets.USER_INSTANCE_GOOGLE}}/run-deploy.sh'
           
       - name: Deleting user-profiles
