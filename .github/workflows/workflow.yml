@@ -13,7 +13,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - run: |- 
-        npm install --package-lock-only
+        la -l
+        rm -rf node_modules
+        rm -f package-lock.json
         npm cache clean --force
         npm install
         echo "MONGO_URL=${{vars.MONGO_URL}}" >> .env
