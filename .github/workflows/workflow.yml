@@ -13,8 +13,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - run: |- 
-        npm cache clean --force
         npm install -g npm@latest
+        npm cache clean --force
         npm install
         echo "MONGO_URL=${{vars.MONGO_URL}}" >> .env
         npm run test:unit
