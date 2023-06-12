@@ -2,9 +2,8 @@ import { MongoClient, type Collection } from 'mongodb'
 
 export const MongoConnection = {
   client: null as unknown as MongoClient,
-  db: null as unknown as any,
 
-  async connect (uri: string): Promise<void> {
+  async connect(uri: string): Promise<void> {
     const username = process.env.MONGO_URL_USERNAME
     const password = process.env.MONGO_URL_PASSWORD
     const options: any = {
@@ -14,8 +13,7 @@ export const MongoConnection = {
       },
       authMechanism: 'SCRAM-SHA-256'
     }
-    console.log(options)
-    this.client = await new MongoClient(uri, options).connect()
+    this.client = await MongoClient.connect(uri, options)
   },
   async disconnect (): Promise<void> {
     await this.client.close()
