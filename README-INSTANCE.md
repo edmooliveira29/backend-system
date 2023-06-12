@@ -166,3 +166,27 @@ To install Certbot on your server, you can follow these steps:
    ```
 
    With these steps, you should have a new SSL certificate configured on your server and Nginx should be configured to use it correctly.
+
+   ### **Create User with password to mongodb**
+   1. Run the following command
+
+   ```
+   mongosh
+   ```
+
+   2. Switch to system-database with the follow command
+
+   ```
+   use system-database
+   ```
+
+   3. Create a new user with the password and username that be in file .env
+
+   ```
+   db.createUser({
+     user: "system-user-database",
+     pwd: "M@nag3r$%Syst3m",
+     roles: [{ role: "dbOwner", db: "system-batabase" }]
+   })
+```
+

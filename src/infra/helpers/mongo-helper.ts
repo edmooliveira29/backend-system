@@ -3,7 +3,7 @@ import { MongoClient, type Collection } from 'mongodb'
 export const MongoConnection = {
   client: null as unknown as MongoClient,
 
-  async connect(uri: string): Promise<void> {
+  async connect (uri: string): Promise<void> {
     const username = process.env.MONGO_URL_USERNAME
     const password = process.env.MONGO_URL_PASSWORD
     const options: any = {
