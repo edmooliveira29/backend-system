@@ -14,7 +14,7 @@ export const MongoConnection = {
       },
       authMechanism: 'SCRAM-SHA-256'
     }
-
+    console.log(options)
     this.client = await new MongoClient(uri, options).connect()
   },
   async disconnect (): Promise<void> {
