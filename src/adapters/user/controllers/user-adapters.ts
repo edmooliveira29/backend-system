@@ -17,7 +17,6 @@ export class UserController {
         name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
-        token: userHttpRequest.body.token,
         sessionToken: userHttpRequest.body.sessionToken,
         createdAt: new Date().toLocaleString()
       }
@@ -38,7 +37,6 @@ export class UserController {
           id: userData.id,
           name: userData.name,
           email: userData.email,
-          token: userData.token,
           sessionToken: userData.sessionToken,
           createdAt: new Date().toLocaleString()
         }
@@ -57,7 +55,6 @@ export class UserController {
         name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
-        token: userHttpRequest.body.token,
         sessionToken: userHttpRequest.body.sessionToken,
         createdAt: userHttpRequest.body.createdAt
       }
