@@ -12,7 +12,7 @@ describe('User Use Case', () => {
       name: 'username',
       password: 'Password*1',
       email: 'invalidemail@exemplo.com',
-      sessionId: new Date('01-01-01'),
+      sessionToken: new Date('01-01-01'),
       token: 'token',
       createdAt: new Date('01-01-01').toISOString()
     }

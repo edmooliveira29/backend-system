@@ -25,7 +25,7 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      sessionId: new Date('01-01-01'),
+      sessionToken: new Date('01-01-01'),
       createdAt: new Date('01-01-01').toLocaleString()
     })
     expect(userAdded).toBeTruthy()
@@ -39,7 +39,7 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      sessionId: new Date('01-01-01'),
+      sessionToken: new Date('01-01-01'),
       createdAt: new Date('01-01-01').toLocaleString()
     }
     await sut.create(userMock)
@@ -54,7 +54,7 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'password',
       token: 'anyToken',
-      sessionId: new Date('01-01-01'),
+      sessionToken: new Date('01-01-01'),
       createdAt: new Date('01-01-01').toLocaleString()
     }
     await sut.create(userMock)
@@ -70,7 +70,7 @@ describe('Mongodb User repository', () => {
       email: 'email@email.com',
       password: 'Password1*',
       token: 'anyToken',
-      sessionId: new Date('01-01-01'),
+      sessionToken: new Date('01-01-01'),
       createdAt: new Date('01-01-01')
     }
     jest.spyOn(sut, 'findUserByEmail').mockResolvedValue(userMock)

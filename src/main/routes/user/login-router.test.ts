@@ -25,7 +25,7 @@ describe('Login Routes', () => {
         email: 'email@gmail.com',
         password: 'Password1*',
         token: 'anyToken',
-        sessionId: new Date()
+        sessionToken: new Date()
       })
     await request(app)
       .post('/v1/login')
@@ -54,7 +54,7 @@ describe('Login Routes', () => {
   //       email: 'email-test@gmail.com',
   //       password: 'anyPassword*1',
   //       token: 'anyToken',
-  //       sessionId: new Date()
+  //       sessionToken: new Date()
   //     })
   //   expect(user.statusCode).toBe(400)
   //   expect(JSON.parse(user.text)).toStrictEqual('Invalid param: Nome não é valido.')
@@ -67,7 +67,7 @@ describe('Login Routes', () => {
   //       name: 'a',
   //       email: 'email-test@gmail.com',
   //       token: 'anyToken',
-  //       sessionId: new Date()
+  //       sessionToken: new Date()
   //     })
   //   expect(user.statusCode).toBe(400)
   //   expect(JSON.parse(user.text)).toStrictEqual('Missing param: password.')

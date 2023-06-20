@@ -20,7 +20,7 @@ describe('User Adapter', () => {
         email: 'email@email.com',
         password: 'password',
         token: 'anyToken',
-        sessionId: new Date('01-01-01'),
+        sessionToken: new Date('01-01-01'),
         createdAt: new Date().toLocaleString()
       }
     }
@@ -42,7 +42,7 @@ describe('User Adapter', () => {
           name: 'anyName',
           email: 'email@email.com',
           token: 'anyToken',
-          sessionId: new Date('01-01-01'),
+          sessionToken: new Date('01-01-01'),
           createdAt: new Date().toLocaleString()
         },
         message: 'Usuário criado com sucesso'
