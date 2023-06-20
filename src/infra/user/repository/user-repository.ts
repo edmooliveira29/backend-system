@@ -7,8 +7,7 @@ export class UserRepository implements IUserDataAccess {
     email: string
     name: string
     password: string
-    token: string
-    sessionToken: Date
+    sessionToken: string
     createdAt: string
   }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')

@@ -5,8 +5,7 @@ export interface IUserCreateUseCase {
     email: string
     name: string
     password: string
-    token: string
-    sessionToken: Date
+    sessionToken: string
     createdAt: string
   }) => Promise<string>
 
