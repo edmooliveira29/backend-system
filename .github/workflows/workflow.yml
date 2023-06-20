@@ -18,6 +18,8 @@ jobs:
         echo "MONGO_URL=${{secrets.MONGO_URL}}" >> .env
     - name: Create MongoDB user
       run: |- 
+        apt-get update
+        apt-get install -y mongodb-shell
         mongosh --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd: "${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })' system-database
     - name: Running unit tests
       run: npm run test:unit
