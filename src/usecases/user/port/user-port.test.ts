@@ -10,7 +10,6 @@ describe('User Port Interface', () => {
       email: 'user@email.com',
       name: 'user',
       password: 'password',
-      token: 'anyToken',
       sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString()
 

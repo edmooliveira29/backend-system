@@ -23,7 +23,6 @@ describe('Register Routes', () => {
         name: 'Name Test',
         email: 'email-test@gmail.com',
         password: 'anyPassword1*',
-        token: 'anyToken',
         sessionToken: new Date()
       })
       .expect(200)
@@ -36,7 +35,6 @@ describe('Register Routes', () => {
         name: 'Name Test',
         email: 'email-testgmail.com',
         password: 'anyPassword*1',
-        token: 'anyToken',
         sessionToken: new Date()
       })
     expect(user.statusCode).toBe(400)
@@ -50,7 +48,6 @@ describe('Register Routes', () => {
         name: 'a',
         email: 'email-test@gmail.com',
         password: 'anyPassword*1',
-        token: 'anyToken',
         sessionToken: new Date()
       })
     expect(user.statusCode).toBe(400)
@@ -63,7 +60,6 @@ describe('Register Routes', () => {
       .send({
         name: 'a',
         email: 'email-test@gmail.com',
-        token: 'anyToken',
         sessionToken: new Date()
       })
     expect(user.statusCode).toBe(400)

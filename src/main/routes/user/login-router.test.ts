@@ -24,7 +24,6 @@ describe('Login Routes', () => {
         name: 'Name Test',
         email: 'email@gmail.com',
         password: 'Password1*',
-        token: 'anyToken',
         sessionToken: new Date()
       })
     await request(app)
@@ -53,7 +52,6 @@ describe('Login Routes', () => {
   //       name: 'a',
   //       email: 'email-test@gmail.com',
   //       password: 'anyPassword*1',
-  //       token: 'anyToken',
   //       sessionToken: new Date()
   //     })
   //   expect(user.statusCode).toBe(400)
@@ -66,7 +64,6 @@ describe('Login Routes', () => {
   //     .send({
   //       name: 'a',
   //       email: 'email-test@gmail.com',
-  //       token: 'anyToken',
   //       sessionToken: new Date()
   //     })
   //   expect(user.statusCode).toBe(400)

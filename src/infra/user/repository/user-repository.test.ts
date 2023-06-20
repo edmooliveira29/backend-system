@@ -24,7 +24,6 @@ describe('Mongodb User repository', () => {
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
-      token: 'anyToken',
       sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString()
     })
@@ -38,7 +37,6 @@ describe('Mongodb User repository', () => {
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
-      token: 'anyToken',
       sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString()
     }
@@ -53,7 +51,6 @@ describe('Mongodb User repository', () => {
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
-      token: 'anyToken',
       sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString()
     }
@@ -69,7 +66,6 @@ describe('Mongodb User repository', () => {
       name: 'anyName',
       email: 'email@email.com',
       password: 'Password1*',
-      token: 'anyToken',
       sessionToken: 'stringToken',
       createdAt: new Date('01-01-01')
     }

@@ -19,7 +19,6 @@ describe('User Adapter', () => {
         name: 'anyName',
         email: 'email@email.com',
         password: 'password',
-        token: 'anyToken',
         sessionToken: 'stringToken',
         createdAt: new Date().toLocaleString()
       }
@@ -41,7 +40,6 @@ describe('User Adapter', () => {
           id: 'anyId',
           name: 'anyName',
           email: 'email@email.com',
-          token: 'anyToken',
           sessionToken: 'stringToken',
           createdAt: new Date().toLocaleString()
         },
