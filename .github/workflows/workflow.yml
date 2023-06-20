@@ -2,6 +2,7 @@ name: api-backend
 on:
   push:
     branches: [ main ]
+
 jobs:
   test-unit:
     runs-on: ubuntu-latest
@@ -15,10 +16,11 @@ jobs:
     - run: |- 
         npm install
         echo "MONGO_URL=${{secrets.MONGO_URL}}" >> .env
+    - name: Create MongoDB user
+      run: |- 
+        mongo --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd: "${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })' system-database
     - name: Running unit tests
-      run: |-
-        mongo system-database --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd:"${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })'
-        npm run test:unit
+      run: npm run test:unit
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
