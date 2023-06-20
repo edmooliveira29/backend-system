@@ -8,7 +8,7 @@ describe('User Entity', () => {
       name: 'user',
       password: 'password',
       token: 'anyToken',
-      sessionToken: new Date('01-01-01'),
+      sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString()
     }
 

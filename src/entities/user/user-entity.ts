@@ -4,13 +4,13 @@ interface UserData {
   name: string
   password: string
   token: string
-  sessionToken: Date
+  sessionToken: string
   createdAt: string
 }
 
 export class UserEntity {
   email: string
-  sessionToken: Date
+  sessionToken: string
   id: any
   name: string
   password: string
