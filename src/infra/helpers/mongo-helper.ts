@@ -10,8 +10,7 @@ export const MongoConnection = {
       auth: {
         username,
         password
-      },
-      authMechanism: 'SCRAM-SHA-256'
+      }
     }
     this.client = await MongoClient.connect(uri, options)
   },

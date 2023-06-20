@@ -16,11 +16,14 @@ jobs:
         npm install
         echo "MONGO_URL=${{secrets.MONGO_URL}}" >> .env
     - name: Running unit tests
-      run: npm run test:unit
+      run: |-
+        mongo system-database --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd:"${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })'
+        npm run test:unit
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
         path: './coverage'
+
   deploy:
     needs: test-unit
     runs-on: ubuntu-latest
