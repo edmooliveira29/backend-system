@@ -30,7 +30,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        test-command: "${{ secrets.GITHUB_TOKEN }} && echo '============' && npm run test:unit"
+        test-command: "echo '${{ secrets.GITHUB_TOKEN }}' && echo '============' && npm run test:unit"
 
   deploy:
     needs: test-unit
