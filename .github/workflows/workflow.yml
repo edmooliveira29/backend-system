@@ -19,8 +19,8 @@ jobs:
     - name: Create MongoDB user
       run: |- 
         wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-        apt-get update
-        apt-get install -y mongodb-org
+        sudo apt-get update
+        sudo apt-get install -y mongodb-org
         mongosh --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd: "${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })' system-database
     - name: Running unit tests
       run: npm run test:unit
