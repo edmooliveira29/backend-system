@@ -7,16 +7,12 @@ jobs:
   test-unit:
     runs-on: ubuntu-latest
     steps:
-    - name: Start MongoDB v4.2
-      uses: supercharge/mongodb-github-action@1.2.0
-      with:
-        mongodb-version: 4.2
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v3
     - run: |- 
         npm install
         echo "MONGO_URL=${{secrets.MONGO_URL}}" >> .env
-    - name: Create MongoDB user
+    - name: Install MongoDB and create Mongo User
       run: |- 
         sudo apt-get update
         sudo apt-get install gnupg
@@ -27,10 +23,8 @@ jobs:
         mongosh --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd: "${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })' system-database
     - name: Running unit tests
       run: npm run test:unit
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
-      with:
-        path: './coverage'
+    - name: Coverage Tests
+      uses: MishaKav/jest-coverage-comment@main
 
   deploy:
     needs: test-unit

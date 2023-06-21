@@ -2,8 +2,8 @@
   "name": "api-backend",
   "version": "1.0.0",
   "scripts": {
-    "test:unit": "jest --coverage ",
-    "test:unit:dev": "jest --watchAll",
+    "test:unit": "jest --coverage --coverageReporters json-summary",
+    "test:unit:dev": "jest --watchAll --coverage",
     "lint": "eslint . --fix",
     "prepare": "husky install",
     "build": "rimraf build && tsc",
