@@ -25,12 +25,20 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y mongodb-org
         mongosh --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd: "${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })' system-database
-    - name: Running tests
-      uses: willcaul/jest-github-action@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+    - name: Running unit tests
+      run: npm run test:unit
+    - name: Coverage Tests
+      uses: MishaKav/jest-coverage-comment@main
       with:
-        test-command: "npm run test:unit"
+        coverage-summary-path: ./coverage/coverage-summary.json
+        title: Coverage Tests
+        summary-title: General
+        badge-title: Coverage
+        hide-comment: false
+        create-new-comment: false
+        hide-summary: false
+        junitxml-title: Tests
+        junitxml-path: ./coverage/clover.xml
 
   deploy:
     needs: test-unit
