@@ -33,13 +33,14 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Coverage Tests
+      id: coverageComment
       uses: MishaKav/jest-coverage-comment@main
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         coverage-summary-path: ./coverage/coverage-summary.json
         coverage-title: My Coverage Title
         coverage-path: ./coverage/coverage.txt
-        
+
     - name: Create the badge about tests
       if: github.ref == 'refs/heads/main'
       uses: schneegans/dynamic-badges-action@v1.6.0
