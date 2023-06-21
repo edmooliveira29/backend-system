@@ -5,5 +5,5 @@ module.exports = {
   verbose: true,
   collectCoverage: true,
   coverageDirectory: '../coverage',
-  coverageReporters: ['json-summary', 'text']
+  coverageReporters: ['json-summary', 'text', 'lcov']
 }

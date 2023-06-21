@@ -1,0 +1,39 @@
+---------------------------|---------|----------|---------|---------|-------------------
+File                       | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+---------------------------|---------|----------|---------|---------|-------------------
+All files                  |    99.5 |    97.43 |     100 |   99.47 |                   
+ adapters/helpers          |     100 |      100 |     100 |     100 |                   
+  http-helper.ts           |     100 |      100 |     100 |     100 |                   
+ adapters/user/controllers |     100 |      100 |     100 |     100 |                   
+  user-adapters.ts         |     100 |      100 |     100 |     100 |                   
+ adapters/user/errors      |     100 |      100 |     100 |     100 |                   
+  index.ts                 |     100 |      100 |     100 |     100 |                   
+  invalid-param-error.ts   |     100 |      100 |     100 |     100 |                   
+  missing-param-error.ts   |     100 |      100 |     100 |     100 |                   
+  not-found.ts             |     100 |      100 |     100 |     100 |                   
+  server-error.ts          |     100 |      100 |     100 |     100 |                   
+ entities/user             |     100 |      100 |     100 |     100 |                   
+  user-entity.ts           |     100 |      100 |     100 |     100 |                   
+ infra/helpers             |     100 |      100 |     100 |     100 |                   
+  mongo-helper.ts          |     100 |      100 |     100 |     100 |                   
+ infra/user/repository     |     100 |      100 |     100 |     100 |                   
+  user-repository.ts       |     100 |      100 |     100 |     100 |                   
+ main/adapter/user         |     100 |      100 |     100 |     100 |                   
+  express-route-adapter.ts |     100 |      100 |     100 |     100 |                   
+ main/config               |     100 |      100 |     100 |     100 |                   
+  app.ts                   |     100 |      100 |     100 |     100 |                   
+  routes.ts                |     100 |      100 |     100 |     100 |                   
+ main/config/middleware    |   96.66 |        0 |     100 |   96.29 |                   
+  body-parser.ts           |     100 |      100 |     100 |     100 |                   
+  content-type.ts          |     100 |      100 |     100 |     100 |                   
+  cors.ts                  |   93.33 |        0 |     100 |    92.3 | 14                
+  middleware.ts            |     100 |      100 |     100 |     100 |                   
+ main/factories/user       |     100 |      100 |     100 |     100 |                   
+  user-create.ts           |     100 |      100 |     100 |     100 |                   
+ main/routes/user          |     100 |      100 |     100 |     100 |                   
+  user-router.ts           |     100 |      100 |     100 |     100 |                   
+ usecases/user             |     100 |      100 |     100 |     100 |                   
+  user-usecase.ts          |     100 |      100 |     100 |     100 |                   
+ usecases/validation       |     100 |      100 |     100 |     100 |                   
+  validation-user.ts       |     100 |      100 |     100 |     100 |                   
+---------------------------|---------|----------|---------|---------|-------------------
