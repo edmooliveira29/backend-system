@@ -27,20 +27,11 @@ jobs:
         mongosh --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd: "${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })' system-database
     - name: Running unit tests
       run: npm run test:unit
-    - name: Coverage Tests
-      uses: MishaKav/jest-coverage-comment@main
+    - name: Comment with Test Coverage
+      uses: dkershner6/jest-coverage-commenter-action@v1
       with:
-        coverage-summary-path: ./coverage/coverage-summary.json
-        title: Coverage Tests
-        summary-title: General
-        badge-title: Coverage
-        hide-comment: false
-        create-new-comment: false
-        hide-summary: false
-        junitxml-title: Tests
-        junitxml-path: ./coverage/junit.xml
-        coverage-title: Tests files
-        coverage-path: ./coverage.txt
+        github_token: "${{ secrets.TOKEN_GITHUB }}"
+        test_command: "npm run test:coverage"
 
   deploy:
     needs: test-unit
