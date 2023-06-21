@@ -29,6 +29,18 @@ jobs:
       run: npm run test:unit
     - name: Coverage Tests
       uses: MishaKav/jest-coverage-comment@main
+      with:
+        coverage-summary-path: ./coverage/coverage-summary.json
+        title: Coverage Tests
+        summary-title: General
+        badge-title: Coverage
+        hide-comment: false
+        create-new-comment: false
+        hide-summary: false
+        junitxml-title: Tests
+        junitxml-path: ./coverage/junit.xml
+        coverage-title: Tests files
+        coverage-path: ./coverage.txt
 
   deploy:
     needs: test-unit
