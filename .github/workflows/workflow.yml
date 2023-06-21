@@ -35,10 +35,21 @@ jobs:
     - name: Coverage Tests
       uses: MishaKav/jest-coverage-comment@main
       with:
-        github-token: ${{github.token}}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         coverage-summary-path: ./coverage/coverage-summary.json
         coverage-title: My Coverage Title
         coverage-path: ./coverage/coverage.txt
+    - name: Create the badge
+      if: github.ref == 'refs/heads/main'
+      uses: schneegans/dynamic-badges-action@v1.6.0
+      with:
+        auth: ${{ secrets.GIST_TOKEN }}
+        gistID: ${{secrets.GIST_ID}}
+        filename: jest-coverage-comment__main.json
+        label: coverage
+        message: ${{ steps.coverageComment.outputs.coverage }}%
+        color: ${{ steps.coverageComment.outputs.color }}
+        namedLogo: typescript
 
   deploy:
     needs: test-unit
