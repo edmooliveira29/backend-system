@@ -28,7 +28,7 @@ jobs:
     - name: Running tests
       uses: dkershner6/jest-coverage-commenter-action@v1
       with:
-        github_token: "${{ github.token }}"
+        github_token: "${{ secrets.GITHUBTOKEN }}"
         test_command: "npm run test:unit"
 
   deploy:
