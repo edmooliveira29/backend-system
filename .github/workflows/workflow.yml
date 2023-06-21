@@ -26,10 +26,11 @@ jobs:
         sudo apt-get install -y mongodb-org
         mongosh --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd: "${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })' system-database
     - name: Running tests
-      uses: dkershner6/jest-coverage-commenter-action@v1
+      uses: willcaul/jest-github-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        github_token: "${{ secrets.GITHUBTOKEN }}"
-        test_command: "npm run test:unit"
+        test-command: "${{ secrets.GITHUB_TOKEN }} && echo '============' && npm run test:unit"
 
   deploy:
     needs: test-unit
