@@ -28,6 +28,7 @@ jobs:
     - name: Running unit tests
       run: |- 
         npm run test:unit
+        cd coverage 
         ls -la
     - name: Coverage Tests
       uses: MishaKav/jest-coverage-comment@main
