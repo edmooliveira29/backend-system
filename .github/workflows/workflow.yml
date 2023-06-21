@@ -37,6 +37,8 @@ jobs:
       with:
         github-token: ${{github.token}}
         coverage-summary-path: ./coverage/coverage-summary.json
+        coverage-title: My Coverage Title
+        coverage-path: ./coverage/coverage.txt
 
   deploy:
     needs: test-unit

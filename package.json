@@ -2,7 +2,7 @@
   "name": "api-backend",
   "version": "1.0.0",
   "scripts": {
-    "test:unit": "jest --coverage",
+    "test:unit": "jest --coverage | tee ./coverage/coverage.txt",
     "test:unit:dev": "jest --watchAll --coverage",
     "lint": "eslint . --fix",
     "prepare": "husky install",
