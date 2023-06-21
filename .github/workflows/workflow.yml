@@ -26,12 +26,14 @@ jobs:
         sudo apt-get install -y mongodb-org
         mongosh --eval 'db.createUser({ user: "${{secrets.MONGO_URL_USERNAME}}", pwd: "${{secrets.MONGO_URL_PASSWORD}}", roles: [{ role: "dbOwner", db: "system-database" }] })' system-database
     - name: Running unit tests
-      run: npm run test:unit
+      run: |- 
+        npm run test:unit
+        ls -la
     - name: Coverage Tests
       uses: MishaKav/jest-coverage-comment@main
       with:
         github-token: ${{github.token}}
-        coverage-summary-path: coverage/coverage-summary.json
+        coverage-summary-path: ./coverage/coverage-summary.json
 
   deploy:
     needs: test-unit
