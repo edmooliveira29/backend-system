@@ -15,6 +15,7 @@ export const MongoConnection = {
         }
       }
     }
+    console.log(uri, options)
     this.client = await MongoClient.connect(uri, options)
   },
   async disconnect (): Promise<void> {
