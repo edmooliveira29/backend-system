@@ -28,21 +28,10 @@ export class UserController {
       }
 
       const createUserResponse = await this.userUseCase.create(userData)
-      if (createUserResponse !== 'Usuário criado com sucesso') {
-        return badRequest(new InvalidParamError(createUserResponse))
+      if (createUserResponse.message !== 'Usuário criado com sucesso') {
+        return badRequest(new InvalidParamError(createUserResponse.message))
       }
-      const dataRespose = {
-        message: 'Usuário criado com sucesso',
-        data: {
-          id: userData.id,
-          name: userData.name,
-          email: userData.email,
-          sessionToken: userData.sessionToken,
-          createdAt: new Date().toLocaleString()
-        }
-
-      }
-      return ok(dataRespose)
+      return ok(createUserResponse)
     } catch (error: any) {
       return internalError(new ServerError(error.message))
     }
@@ -51,12 +40,8 @@ export class UserController {
   async login (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
     try {
       const userData = {
-        id: userHttpRequest.body.id,
-        name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
-        password: userHttpRequest.body.password,
-        sessionToken: userHttpRequest.body.sessionToken,
-        createdAt: userHttpRequest.body.createdAt
+        password: userHttpRequest.body.password
       }
       const userReponseUseCase = await this.userUseCase.login(userData)
 

@@ -12,17 +12,30 @@ export class UserUseCase implements IUserDataAccess {
     this.validation = new ValidationUser()
   }
 
-  async create (user: UserEntity): Promise<string> {
+  async create (user: UserEntity): Promise<any> {
     const validationPassword: any = this.validation.passwordIsValid(user.password)
     if (!validationPassword.isValid) {
       return validationPassword.message
     } else if (!this.validation.emailIsValid(user.email)) {
-      return 'E-mail não é valido'
+      return {
+        message: 'E-mail não é valido'
+      }
     } else if (!this.validation.nameIsValid(user.name)) {
-      return 'Nome não é valido'
+      return {
+        message: 'Nome não é valido'
+      }
     } else {
-      await this.port.create(user)
-      return 'Usuário criado com sucesso'
+      const userResponse = (await this.port.create(user)).data
+      return {
+        message: 'Usuário criado com sucesso',
+        data: {
+          id: userResponse._id,
+          name: userResponse.name,
+          email: userResponse.email,
+          sessionToken: createSessionToken(userResponse),
+          createdAt: new Date().toLocaleString()
+        }
+      }
     }
   }
 
@@ -33,8 +46,16 @@ export class UserUseCase implements IUserDataAccess {
     }
     const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
     if (validationPassword.passwordValid) {
-      userRepository.data.sessionToken = createSessionToken(userRepository.data)
-      return { message: 'Usuário autenticado com sucesso', data: userRepository.data }
+      return {
+        message: 'Usuário autenticado com sucesso',
+        data: {
+          id: userRepository.data._id,
+          name: userRepository.data.name,
+          email: userRepository.data.email,
+          sessionToken: createSessionToken(userRepository.data),
+          createdAt: new Date().toLocaleString()
+        }
+      }
     } else {
       return validationPassword
     }
