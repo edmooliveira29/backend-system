@@ -2,6 +2,7 @@ import { type UserEntity } from '../../entities/user/user-entity'
 import { ValidationUser } from '../validation/validation-user'
 import { type IUserCreateUseCase } from './port/user-port'
 import { type IUserDataAccess } from '../../usecases/user/port/user-data-access'
+import { createSessionToken } from '../validation/session-token'
 
 export class UserUseCase implements IUserDataAccess {
   public readonly port: IUserCreateUseCase
@@ -32,6 +33,7 @@ export class UserUseCase implements IUserDataAccess {
     }
     const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
     if (validationPassword.passwordValid) {
+      userRepository.data.sessionToken = createSessionToken(userRepository.data)
       return { message: 'Usuário autenticado com sucesso', data: userRepository.data }
     } else {
       return validationPassword
