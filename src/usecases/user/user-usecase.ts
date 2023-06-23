@@ -39,11 +39,12 @@ export class UserUseCase implements IUserDataAccess {
     }
   }
 
-  async login (user: { email: string, password: string }): Promise<any> {
+  async login (user: { email: string, password: string, remember: boolean }): Promise<any> {
     const userRepository = await this.port.login(user)
     if (!userRepository.data) {
       return { message: 'Usuário não encontrado' }
     }
+
     const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
     if (validationPassword.passwordValid) {
       return {
@@ -52,7 +53,7 @@ export class UserUseCase implements IUserDataAccess {
           id: userRepository.data._id,
           name: userRepository.data.name,
           email: userRepository.data.email,
-          sessionToken: createSessionToken(userRepository.data),
+          sessionToken: user.remember ? createSessionToken(userRepository.data) : false,
           createdAt: new Date().toLocaleString()
         }
       }

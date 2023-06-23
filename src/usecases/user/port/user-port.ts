@@ -9,5 +9,5 @@ export interface IUserCreateUseCase {
     createdAt: string
   }) => Promise<any>
 
-  login: (user: { email: string, password: string }) => Promise<any>
+  login: (user: { email: string, password: string, remember: boolean }) => Promise<any>
 }

@@ -41,7 +41,8 @@ export class UserController {
     try {
       const userData = {
         email: userHttpRequest.body.email,
-        password: userHttpRequest.body.password
+        password: userHttpRequest.body.password,
+        remember: userHttpRequest.body.remember
       }
       const userReponseUseCase = await this.userUseCase.login(userData)
 
