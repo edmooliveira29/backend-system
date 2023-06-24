@@ -32,7 +32,7 @@ export class UserUseCase implements IUserDataAccess {
           id: userResponse._id,
           name: userResponse.name,
           email: userResponse.email,
-          sessionToken: createSessionToken(userResponse),
+          sessionToken: createSessionToken(userResponse, true),
           createdAt: new Date().toLocaleString()
         }
       }
@@ -53,7 +53,7 @@ export class UserUseCase implements IUserDataAccess {
           id: userRepository.data._id,
           name: userRepository.data.name,
           email: userRepository.data.email,
-          sessionToken: user.remember ? createSessionToken(userRepository.data) : false,
+          sessionToken: createSessionToken(userRepository.data, user.remember),
           createdAt: new Date().toLocaleString()
         }
       }

@@ -6,8 +6,15 @@ interface User {
   email: string
 }
 
-export const createSessionToken = (user: User): string => {
-  const expirationTime = Math.floor(Date.now() / 1000) + 604800 // 7 dias em segundos
+export const createSessionToken = (user: User, remember: boolean): string => {
+  const now = new Date()
+  let expirationTime
+  const daysExpiration = 7
+  if (remember) {
+    expirationTime = Math.floor(Date.now() / 1000) + daysExpiration * 24 * 60 * 60
+  } else {
+    expirationTime = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 0, 0).getTime() / 1000)
+  }
   const token = jwt.sign(
     {
       name: user.name,
