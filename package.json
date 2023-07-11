@@ -2,7 +2,7 @@
   "name": "api-backend",
   "version": "1.0.0",
   "scripts": {
-    "test:unit": "mkdir -p ./coverage && touch ./coverage/coverage.txt && jest --coverage > ./coverage/coverage.txt && exit $?",
+    "test:unit": "jest --coverage",
     "test:unit:dev": "jest --watchAll --coverage",
     "lint": "eslint . --fix",
     "prepare": "husky install",

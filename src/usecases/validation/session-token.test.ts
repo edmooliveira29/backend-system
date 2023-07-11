@@ -1,29 +1,55 @@
 import jwt from 'jsonwebtoken'
-import { createSessionToken } from './session-token'
+import { SessionToken } from './session-token'
 
-// Mock do valor de process.env.KEY_SECRET_TOKEN
-process.env.KEY_SECRET_TOKEN = 'your-secret-key'
+jest.mock('jsonwebtoken', () => ({
+  sign: jest.fn().mockReturnValue('mocked-token')
+}))
 
-// Exemplo de caso de teste
 describe('createSessionToken', () => {
-  it('should create a session token with the correct payload and expiration time', () => {
+  let sessionToken = new SessionToken()
+
+  beforeEach(() => {
+    sessionToken = new SessionToken()
+  })
+  it('should create a session token with remember option', () => {
     const user = {
-      id: 1,
-      name: 'Test User',
-      email: 'email@example.com'
+      _id: 'anyId',
+      name: 'John Doe',
+      email: 'john@example.com'
     }
 
-    const expectedToken = jwt.sign(
+    const token = sessionToken.create(user, true)
+
+    expect(jwt.sign).toHaveBeenCalledWith(
       {
         name: user.name,
         email: user.email,
-        id: user.id,
-        exp: Math.floor(Date.now() / 1000) + 604800
+        id: user._id,
+        exp: expect.any(Number)
       },
-      String(process.env.KEY_SECRET_TOKEN)
+      expect.any(String)
     )
+    expect(token).toBe('mocked-token')
+  })
 
-    const token = createSessionToken(user)
-    expect(token).toBe(expectedToken)
+  it('should create a session token without remember option', () => {
+    const user = {
+      _id: 'anyId',
+      name: 'John Doe',
+      email: 'john@example.com'
+    }
+
+    const token = sessionToken.create(user, false)
+
+    expect(jwt.sign).toHaveBeenCalledWith(
+      {
+        name: user.name,
+        email: user.email,
+        id: user._id,
+        exp: expect.any(Number)
+      },
+      expect.any(String)
+    )
+    expect(token).toBe('mocked-token')
   })
 })

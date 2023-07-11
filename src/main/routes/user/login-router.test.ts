@@ -17,14 +17,13 @@ describe('Login Routes', () => {
     await MongoConnection.clearCollection('users')
   })
 
-  test.only('Should return 200 if user was authenticated with succesfuly ', async () => {
+  test('Should return 200 if user was authenticated with succesfuly ', async () => {
     await request(app)
       .post('/v1/user')
       .send({
         name: 'Name Test',
         email: 'email@gmail.com',
-        password: 'Password1*',
-        sessionToken: new Date()
+        password: 'Password1*'
       })
     await request(app)
       .post('/v1/login')
@@ -32,41 +31,39 @@ describe('Login Routes', () => {
         email: 'email@gmail.com',
         password: 'Password1*'
       }).expect(200)
-  }, 20000)
+  })
 
-  // test('Should return error 204 with Usuário não encontrado', async () => {
-  //   const user = await request(app)
-  //     .post('/v1/login')
-  //     .send({
-  //       email: 'emailinvalid@gmail.com',
-  //       password: 'anyPassword*1'
-  //     })
-  //   expect(user.statusCode).toBe(204)
-  //   expect(JSON.parse(user.text)).toStrictEqual('Not Found: Usuário não encontrado.')
-  // }, 20000)
+  test('Should return error 404 with Usuário não encontrado', async () => {
+    const user = await request(app)
+      .post('/v1/login')
+      .send({
+        email: 'email@gmail.com',
+        password: 'Password1*'
+      })
+    expect(user.statusCode).toBe(404)
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Not Found: Usuário não encontrado.' })
+  })
 
-  // test('Should return error 400 with name is invalid', async () => {
-  //   const user = await request(app)
-  //     .post('/v1/user')
-  //     .send({
-  //       name: 'a',
-  //       email: 'email-test@gmail.com',
-  //       password: 'anyPassword*1',
-  //       sessionToken: new Date()
-  //     })
-  //   expect(user.statusCode).toBe(400)
-  //   expect(JSON.parse(user.text)).toStrictEqual('Invalid param: Nome não é valido.')
-  // }, 20000)
+  test('Should return error 400 with name is invalid', async () => {
+    const user = await request(app)
+      .post('/v1/user')
+      .send({
+        name: 'a',
+        email: 'email-test@gmail.com',
+        password: 'anyPassword*1'
+      })
+    expect(user.statusCode).toBe(400)
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Invalid param: Nome não é valido.' })
+  })
 
-  // test('Should return error 400 if password is not provided', async () => {
-  //   const user = await request(app)
-  //     .post('/v1/user')
-  //     .send({
-  //       name: 'a',
-  //       email: 'email-test@gmail.com',
-  //       sessionToken: new Date()
-  //     })
-  //   expect(user.statusCode).toBe(400)
-  //   expect(JSON.parse(user.text)).toStrictEqual('Missing param: password.')
-  // }, 20000)
+  test('Should return error 400 if password is not provided', async () => {
+    const user = await request(app)
+      .post('/v1/user')
+      .send({
+        name: 'a',
+        email: 'email-test@gmail.com'
+      })
+    expect(user.statusCode).toBe(400)
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Missing param: password.' })
+  })
 })

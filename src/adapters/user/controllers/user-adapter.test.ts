@@ -27,13 +27,22 @@ describe('User Adapter', () => {
 
   test('Should return status 200 if successfuly', async () => {
     IUserCreateUseCaseMock = {
-      create: jest.fn().mockResolvedValue('Usuário criado com sucesso'),
+      create: jest.fn().mockResolvedValue({
+        message: 'Usuário criado com sucesso',
+        data: {
+          id: 'anyId',
+          name: 'anyName',
+          email: 'email@email.com',
+          sessionToken: 'stringToken',
+          createdAt: new Date().toLocaleString()
+        }
+      }),
       login: jest.fn()
 
     }
     sut = new UserController(IUserCreateUseCaseMock)
-
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({
+    const response = await sut.create(userHttpRequestMock)
+    expect(response).toStrictEqual({
       statusCode: 200,
       body: {
         data: {
