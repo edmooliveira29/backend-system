@@ -9,5 +9,7 @@ export default (app: Express): void => {
   app.use(corsGeneral)
   app.use(corsOrigin)
   app.use(corsOptions)
-  morganBody(app)
+  morganBody(app, {
+    theme: 'inverted'
+  })
 }
