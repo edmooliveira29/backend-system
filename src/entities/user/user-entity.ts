@@ -6,7 +6,6 @@ interface UserData {
   sessionToken: string
   createdAt: string
 }
-
 export class UserEntity {
   email: string
   sessionToken: string
