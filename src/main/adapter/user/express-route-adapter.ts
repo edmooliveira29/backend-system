@@ -23,3 +23,11 @@ export const loginUserAdapterRoute = (controller: UserController) => {
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }
+
+export const getUserAdapterRoute = (controller: UserController) => {
+  return async (request: Request, response: Response): Promise<void> => {
+    const objectId = request.query.objectId as string
+    const httpResponse: UserHttpResponse = await controller.getUser(objectId)
+    response.status(httpResponse.statusCode).json(httpResponse.body)
+  }
+}

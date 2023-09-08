@@ -1,5 +1,6 @@
 import { MongoConnection } from '../../helpers/mongo-helper'
 import { type IUserDataAccess } from '../../../usecases/user/port/user-data-access'
+import { ObjectId } from 'mongodb'
 
 export class UserRepository implements IUserDataAccess {
   async create (user: {
@@ -46,6 +47,22 @@ export class UserRepository implements IUserDataAccess {
       return { message: 'Usuário autenticado com sucesso', data: userFound }
     } else {
       return { message: 'Usuário não encontrado' }
+    }
+  }
+
+  async getUser (id: string): Promise<any> {
+    const userCollection = MongoConnection.getCollection('users')
+
+    try {
+      const objectId = new ObjectId(id)
+      const user = await userCollection.findOne({ _id: objectId })
+      if (user) {
+        return { data: user }
+      } else {
+        return { message: 'Usuário não encontrado' }
+      }
+    } catch (error) {
+      return { message: 'Erro ao buscar o usuário por ID' }
     }
   }
 }

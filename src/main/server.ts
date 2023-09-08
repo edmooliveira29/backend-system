@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { MongoConnection } from '../infra/helpers/mongo-helper'
 import dotenv from 'dotenv'
 

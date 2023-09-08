@@ -10,4 +10,6 @@ export interface IUserCreateUseCase {
   }) => Promise<any>
 
   login: (user: { email: string, password: string, remember: boolean }) => Promise<any>
+
+  getUser: (objectId: string) => Promise<any>
 }

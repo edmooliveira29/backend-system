@@ -62,4 +62,20 @@ export class UserUseCase implements IUserDataAccess {
       return validationPassword
     }
   }
+
+  async getUser (userId: string): Promise<any> {
+    try {
+      const userRepository = await this.port.getUser(userId)
+      if (!userRepository) {
+        return { message: 'Usuário não encontrado' }
+      }
+
+      return {
+        message: 'Usuário encontrado com sucesso',
+        ...userRepository
+      }
+    } catch (error) {
+      return { message: 'Erro ao buscar o usuário' }
+    }
+  }
 }

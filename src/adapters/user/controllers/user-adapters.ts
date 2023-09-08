@@ -59,4 +59,18 @@ export class UserController {
       return internalError(new ServerError(error.message))
     }
   }
+
+  async getUser (objectId: string): Promise<UserHttpResponse> {
+    try {
+      const userReponseUseCase = await this.userUseCase.getUser(objectId)
+
+      if (!userReponseUseCase.data) {
+        return noContent(new NotFound(userReponseUseCase.message))
+      }
+      delete userReponseUseCase.data.password
+      return ok({ message: userReponseUseCase.message, ...userReponseUseCase })
+    } catch (error: any) {
+      return internalError(new ServerError(error.message))
+    }
+  }
 }

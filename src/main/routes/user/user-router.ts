@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { type Router } from 'express'
-import { createUserAdapterRoute, loginUserAdapterRoute } from '../../adapter/user/express-route-adapter'
-import { UserCreateFactory } from '../../factories/user/user-create'
+import { createUserAdapterRoute, getUserAdapterRoute, loginUserAdapterRoute } from '../../adapter/user/express-route-adapter'
+import { UserFactory } from '../../factories/user/user'
 
 export default (router: Router): void => {
-  router.post('/user', createUserAdapterRoute(UserCreateFactory()))
-  router.post('/login', loginUserAdapterRoute(UserCreateFactory()))
+  const userFactory = UserFactory()
+  router.get('/user', getUserAdapterRoute(userFactory))
+  router.post('/user', createUserAdapterRoute(userFactory))
+  router.post('/login', loginUserAdapterRoute(userFactory))
 }

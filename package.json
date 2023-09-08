@@ -7,7 +7,7 @@
     "lint": "eslint . --fix",
     "prepare": "husky install",
     "build": "rimraf build && tsc",
-    "start": "NODE_ENV=deployment nodemon ./src/main/server.ts",
+    "start": "NODE_ENV=deployment service mongod restart && nodemon ./src/main/server.ts",
     "start-production": "git pull && pm2 stop api-backend && npm run build && sudo service mongod start && pm2 start ./build/main/server.js --name=api-backend --watch"
   },
   "author": "Edmo",
@@ -43,6 +43,6 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.2.0",
     "morgan-body": "^2.6.9",
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.0.1"
   }
 }
