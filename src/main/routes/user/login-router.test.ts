@@ -30,7 +30,7 @@ describe('Login Routes', () => {
       .send({
         email: 'email@gmail.com',
         password: 'Password1*'
-      }).expect(200)
+      }).expect(200).timeout(1000)
   })
 
   test('Should return error 404 with Usuário não encontrado', async () => {
@@ -41,7 +41,7 @@ describe('Login Routes', () => {
         password: 'Password1*'
       })
     expect(user.statusCode).toBe(404)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Not Found: Usuário não encontrado.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Erro: Usuário não encontrado.' })
   })
 
   test('Should return error 400 with name is invalid', async () => {
@@ -53,7 +53,7 @@ describe('Login Routes', () => {
         password: 'anyPassword*1'
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Invalid param: Nome não é valido.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro inválido: Nome não é valido.' })
   })
 
   test('Should return error 400 if password is not provided', async () => {
@@ -64,6 +64,6 @@ describe('Login Routes', () => {
         email: 'email-test@gmail.com'
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Missing param: password.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro ausente: password.' })
   })
 })

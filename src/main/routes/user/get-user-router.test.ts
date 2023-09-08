@@ -17,13 +17,29 @@ describe('Register Routes', () => {
   })
 
   test('Should return 200 if user is retrieved successfully', async () => {
-    const response = await request(app)
-      .get(`/v1/user/${'userId'}`)
-      .expect(200)
+    const user = await request(app)
+      .post('/v1/user')
+      .send({
+        name: 'Name Test',
+        email: 'emailtoget@gmail.com',
+        password: 'anyPassword*1',
+        sessionToken: new Date()
+      })
 
-    const user = response.body
-    expect(user).toHaveProperty('name', 'Name Test')
-    expect(user).toHaveProperty('email', 'email-test@gmail.com')
+    const idUser: string = user.body?.data.id
+    const response = await request(app)
+      .get(`/v1/user?objectId=${idUser}`)
+      .expect(200)
+    const userResponse = response.body
+    expect(userResponse).toHaveProperty('message', 'Usuário encontrado com sucesso')
+  })
+
+  test('Should return 404 if user is not retrieved successfully', async () => {
+    const response = await request(app)
+      .get('/v1/user?objectId=64f9304f0f87f700a99994b5')
+      .expect(404)
+    const userResponse = response.body
+    expect(userResponse).toHaveProperty('message', 'Erro: Usuário não encontrado.')
   })
 
   test('Should return error 400 with email is invalid', async () => {
@@ -36,7 +52,7 @@ describe('Register Routes', () => {
         sessionToken: new Date()
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Invalid param: E-mail não é valido.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro inválido: E-mail não é valido.' })
   })
 
   test('Should return error 400 with name is invalid', async () => {
@@ -49,7 +65,7 @@ describe('Register Routes', () => {
         sessionToken: new Date()
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Invalid param: Nome não é valido.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro inválido: Nome não é valido.' })
   })
 
   test('Should return error 400 if password is not provided', async () => {
@@ -61,6 +77,6 @@ describe('Register Routes', () => {
         sessionToken: new Date()
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Missing param: password.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro ausente: password.' })
   })
 })

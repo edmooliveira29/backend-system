@@ -69,7 +69,7 @@ describe('Mongodb User repository', () => {
       sessionToken: 'stringToken',
       createdAt: new Date('01-01-01')
     }
-    jest.spyOn(sut, 'findUserByEmail').mockResolvedValue(userMock)
+    jest.spyOn(sut, 'findUserByEmailOrId').mockResolvedValue(userMock)
     expect(await sut.login({ email: 'email@email.com', password: 'Password1*' }))
       .toStrictEqual({
         message: 'Usuário autenticado com sucesso',
@@ -80,5 +80,28 @@ describe('Mongodb User repository', () => {
   test('Return message if Usuário não encontrado to authentication', async () => {
     const sut = new UserRepository()
     expect(await sut.login({ email: 'emailnotcreated@email.com', password: 'Password1*' })).toStrictEqual({ message: 'Usuário não encontrado' })
+  })
+
+  test('Return message if user not found to getUser', async () => {
+    const sut = new UserRepository()
+    expect(await sut.getUser('64f9304f0f87f700a28984b5')).toStrictEqual({ message: 'Usuário não encontrado' })
+  })
+  test('Return true with authentication with successfully', async () => {
+    const sut = new UserRepository()
+    const userMock = {
+      id: '64f9304f0f87f700a28984b5',
+      name: 'anyName',
+      email: 'email@email.com',
+      password: 'Password1*',
+      sessionToken: 'stringToken',
+      createdAt: new Date('01-01-01')
+    }
+
+    jest.spyOn(sut, 'findUserByEmailOrId').mockResolvedValue(userMock)
+    const result = await sut.getUser(userMock.id)
+    expect(result).toStrictEqual({
+      message: 'Usuário encontrado com sucesso',
+      data: userMock
+    })
   })
 })

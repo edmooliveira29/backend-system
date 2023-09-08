@@ -26,14 +26,20 @@ export class UserRepository implements IUserDataAccess {
     }
   }
 
-  async findUserByEmail (email: string): Promise<any> {
+  async findUserByEmailOrId (information: string): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
-    const result = await userCollection.findOne({ email })
+    let result
+    if (information.includes('@')) {
+      result = await userCollection.findOne({ email: information })
+    } else {
+      const objectId = new ObjectId(information)
+      result = await userCollection.findOne({ _id: objectId })
+    }
     return result
   }
 
   async exists (email: string): Promise<boolean> {
-    const result = await this.findUserByEmail(email)
+    const result = await this.findUserByEmailOrId(email)
     if (result != null) {
       return true
     } else {
@@ -42,7 +48,7 @@ export class UserRepository implements IUserDataAccess {
   }
 
   async login (user: { email: string, password: string }): Promise<any> {
-    const userFound = await this.findUserByEmail(user.email)
+    const userFound = await this.findUserByEmailOrId(user.email)
     if (userFound) {
       return { message: 'Usuário autenticado com sucesso', data: userFound }
     } else {
@@ -51,18 +57,12 @@ export class UserRepository implements IUserDataAccess {
   }
 
   async getUser (id: string): Promise<any> {
-    const userCollection = MongoConnection.getCollection('users')
+    const user = await this.findUserByEmailOrId(id)
 
-    try {
-      const objectId = new ObjectId(id)
-      const user = await userCollection.findOne({ _id: objectId })
-      if (user) {
-        return { data: user }
-      } else {
-        return { message: 'Usuário não encontrado' }
-      }
-    } catch (error) {
-      return { message: 'Erro ao buscar o usuário por ID' }
+    if (user) {
+      return { message: 'Usuário encontrado com sucesso', data: user }
+    } else {
+      return { message: 'Usuário não encontrado' }
     }
   }
 }

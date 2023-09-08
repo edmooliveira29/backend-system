@@ -70,6 +70,7 @@ export class UserController {
       delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, ...userReponseUseCase })
     } catch (error: any) {
+      console.trace()
       return internalError(new ServerError(error.message))
     }
   }

@@ -18,13 +18,9 @@ export class UserUseCase implements IUserDataAccess {
     if (!validationPassword.isValid) {
       return validationPassword.message
     } else if (!this.validation.emailIsValid(user.email)) {
-      return {
-        message: 'E-mail não é valido'
-      }
+      return { message: 'E-mail não é valido' }
     } else if (!this.validation.nameIsValid(user.name)) {
-      return {
-        message: 'Nome não é valido'
-      }
+      return { message: 'Nome não é valido' }
     } else {
       const userResponse = (await this.port.create(user))
       return {
@@ -64,18 +60,11 @@ export class UserUseCase implements IUserDataAccess {
   }
 
   async getUser (userId: string): Promise<any> {
-    try {
-      const userRepository = await this.port.getUser(userId)
-      if (!userRepository) {
-        return { message: 'Usuário não encontrado' }
-      }
-
-      return {
-        message: 'Usuário encontrado com sucesso',
-        ...userRepository
-      }
-    } catch (error) {
-      return { message: 'Erro ao buscar o usuário' }
+    const userRepository = await this.port.getUser(userId)
+    if (!userRepository) {
+      return { message: 'Usuário não encontrado' }
     }
+
+    return { message: 'Usuário encontrado com sucesso', ...userRepository }
   }
 }
