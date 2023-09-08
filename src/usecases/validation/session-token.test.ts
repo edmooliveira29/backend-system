@@ -24,7 +24,7 @@ describe('createSessionToken', () => {
       {
         name: user.name,
         email: user.email,
-        _id:user._id,
+        _id: user._id,
         exp: expect.any(Number)
       },
       expect.any(String)
@@ -45,7 +45,7 @@ describe('createSessionToken', () => {
       {
         name: user.name,
         email: user.email,
-        _id:user._id,
+        _id: user._id,
         exp: expect.any(Number)
       },
       expect.any(String)

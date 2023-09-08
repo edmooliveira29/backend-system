@@ -16,7 +16,7 @@ export class UserUseCase implements IUserDataAccess {
   async create (user: UserEntity): Promise<any> {
     const validationPassword: any = this.validation.passwordIsValid(user.password)
     if (!validationPassword.isValid) {
-      return validationPassword.message
+      return { message: validationPassword.message }
     } else if (!this.validation.emailIsValid(user.email)) {
       return { message: 'E-mail não é valido' }
     } else if (!this.validation.nameIsValid(user.name)) {
@@ -26,7 +26,7 @@ export class UserUseCase implements IUserDataAccess {
       return {
         message: 'Usuário criado com sucesso',
         data: {
-          _id:userResponse.data._id,
+          _id: userResponse.data._id,
           name: userResponse.data.name,
           email: userResponse.data.email,
           sessionToken: this.sessionToken.create(userResponse.data, true),
@@ -47,7 +47,7 @@ export class UserUseCase implements IUserDataAccess {
       return {
         message: 'Usuário autenticado com sucesso',
         data: {
-          _id:userRepository.data._id,
+          _id: userRepository.data._id,
           name: userRepository.data.name,
           email: userRepository.data.email,
           sessionToken: this.sessionToken.create(userRepository.data, user.remember),

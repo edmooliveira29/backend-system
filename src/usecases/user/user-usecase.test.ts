@@ -10,7 +10,7 @@ describe('User Use Case', () => {
   let userUseCaseMock: UserUseCase
   beforeAll(() => {
     userEntityCreateMock = {
-      _id:'anyid',
+      _id: 'anyid',
       name: 'username',
       password: 'Password*1',
       email: 'invalidemail@exemplo.com',
@@ -53,7 +53,7 @@ describe('User Use Case', () => {
   test('Should return message if name is invalid', async () => {
     userEntityCreateMock.password = 'Password*'
     const response = await userUseCaseMock.create(userEntityCreateMock)
-    expect(response).toEqual('A senha deve conter pelo menos 1 dígito')
+    expect(response).toEqual({ message: 'A senha deve conter pelo menos 1 dígito' })
   })
 
   test('Should return message if user is valid to authentication', async () => {
@@ -84,7 +84,7 @@ describe('User Use Case', () => {
         data: {
           createdAt: new Date().toLocaleString(),
           email: 'valid@exemplo.com',
-          _id:'userId',
+          _id: 'userId',
           name: 'anyname',
           sessionToken: 'sessionToken'
         },
