@@ -15,7 +15,7 @@ describe('User Adapter', () => {
     sut = new UserController(IUserCreateUseCaseMock)
     userHttpRequestMock = {
       body: {
-        id: 'anyId',
+        _id:'anyId',
         name: 'anyName',
         email: 'email@email.com',
         password: 'password',
@@ -31,7 +31,7 @@ describe('User Adapter', () => {
       create: jest.fn().mockResolvedValue({
         message: 'Usuário criado com sucesso',
         data: {
-          id: 'anyId',
+          _id:'anyId',
           name: 'anyName',
           email: 'email@email.com',
           sessionToken: 'stringToken',
@@ -47,7 +47,7 @@ describe('User Adapter', () => {
       statusCode: 200,
       body: {
         data: {
-          id: 'anyId',
+          _id:'anyId',
           name: 'anyName',
           email: 'email@email.com',
           sessionToken: 'stringToken',

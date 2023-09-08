@@ -20,7 +20,7 @@ export class SessionToken {
       {
         name: user.name,
         email: user.email,
-        id: user._id,
+        _id:user._id,
         exp: expirationTime
       },
       String(process.env.KEY_SECRET_TOKEN)

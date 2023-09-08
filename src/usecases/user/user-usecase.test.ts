@@ -10,7 +10,7 @@ describe('User Use Case', () => {
   let userUseCaseMock: UserUseCase
   beforeAll(() => {
     userEntityCreateMock = {
-      id: 'anyid',
+      _id:'anyid',
       name: 'username',
       password: 'Password*1',
       email: 'invalidemail@exemplo.com',
@@ -84,7 +84,7 @@ describe('User Use Case', () => {
         data: {
           createdAt: new Date().toLocaleString(),
           email: 'valid@exemplo.com',
-          id: 'userId',
+          _id:'userId',
           name: 'anyname',
           sessionToken: 'sessionToken'
         },

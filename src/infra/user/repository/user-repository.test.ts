@@ -20,7 +20,7 @@ describe('Mongodb User repository', () => {
   test('Should created a new user', async () => {
     const sut = new UserRepository()
     const userAdded = await sut.create({
-      id: 'anyId',
+      _id: 'anyId',
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
@@ -33,7 +33,7 @@ describe('Mongodb User repository', () => {
   test('Should return error if exist user with same email', async (): Promise<void> => {
     const sut = new UserRepository()
     const userMock = {
-      id: 'anyId',
+      _id: 'anyId',
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
@@ -47,7 +47,7 @@ describe('Mongodb User repository', () => {
   test('Return true with user exist', async () => {
     const sut = new UserRepository()
     const userMock = {
-      id: 'anyId',
+      _id: 'anyId',
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
@@ -62,7 +62,7 @@ describe('Mongodb User repository', () => {
   test('Return true with authentication with sucessfuly', async () => {
     const sut = new UserRepository()
     const userMock = {
-      id: 'anyId',
+      _id: 'anyId',
       name: 'anyName',
       email: 'email@email.com',
       password: 'Password1*',
@@ -89,7 +89,7 @@ describe('Mongodb User repository', () => {
   test('Return true with authentication with successfully', async () => {
     const sut = new UserRepository()
     const userMock = {
-      id: '64f9304f0f87f700a28984b5',
+      _id: '64f9304f0f87f700a28984b5',
       name: 'anyName',
       email: 'email@email.com',
       password: 'Password1*',
@@ -98,7 +98,7 @@ describe('Mongodb User repository', () => {
     }
 
     jest.spyOn(sut, 'findUserByEmailOrId').mockResolvedValue(userMock)
-    const result = await sut.getUser(userMock.id)
+    const result = await sut.getUser(userMock._id)
     expect(result).toStrictEqual({
       message: 'Usuário encontrado com sucesso',
       data: userMock

@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb'
 
 export class UserRepository implements IUserDataAccess {
   async create (user: {
-    id?: any
+    _id?: any
     email: string
     name: string
     password: string
@@ -18,7 +18,7 @@ export class UserRepository implements IUserDataAccess {
       return {
         data: {
           ...user,
-          id: userInserted.insertedId
+          _id:userInserted.insertedId
         }
       }
     } else {
@@ -56,8 +56,8 @@ export class UserRepository implements IUserDataAccess {
     }
   }
 
-  async getUser (id: string): Promise<any> {
-    const user = await this.findUserByEmailOrId(id)
+  async getUser (_id:string): Promise<any> {
+    const user = await this.findUserByEmailOrId(_id)
 
     if (user) {
       return { message: 'Usuário encontrado com sucesso', data: user }

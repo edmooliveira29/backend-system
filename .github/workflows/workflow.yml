@@ -24,7 +24,7 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Coverage Tests
-      id: coverageComment
+      _id:coverageComment
       uses: MishaKav/jest-coverage-comment@main
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}

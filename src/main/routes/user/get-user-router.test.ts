@@ -26,7 +26,7 @@ describe('Register Routes', () => {
         sessionToken: new Date()
       })
 
-    const idUser: string = user.body?.data.id
+    const idUser: string = user.body?.data._id
     const response = await request(app)
       .get(`/v1/user?objectId=${idUser}`)
       .expect(200)
