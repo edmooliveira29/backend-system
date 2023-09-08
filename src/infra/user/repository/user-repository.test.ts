@@ -6,7 +6,7 @@ dotenv.config()
 
 describe('Mongodb User repository', () => {
   beforeAll(async () => {
-    await MongoConnection.connect(process.env.MONGO_URL as string)
+    await MongoConnection.connect(process.env.MONGO_URL_TEST as string)
   })
 
   afterAll(async () => {

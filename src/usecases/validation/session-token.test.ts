@@ -11,7 +11,7 @@ describe('createSessionToken', () => {
   beforeEach(() => {
     sessionToken = new SessionToken()
   })
-  it('should create a session token with remember option', () => {
+  it('Should create a session token with remember option', () => {
     const user = {
       _id: 'anyId',
       name: 'John Doe',
@@ -32,7 +32,7 @@ describe('createSessionToken', () => {
     expect(token).toBe('mocked-token')
   })
 
-  it('should create a session token without remember option', () => {
+  it('Should create a session token without remember option', () => {
     const user = {
       _id: 'anyId',
       name: 'John Doe',

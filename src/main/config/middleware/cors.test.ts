@@ -14,7 +14,7 @@ describe('CORS Middleware', () => {
   })
 
   describe('corsGeneral', () => {
-    test('should set the appropriate headers', () => {
+    test('Should set the appropriate headers', () => {
       corsGeneral(req, res, next)
 
       expect(res.set).toHaveBeenCalledWith('access-control-allow-headers', '*')
@@ -24,7 +24,7 @@ describe('CORS Middleware', () => {
     })
   })
 
-  test('should set access-control-allow-origin header if request origin is allowed', () => {
+  test('Should set access-control-allow-origin header if request origin is allowed', () => {
     const requestOrigin = 'http://localhost:3000'
     req.get = jest.fn().mockReturnValue(requestOrigin)
 

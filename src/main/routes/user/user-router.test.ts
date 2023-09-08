@@ -4,11 +4,11 @@ import { MongoConnection } from '../../../infra/helpers/mongo-helper'
 import dotenv from 'dotenv'
 dotenv.config()
 describe('Register Routes', () => {
-  beforeAll(async () => {
-    await MongoConnection.connect(process.env.MONGO_URL as string)
+  beforeEach(async () => {
+    await MongoConnection.connect(process.env.MONGO_URL_TEST as string)
   })
 
-  afterAll(async () => {
+  afterEach(async () => {
     await MongoConnection.disconnect()
   })
 
@@ -64,5 +64,13 @@ describe('Register Routes', () => {
       })
     expect(user.statusCode).toBe(400)
     expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro ausente: password.' })
+  })
+})
+
+describe('Open conection in production', () => {
+  it('Should connect without authentication in test environment', async () => {
+    process.env.NODE_ENV = ''
+    await MongoConnection.connect(process.env.MONGO_URL as string)
+    await MongoConnection.disconnect()
   })
 })

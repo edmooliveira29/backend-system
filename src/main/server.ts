@@ -3,7 +3,6 @@ import { MongoConnection } from '../infra/helpers/mongo-helper'
 import dotenv from 'dotenv'
 
 dotenv.config()
-
 MongoConnection.connect(process.env.MONGO_URL as string)
   .then(async (): Promise<void> => {
     const app = (await import('./config/app')).default

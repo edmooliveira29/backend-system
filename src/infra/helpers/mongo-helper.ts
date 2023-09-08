@@ -7,7 +7,7 @@ export const MongoConnection = {
     const username = process.env.MONGO_URL_USERNAME
     const password = process.env.MONGO_URL_PASSWORD
     let options: any = {}
-    if (process.env.NODE_ENV !== 'deployment') {
+    if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'deployment') {
       options = {
         auth: {
           username,
@@ -18,7 +18,9 @@ export const MongoConnection = {
     this.client = await MongoClient.connect(uri, options)
   },
   async disconnect (): Promise<void> {
-    await this.client.close()
+    if (this.client) {
+      await this.client.close()
+    }
   },
 
   getCollection (name: string): Collection {

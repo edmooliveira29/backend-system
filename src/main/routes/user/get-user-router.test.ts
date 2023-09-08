@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 describe('Register Routes', () => {
   beforeAll(async () => {
-    await MongoConnection.connect(process.env.MONGO_URL as string)
+    await MongoConnection.connect(process.env.MONGO_URL_TEST as string)
   })
 
   afterAll(async () => {

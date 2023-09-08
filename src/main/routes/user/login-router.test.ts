@@ -6,7 +6,7 @@ dotenv.config()
 
 describe('Login Routes', () => {
   beforeAll(async () => {
-    await MongoConnection.connect(process.env.MONGO_URL as string)
+    await MongoConnection.connect(process.env.MONGO_URL_TEST as string)
   })
 
   afterAll(async () => {
@@ -18,19 +18,13 @@ describe('Login Routes', () => {
   })
 
   test('Should return 200 if user was authenticated with succesfuly ', async () => {
-    await request(app)
-      .post('/v1/user')
-      .send({
-        name: 'Name Test',
-        email: 'email@gmail.com',
-        password: 'Password1*'
-      })
-    await request(app)
-      .post('/v1/login')
-      .send({
-        email: 'email@gmail.com',
-        password: 'Password1*'
-      }).expect(200).timeout(1000)
+    const params = {
+      name: 'Name Test',
+      email: 'email@gmail.com',
+      password: 'Password1*'
+    }
+    await request(app).post('/v1/user').send(params)
+    await request(app).post('/v1/login').send(params).expect(200).timeout(1000)
   })
 
   test('Should return error 404 with Usuário não encontrado', async () => {
