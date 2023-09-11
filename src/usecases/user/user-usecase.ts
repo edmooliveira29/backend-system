@@ -26,7 +26,7 @@ export class UserUseCase implements IUserDataAccess {
       return {
         message: 'Usuário criado com sucesso',
         data: {
-          _id:userResponse.data._id,
+          _id: userResponse.data._id,
           name: userResponse.data.name,
           email: userResponse.data.email,
           sessionToken: this.sessionToken.create(userResponse.data, true),
@@ -47,7 +47,7 @@ export class UserUseCase implements IUserDataAccess {
       return {
         message: 'Usuário autenticado com sucesso',
         data: {
-          _id:userRepository.data._id,
+          _id: userRepository.data._id,
           name: userRepository.data.name,
           email: userRepository.data.email,
           sessionToken: this.sessionToken.create(userRepository.data, user.remember),

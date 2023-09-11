@@ -1,7 +1,6 @@
-
 export interface IUserCreateUseCase {
   create: (user: {
-    _id:string
+    _id: string
     email: string
     name: string
     password: string

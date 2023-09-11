@@ -18,7 +18,7 @@ export class UserRepository implements IUserDataAccess {
       return {
         data: {
           ...user,
-          _id:userInserted.insertedId
+          _id: userInserted.insertedId
         }
       }
     } else {
@@ -56,7 +56,7 @@ export class UserRepository implements IUserDataAccess {
     }
   }
 
-  async getUser (_id:string): Promise<any> {
+  async getUser (_id: string): Promise<any> {
     const user = await this.findUserByEmailOrId(_id)
 
     if (user) {

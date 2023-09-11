@@ -6,7 +6,7 @@ describe('User Port Interface', () => {
 
   beforeAll(() => {
     user = {
-      _id:'anyId',
+      _id: 'anyId',
       email: 'user@email.com',
       name: 'user',
       password: 'password',

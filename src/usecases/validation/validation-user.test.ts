@@ -7,7 +7,7 @@ describe('Email Validation', () => {
 
   beforeAll(() => {
     user = {
-      _id:'anyid',
+      _id: 'anyid',
       email: 'validEmail@email.com',
       name: 'user',
       password: 'password',

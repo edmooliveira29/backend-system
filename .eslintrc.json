@@ -27,12 +27,15 @@
             }
         ],
         "@typescript-eslint/strict-boolean-expressions": "off",
-        "@typescript-eslint/no-explicit-any": ["off"]
-
+        "@typescript-eslint/no-explicit-any": [
+            "off"
+        ]
     },
     "ignorePatterns": [
         "*.test.js",
         "build",
-        "swagger"
+        "swagger",
+        "coverage",
+        "jest.config.js"
     ]
 }

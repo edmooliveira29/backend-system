@@ -3,7 +3,7 @@ import { UserEntity } from './user-entity'
 describe('User Entity', () => {
   test('Should return entity of the user', () => {
     const user = {
-      _id:'anyid',
+      _id: 'anyid',
       email: 'user@email.com',
       name: 'user',
       password: 'password',

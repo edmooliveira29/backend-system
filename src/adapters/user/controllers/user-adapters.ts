@@ -13,7 +13,7 @@ export class UserController {
   async create (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
     try {
       const userData = {
-        _id:userHttpRequest.body._id,
+        _id: userHttpRequest.body._id,
         name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
