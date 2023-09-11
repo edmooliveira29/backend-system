@@ -16,7 +16,7 @@ export class UserUseCase implements IUserDataAccess {
   async create (user: UserEntity): Promise<any> {
     const validationPassword: any = this.validation.passwordIsValid(user.password)
     if (!validationPassword.isValid) {
-      return validationPassword.message
+      return { message: validationPassword.message }
     } else if (!this.validation.emailIsValid(user.email)) {
       return { message: 'E-mail não é valido' }
     } else if (!this.validation.nameIsValid(user.name)) {

@@ -28,6 +28,7 @@ export class UserController {
       }
 
       const createUserResponse = await this.userUseCase.create(userData)
+      console.log(createUserResponse)
       if (createUserResponse.message !== 'Usuário criado com sucesso') {
         return badRequest(new InvalidParamError(createUserResponse.message))
       }

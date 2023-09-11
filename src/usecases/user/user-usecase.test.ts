@@ -53,7 +53,7 @@ describe('User Use Case', () => {
   test('Should return message if name is invalid', async () => {
     userEntityCreateMock.password = 'Password*'
     const response = await userUseCaseMock.create(userEntityCreateMock)
-    expect(response).toEqual('A senha deve conter pelo menos 1 dígito')
+    expect(response).toEqual({ message: 'A senha deve conter pelo menos 1 dígito' })
   })
 
   test('Should return message if user is valid to authentication', async () => {
