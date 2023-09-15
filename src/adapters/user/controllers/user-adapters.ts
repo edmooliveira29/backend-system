@@ -27,13 +27,55 @@ export class UserController {
         }
       }
 
-      const createUserResponse = await this.userUseCase.create(userData)
-      console.log(createUserResponse)
+      const createUserResponse = await this.userUseCase.createUser(userData)
       if (createUserResponse.message !== 'Usuário criado com sucesso') {
         return badRequest(new InvalidParamError(createUserResponse.message))
       }
       return ok(createUserResponse)
     } catch (error: any) {
+      console.trace()
+      return internalError(new ServerError(error.message))
+    }
+  }
+
+  async edit (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
+    try {
+      const userData = {
+        _id: userHttpRequest.body._id,
+        address: userHttpRequest.body.address,
+        birthday: userHttpRequest.body.birthday,
+        city: userHttpRequest.body.city,
+        complement: userHttpRequest.body.complement,
+        cpf: userHttpRequest.body.cpf,
+        email: userHttpRequest.body.email,
+        gender: userHttpRequest.body.gender,
+        houseNumber: userHttpRequest.body.houseNumber,
+        name: userHttpRequest.body.name,
+        neighborhood: userHttpRequest.body.neighborhood,
+        nickname: userHttpRequest.body.nickname,
+        phoneNumber: userHttpRequest.body.phoneNumber,
+        stateOfTheCountry: userHttpRequest.body.stateOfTheCountry,
+        zipCode: userHttpRequest.body.zipCode,
+        password: userHttpRequest.body.password,
+        sessionToken: userHttpRequest.body.sessionToken,
+        editAt: new Date().toLocaleString()
+      }
+      const fildsRequired = [
+        'name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry', 'city'
+      ]
+      for (const field of fildsRequired) {
+        if (!Object.prototype.hasOwnProperty.call(userHttpRequest.body, field)) {
+          return badRequest(new MissingParamError(field))
+        }
+      }
+
+      const createUserResponse = await this.userUseCase.editUser(userHttpRequest.body._id, userData)
+      if (createUserResponse.message !== 'Usuário editado com sucesso') {
+        return badRequest(new InvalidParamError(createUserResponse.message))
+      }
+      return ok(createUserResponse)
+    } catch (error: any) {
+      console.trace()
       return internalError(new ServerError(error.message))
     }
   }
@@ -57,6 +99,7 @@ export class UserController {
       delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, data: userReponseUseCase.data })
     } catch (error: any) {
+      console.trace()
       return internalError(new ServerError(error.message))
     }
   }

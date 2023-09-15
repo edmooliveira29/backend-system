@@ -19,7 +19,7 @@ describe('Mongodb User repository', () => {
 
   test('Should created a new user', async () => {
     const sut = new UserRepository()
-    const userAdded = await sut.create({
+    const userAdded = await sut.createUser({
       _id: 'anyId',
       name: 'anyName',
       email: 'email@email.com',
@@ -40,8 +40,8 @@ describe('Mongodb User repository', () => {
       sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString()
     }
-    await sut.create(userMock)
-    expect(async () => await sut.create(userMock)).rejects.toStrictEqual(new Error('Já existe um usuário com este e-mail'))
+    await sut.createUser(userMock)
+    expect(async () => await sut.createUser(userMock)).rejects.toStrictEqual(new Error('Já existe um usuário com este e-mail'))
   })
 
   test('Return true with user exist', async () => {
@@ -54,7 +54,7 @@ describe('Mongodb User repository', () => {
       sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString()
     }
-    await sut.create(userMock)
+    await sut.createUser(userMock)
 
     expect(await sut.exists('email@email.com')).toBeTruthy()
   })

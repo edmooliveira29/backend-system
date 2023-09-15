@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 
 interface User {
-  _id: string
-  name: string
+  _id?: string
+  name?: string
   email: string
 }
 

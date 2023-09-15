@@ -1,19 +1,44 @@
 import { type UserEntity } from '../../entities/user/user-entity'
 import { ValidationUser } from '../validation/validation-user'
-import { type IUserCreateUseCase } from './port/user-port'
+import { type UserEdit, type IUserCreateUseCase } from './port/user-port'
 import { type IUserDataAccess } from '../../usecases/user/port/user-data-access'
 import { SessionToken } from '../validation/session-token'
 
 export class UserUseCase implements IUserDataAccess {
-  public readonly port: IUserCreateUseCase
+  public readonly portRepository: IUserCreateUseCase
   public readonly validation: ValidationUser
   public readonly sessionToken = new SessionToken()
   constructor (iUserCreateUseCase: IUserCreateUseCase) {
-    this.port = iUserCreateUseCase
+    this.portRepository = iUserCreateUseCase
     this.validation = new ValidationUser()
   }
 
-  async create (user: UserEntity): Promise<any> {
+  async login (user: { email: string, password: string, remember: boolean }): Promise<any> {
+    const sessionToken = this.sessionToken.create(user, user.remember)
+    console.log(sessionToken)
+    const userRepository = await this.portRepository.login(user, sessionToken)
+    if (!userRepository.data) {
+      return { message: 'Usuário não encontrado' }
+    }
+
+    const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
+    if (validationPassword.passwordValid) {
+      return {
+        message: 'Usuário autenticado com sucesso',
+        data: {
+          _id: userRepository.data._id,
+          name: userRepository.data.name,
+          email: userRepository.data.email,
+          sessionToken: userRepository.data.sessionToken,
+          createdAt: new Date().toLocaleString()
+        }
+      }
+    } else {
+      return validationPassword
+    }
+  }
+
+  async createUser (user: UserEntity): Promise<any> {
     const validationPassword: any = this.validation.passwordIsValid(user.password)
     if (!validationPassword.isValid) {
       return { message: validationPassword.message }
@@ -22,7 +47,7 @@ export class UserUseCase implements IUserDataAccess {
     } else if (!this.validation.nameIsValid(user.name)) {
       return { message: 'Nome não é valido' }
     } else {
-      const userResponse = (await this.port.create(user))
+      const userResponse = (await this.portRepository.createUser(user))
       return {
         message: 'Usuário criado com sucesso',
         data: {
@@ -36,31 +61,38 @@ export class UserUseCase implements IUserDataAccess {
     }
   }
 
-  async login (user: { email: string, password: string, remember: boolean }): Promise<any> {
-    const userRepository = await this.port.login(user)
-    if (!userRepository.data) {
-      return { message: 'Usuário não encontrado' }
-    }
-
-    const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
-    if (validationPassword.passwordValid) {
+  async editUser (_id: string, user: UserEdit): Promise<any> {
+    if (!this.validation.emailIsValid(user.email)) {
+      return { message: 'E-mail não é valido' }
+    } else if (!this.validation.nameIsValid(user.name)) {
+      return { message: 'Nome não é valido' }
+    } else {
+      const userResponse = (await this.portRepository.editUser(_id, user))
       return {
-        message: 'Usuário autenticado com sucesso',
+        message: 'Usuário editado com sucesso',
         data: {
-          _id: userRepository.data._id,
-          name: userRepository.data.name,
-          email: userRepository.data.email,
-          sessionToken: this.sessionToken.create(userRepository.data, user.remember),
-          createdAt: new Date().toLocaleString()
+          _id: userResponse.data._id,
+          address: userResponse.data.address,
+          birthday: userResponse.data.birthday,
+          city: userResponse.data.city,
+          complement: userResponse.data.complement,
+          cpf: userResponse.data.cpf,
+          email: userResponse.data.email,
+          gender: userResponse.data.gender,
+          houseNumber: userResponse.data.houseNumber,
+          name: userResponse.data.name,
+          neighborhood: userResponse.data.neighborhood,
+          nickname: userResponse.data.nickname,
+          phoneNumber: userResponse.data.phoneNumber,
+          stateOfTheCountry: userResponse.data.stateOfTheCountry,
+          zipCode: userResponse.data.zipCode
         }
       }
-    } else {
-      return validationPassword
     }
   }
 
   async getUser (userId: string): Promise<any> {
-    const userRepository = await this.port.getUser(userId)
+    const userRepository = await this.portRepository.getUser(userId)
     if (!userRepository) {
       return { message: 'Usuário não encontrado' }
     }

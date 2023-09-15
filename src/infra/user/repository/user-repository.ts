@@ -3,7 +3,7 @@ import { type IUserDataAccess } from '../../../usecases/user/port/user-data-acce
 import { ObjectId } from 'mongodb'
 
 export class UserRepository implements IUserDataAccess {
-  async create (user: {
+  async createUser (user: {
     _id?: any
     email: string
     name: string
@@ -12,7 +12,7 @@ export class UserRepository implements IUserDataAccess {
     createdAt: string
   }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
-    const exists = await this.exists(user.email)
+    const exists = await this.exists(user)
     if (!exists) {
       const userInserted = await userCollection.insertOne(user)
       return {
@@ -26,20 +26,28 @@ export class UserRepository implements IUserDataAccess {
     }
   }
 
-  async findUserByEmailOrId (information: string): Promise<any> {
+  async findUserByEmailOrId (user: any, sessionToken?: string): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
-    let result
-    if (information.includes('@')) {
-      result = await userCollection.findOne({ email: information })
+    let result: any | null
+    if (user.email.includes('@')) {
+      result = await userCollection.findOne({ email: user.email })
     } else {
-      const objectId = new ObjectId(information)
+      const objectId = new ObjectId(user._id)
       result = await userCollection.findOne({ _id: objectId })
+    }
+    if (result != null) {
+      result.sessionToken = sessionToken
+      const objectId = new ObjectId(result._id)
+      await userCollection.updateOne(
+        { _id: objectId },
+        { $set: result }
+      )
     }
     return result
   }
 
-  async exists (email: string): Promise<boolean> {
-    const result = await this.findUserByEmailOrId(email)
+  async exists (user: any): Promise<boolean> {
+    const result = await this.findUserByEmailOrId(user)
     if (result != null) {
       return true
     } else {
@@ -47,8 +55,9 @@ export class UserRepository implements IUserDataAccess {
     }
   }
 
-  async login (user: { email: string, password: string }): Promise<any> {
-    const userFound = await this.findUserByEmailOrId(user.email)
+  async login (user: { email: string, password: string }, sessionToken?: string): Promise<any> {
+    const userFound = await this.findUserByEmailOrId(user, sessionToken)
+
     if (userFound) {
       return { message: 'Usuário autenticado com sucesso', data: userFound }
     } else {
@@ -58,9 +67,23 @@ export class UserRepository implements IUserDataAccess {
 
   async getUser (_id: string): Promise<any> {
     const user = await this.findUserByEmailOrId(_id)
-
     if (user) {
       return { message: 'Usuário encontrado com sucesso', data: user }
+    } else {
+      return { message: 'Usuário não encontrado' }
+    }
+  }
+
+  async editUser (_id: string, updatedUserData: any): Promise<any> {
+    const userCollection = MongoConnection.getCollection('users')
+    const objectId = new ObjectId(_id)
+    delete updatedUserData._id
+    const user = await userCollection.updateOne(
+      { _id: objectId },
+      { $set: updatedUserData }
+    )
+    if (user) {
+      return { message: 'Usuário editado com sucesso', data: user }
     } else {
       return { message: 'Usuário não encontrado' }
     }

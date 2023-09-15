@@ -33,26 +33,26 @@ describe('User Use Case', () => {
   })
 
   test('Should return message if name was created with success', async () => {
-    const response = await userUseCaseMock.create(userEntityCreateMock)
+    const response = await userUseCaseMock.createUser(userEntityCreateMock)
     expect(response.message).toEqual('Usuário criado com sucesso')
   })
 
   test('Should return message if email is invalid', async () => {
     userEntityCreateMock.email = 'invalidemail@exemplocom'
-    const response = await userUseCaseMock.create(userEntityCreateMock)
+    const response = await userUseCaseMock.createUser(userEntityCreateMock)
     expect(response.message).toEqual('E-mail não é valido')
   })
 
   test('Should return message if name is invalid', async () => {
     userEntityCreateMock.name = 'na'
     userEntityCreateMock.email = 'valid@exemplo.com'
-    const response = await userUseCaseMock.create(userEntityCreateMock)
+    const response = await userUseCaseMock.createUser(userEntityCreateMock)
     expect(response.message).toEqual('Nome não é valido')
   })
 
   test('Should return message if name is invalid', async () => {
     userEntityCreateMock.password = 'Password*'
-    const response = await userUseCaseMock.create(userEntityCreateMock)
+    const response = await userUseCaseMock.createUser(userEntityCreateMock)
     expect(response).toEqual({ message: 'A senha deve conter pelo menos 1 dígito' })
   })
 

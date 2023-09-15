@@ -14,6 +14,16 @@ export const createUserAdapterRoute = (controller: UserController) => {
   }
 }
 
+export const editUserAdapterRoute = (controller: UserController) => {
+  return async (request: Request, response: Response) => {
+    const httpRequest: UserHttpRequest = {
+      body: request.body
+    }
+    const httpResponse: UserHttpResponse = await controller.edit(httpRequest)
+    response.status(httpResponse.statusCode).json(httpResponse.body)
+  }
+}
+
 export const loginUserAdapterRoute = (controller: UserController) => {
   return async (request: Request, response: Response) => {
     const httpRequest: UserHttpRequest = {
