@@ -1,5 +1,5 @@
 import { type UserEntity } from '../../../entities/user/user-entity'
-import { type UserEdit, type IUserCreateUseCase } from './user-port'
+import { type UserEdit, type IUserCreateUseCase } from './session-token-port'
 describe('User Port Interface', () => {
   let user: UserEntity
   let userPortMock: IUserCreateUseCase
@@ -10,12 +10,13 @@ describe('User Port Interface', () => {
       email: 'user@email.com',
       name: 'user',
       password: 'password',
+      sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString('pt-BR')
     }
 
     userPortMock = {
       getUser: jest.fn(),
-      createUser: jest.fn().mockResolvedValue('Usuário criado com sucesso'),
+      create: jest.fn().mockResolvedValue('Usuário criado com sucesso'),
       login: jest.fn(),
       editUser: jest.fn()
 
@@ -23,7 +24,7 @@ describe('User Port Interface', () => {
   })
 
   test('Should return the message user created with success', async () => {
-    expect(await userPortMock.createUser(user)).toEqual('Usuário criado com sucesso')
+    expect(await userPortMock.create(user)).toEqual('Usuário criado com sucesso')
   })
 
   test('Should return the message user edited with success', async () => {
@@ -45,6 +46,6 @@ describe('User Port Interface', () => {
       stateOfTheCountry: 'Example State',
       zipCode: '12345-678'
     }
-    expect(await userPortMock.editUser(user._id, user)).toEqual('Usuário editado com sucesso')
+    expect(await userPortMock.editUser(user)).toEqual('Usuário editado com sucesso')
   })
 })

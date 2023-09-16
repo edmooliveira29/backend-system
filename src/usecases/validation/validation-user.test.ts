@@ -12,7 +12,7 @@ describe('Email Validation', () => {
       name: 'user',
       password: 'password',
       sessionToken: 'stringToken',
-      createdAt: new Date('01-01-01').toLocaleString()
+      createdAt: new Date('01-01-01').toLocaleString('pt-BR')
     }
 
     validateMock = new ValidationUser()

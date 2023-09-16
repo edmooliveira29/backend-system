@@ -20,7 +20,7 @@ describe('User Adapter', () => {
         email: 'email@email.com',
         password: 'password',
         sessionToken: 'stringToken',
-        createdAt: new Date().toLocaleString()
+        createdAt: new Date().toLocaleString('pt-BR')
       }
     }
   })
@@ -35,7 +35,7 @@ describe('User Adapter', () => {
           name: 'anyName',
           email: 'email@email.com',
           sessionToken: 'stringToken',
-          createdAt: new Date().toLocaleString()
+          createdAt: new Date().toLocaleString('pt-BR')
         }
       }),
       login: jest.fn()
@@ -51,7 +51,7 @@ describe('User Adapter', () => {
           name: 'anyName',
           email: 'email@email.com',
           sessionToken: 'stringToken',
-          createdAt: new Date().toLocaleString()
+          createdAt: new Date().toLocaleString('pt-BR')
         },
         message: 'Usuário criado com sucesso'
       }

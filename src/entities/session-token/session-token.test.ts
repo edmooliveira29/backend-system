@@ -4,9 +4,11 @@ describe('Session Token Entity', () => {
   test('Should return entity with session token', () => {
     const sessionToken = {
       _id: 'anyid',
-      expiresIn: new Date(1).toLocaleString(),
-      user_id: 'user',
-      createdAt: new Date(-1).toLocaleString()
+      expiresIn: new Date(1).toLocaleString('pt-BR'),
+      userId: 'user',
+      createdAt: new Date(-1).toLocaleString('pt-BR'),
+      token: 'stringToken',
+      updatedAt: 'null'
     }
 
     const sessionTokenEntity = new SessionTokenEntity(sessionToken)

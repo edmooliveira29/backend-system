@@ -5,7 +5,7 @@ jest.mock('jsonwebtoken', () => ({
   sign: jest.fn().mockReturnValue('mocked-token')
 }))
 
-describe('createSessionToken', () => {
+describe('createSession', () => {
   let sessionToken = new SessionToken()
 
   beforeEach(() => {

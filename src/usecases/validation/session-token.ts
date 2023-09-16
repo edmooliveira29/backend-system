@@ -3,11 +3,11 @@ import jwt from 'jsonwebtoken'
 interface User {
   _id?: string
   name?: string
-  email: string
+  email?: string
 }
 
 export class SessionToken {
-  create (user: User, remember: boolean): string {
+  create (user: User, remember: boolean): any {
     const now = new Date()
     let expirationTime
     const daysExpiration = 7
@@ -25,7 +25,6 @@ export class SessionToken {
       },
       String(process.env.KEY_SECRET_TOKEN)
     )
-
-    return token
+    return { token, expirationTime }
   }
 }

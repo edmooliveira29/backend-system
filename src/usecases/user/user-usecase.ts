@@ -1,27 +1,26 @@
 import { type UserEntity } from '../../entities/user/user-entity'
-import { ValidationUser } from '../validation/validation-user'
+import { type IUserDataAccess } from './port/user-data-access'
 import { type UserEdit, type IUserCreateUseCase } from './port/user-port'
-import { type IUserDataAccess } from '../../usecases/user/port/user-data-access'
-import { SessionToken } from '../validation/session-token'
+import { ValidationUser } from '../validation/validation-user'
+import { type SessionTokenUseCase } from '../session-token/session-token-usecase'
 
 export class UserUseCase implements IUserDataAccess {
   public readonly portRepository: IUserCreateUseCase
   public readonly validation: ValidationUser
-  public readonly sessionToken = new SessionToken()
-  constructor (iUserCreateUseCase: IUserCreateUseCase) {
-    this.portRepository = iUserCreateUseCase
+  public readonly sessionToken: SessionTokenUseCase
+  constructor (IUserCreateUseCase: IUserCreateUseCase, ISessionTokenUseCase: SessionTokenUseCase) {
+    this.portRepository = IUserCreateUseCase
     this.validation = new ValidationUser()
+    this.sessionToken = ISessionTokenUseCase
   }
 
   async login (user: { email: string, password: string, remember: boolean }): Promise<any> {
-    const sessionToken = this.sessionToken.create(user, user.remember)
-    console.log(sessionToken)
-    const userRepository = await this.portRepository.login(user, sessionToken)
+    const userRepository = await this.portRepository.login(user)
     if (!userRepository.data) {
       return { message: 'Usuário não encontrado' }
     }
-
     const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
+    const sessionToken = await this.sessionToken.createSessionToken(userRepository, user.remember)
     if (validationPassword.passwordValid) {
       return {
         message: 'Usuário autenticado com sucesso',
@@ -29,8 +28,8 @@ export class UserUseCase implements IUserDataAccess {
           _id: userRepository.data._id,
           name: userRepository.data.name,
           email: userRepository.data.email,
-          sessionToken: userRepository.data.sessionToken,
-          createdAt: new Date().toLocaleString()
+          sessionToken: sessionToken.data.token,
+          createdAt: new Date().toLocaleString('pt-BR')
         }
       }
     } else {
@@ -48,14 +47,16 @@ export class UserUseCase implements IUserDataAccess {
       return { message: 'Nome não é valido' }
     } else {
       const userResponse = (await this.portRepository.createUser(user))
+      const sessionToken = await this.sessionToken.createSessionToken({ data: user }, false)
+      console.log(sessionToken)
       return {
         message: 'Usuário criado com sucesso',
         data: {
           _id: userResponse.data._id,
           name: userResponse.data.name,
           email: userResponse.data.email,
-          sessionToken: this.sessionToken.create(userResponse.data, true),
-          createdAt: new Date().toLocaleString()
+          sessionToken: sessionToken.data.token,
+          createdAt: new Date().toLocaleString('pt-BR')
         }
       }
     }

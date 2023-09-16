@@ -21,7 +21,6 @@ export interface IUserCreateUseCase {
     email: string
     name: string
     password: string
-    sessionToken: string
     createdAt: string
   }) => Promise<any>
   login: (user: { email: string, password: string, remember: boolean }, sessionToken?: string) => Promise<any>

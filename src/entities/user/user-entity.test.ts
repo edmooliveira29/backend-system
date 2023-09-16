@@ -8,7 +8,7 @@ describe('User Entity', () => {
       name: 'user',
       password: 'password',
       sessionToken: 'stringToken',
-      createdAt: new Date('01-01-01').toLocaleString()
+      createdAt: new Date('01-01-01').toLocaleString('pt-BR')
     }
 
     const userEntity = new UserEntity(user)

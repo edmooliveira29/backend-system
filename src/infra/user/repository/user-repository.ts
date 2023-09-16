@@ -1,5 +1,5 @@
-import { MongoConnection } from '../../helpers/mongo-helper'
 import { type IUserDataAccess } from '../../../usecases/user/port/user-data-access'
+import { MongoConnection } from '../../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 
 export class UserRepository implements IUserDataAccess {
@@ -8,7 +8,6 @@ export class UserRepository implements IUserDataAccess {
     email: string
     name: string
     password: string
-    sessionToken: string
     createdAt: string
   }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
@@ -26,7 +25,7 @@ export class UserRepository implements IUserDataAccess {
     }
   }
 
-  async findUserByEmailOrId (user: any, sessionToken?: string): Promise<any> {
+  async findUserByEmailOrId (user: any): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
     let result: any | null
     if (user.email.includes('@')) {
@@ -36,7 +35,6 @@ export class UserRepository implements IUserDataAccess {
       result = await userCollection.findOne({ _id: objectId })
     }
     if (result != null) {
-      result.sessionToken = sessionToken
       const objectId = new ObjectId(result._id)
       await userCollection.updateOne(
         { _id: objectId },
@@ -55,9 +53,8 @@ export class UserRepository implements IUserDataAccess {
     }
   }
 
-  async login (user: { email: string, password: string }, sessionToken?: string): Promise<any> {
-    const userFound = await this.findUserByEmailOrId(user, sessionToken)
-
+  async login (user: { email: string, password: string }): Promise<any> {
+    const userFound = await this.findUserByEmailOrId(user)
     if (userFound) {
       return { message: 'Usuário autenticado com sucesso', data: userFound }
     } else {

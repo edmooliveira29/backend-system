@@ -17,8 +17,7 @@ export class UserController {
         name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
-        sessionToken: userHttpRequest.body.sessionToken,
-        createdAt: new Date().toLocaleString()
+        createdAt: new Date().toLocaleString('pt-BR')
       }
       const fildsRequired = ['name', 'password', 'email']
       for (const field of fildsRequired) {
@@ -33,7 +32,7 @@ export class UserController {
       }
       return ok(createUserResponse)
     } catch (error: any) {
-      console.trace()
+      console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
@@ -57,8 +56,7 @@ export class UserController {
         stateOfTheCountry: userHttpRequest.body.stateOfTheCountry,
         zipCode: userHttpRequest.body.zipCode,
         password: userHttpRequest.body.password,
-        sessionToken: userHttpRequest.body.sessionToken,
-        editAt: new Date().toLocaleString()
+        editAt: new Date().toLocaleString('pt-BR')
       }
       const fildsRequired = [
         'name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry', 'city'
@@ -75,7 +73,7 @@ export class UserController {
       }
       return ok(createUserResponse)
     } catch (error: any) {
-      console.trace()
+      console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
@@ -99,7 +97,7 @@ export class UserController {
       delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, data: userReponseUseCase.data })
     } catch (error: any) {
-      console.trace()
+      console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
@@ -114,7 +112,7 @@ export class UserController {
       delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, ...userReponseUseCase })
     } catch (error: any) {
-      console.trace()
+      console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
