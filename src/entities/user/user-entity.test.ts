@@ -7,7 +7,6 @@ describe('User Entity', () => {
       email: 'user@email.com',
       name: 'user',
       password: 'password',
-      sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString('pt-BR')
     }
 

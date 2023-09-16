@@ -9,7 +9,7 @@ export default (app: Express): void => {
   app.use(corsGeneral)
   app.use(corsOrigin)
   app.use(corsOptions)
-  morganBody(app, {
-    theme: 'dimmed'
-  })
+  // morganBody(app, {
+  //   theme: 'dimmed'
+  // })
 }

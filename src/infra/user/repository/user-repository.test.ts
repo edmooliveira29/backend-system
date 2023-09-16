@@ -24,7 +24,6 @@ describe('Mongodb User repository', () => {
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
-      sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString('pt-BR')
     })
     expect(userAdded).toBeTruthy()
@@ -33,11 +32,10 @@ describe('Mongodb User repository', () => {
   test('Should return error if exist user with same email', async (): Promise<void> => {
     const sut = new UserRepository()
     const userMock = {
-      _id: 'anyId',
+      _id: '64f9304f0f87f700a28984b5',
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
-      sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString('pt-BR')
     }
     await sut.createUser(userMock)
@@ -47,16 +45,15 @@ describe('Mongodb User repository', () => {
   test('Return true with user exist', async () => {
     const sut = new UserRepository()
     const userMock = {
-      _id: 'anyId',
+      _id: '64f9304f0f87f700a28984b5',
       name: 'anyName',
       email: 'email@email.com',
       password: 'password',
-      sessionToken: 'stringToken',
       createdAt: new Date('01-01-01').toLocaleString('pt-BR')
     }
     await sut.createUser(userMock)
 
-    expect(await sut.exists('email@email.com')).toBeTruthy()
+    expect(await sut.exists({ email: 'email@email.com', _id: userMock._id })).toBeTruthy()
   })
 
   test('Return true with authentication with sucessfuly', async () => {
@@ -66,7 +63,6 @@ describe('Mongodb User repository', () => {
       name: 'anyName',
       email: 'email@email.com',
       password: 'Password1*',
-      sessionToken: 'stringToken',
       createdAt: new Date('01-01-01')
     }
     jest.spyOn(sut, 'findUserByEmailOrId').mockResolvedValue(userMock)
@@ -93,7 +89,6 @@ describe('Mongodb User repository', () => {
       name: 'anyName',
       email: 'email@email.com',
       password: 'Password1*',
-      sessionToken: 'stringToken',
       createdAt: new Date('01-01-01')
     }
 

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { MongoConnection } from '../../helpers/mongo-helper'
-import { UserRepository } from './session-token-repository'
+import { SessionTokenRepository } from './session-token-repository'
 import dotenv from 'dotenv'
 dotenv.config()
 
-describe('Mongodb User repository', () => {
+describe('Mongodb Session repository', () => {
   beforeAll(async () => {
     await MongoConnection.connect(process.env.MONGO_URL_TEST as string)
   })
@@ -14,94 +14,35 @@ describe('Mongodb User repository', () => {
   })
 
   afterEach(async () => {
-    await MongoConnection.clearCollection('users')
+    await MongoConnection.clearCollection('session')
   })
 
-  test('Should created a new user', async () => {
-    const sut = new UserRepository()
-    const userAdded = await sut.createUser({
-      _id: 'anyId',
-      name: 'anyName',
-      email: 'email@email.com',
-      password: 'password',
-      sessionToken: 'stringToken',
-      createdAt: new Date('01-01-01').toLocaleString('pt-BR')
+  test('Should created a new session', async () => {
+    const sut = new SessionTokenRepository()
+    const sessionAdded = await sut.createSessionToken({
+      expiresIn: 'string',
+      userId: 'anyId',
+      createdAt: new Date().toLocaleString(),
+      token: 'stringToken',
+      updatedAt: new Date().toLocaleString(),
+      history: []
     })
-    expect(userAdded).toBeTruthy()
+    expect(sessionAdded).toBeTruthy()
   })
 
-  test('Should return error if exist user with same email', async (): Promise<void> => {
-    const sut = new UserRepository()
-    const userMock = {
+  test('Return true with session exist', async () => {
+    const sut = new SessionTokenRepository()
+    const session = {
       _id: 'anyId',
-      name: 'anyName',
-      email: 'email@email.com',
-      password: 'password',
-      sessionToken: 'stringToken',
-      createdAt: new Date('01-01-01').toLocaleString('pt-BR')
+      expiresIn: 'string',
+      userId: 'anyId',
+      createdAt: new Date().toLocaleString(),
+      token: 'stringToken',
+      updatedAt: new Date().toLocaleString(),
+      history: []
     }
-    await sut.createUser(userMock)
-    expect(async () => await sut.createUser(userMock)).rejects.toStrictEqual(new Error('Já existe um usuário com este e-mail'))
-  })
+    await sut.createSessionToken(session)
 
-  test('Return true with user exist', async () => {
-    const sut = new UserRepository()
-    const userMock = {
-      _id: 'anyId',
-      name: 'anyName',
-      email: 'email@email.com',
-      password: 'password',
-      sessionToken: 'stringToken',
-      createdAt: new Date('01-01-01').toLocaleString('pt-BR')
-    }
-    await sut.createUser(userMock)
-
-    expect(await sut.exists('email@email.com')).toBeTruthy()
-  })
-
-  test('Return true with authentication with sucessfuly', async () => {
-    const sut = new UserRepository()
-    const userMock = {
-      _id: 'anyId',
-      name: 'anyName',
-      email: 'email@email.com',
-      password: 'Password1*',
-      sessionToken: 'stringToken',
-      createdAt: new Date('01-01-01')
-    }
-    jest.spyOn(sut, 'findUserByEmailOrId').mockResolvedValue(userMock)
-    expect(await sut.login({ email: 'email@email.com', password: 'Password1*' }))
-      .toStrictEqual({
-        message: 'Usuário autenticado com sucesso',
-        data: userMock
-      })
-  })
-
-  test('Return message if Usuário não encontrado to authentication', async () => {
-    const sut = new UserRepository()
-    expect(await sut.login({ email: 'emailnotcreated@email.com', password: 'Password1*' })).toStrictEqual({ message: 'Usuário não encontrado' })
-  })
-
-  test('Return message if user not found to getUser', async () => {
-    const sut = new UserRepository()
-    expect(await sut.getUser('64f9304f0f87f700a28984b5')).toStrictEqual({ message: 'Usuário não encontrado' })
-  })
-  test('Return true with authentication with successfully', async () => {
-    const sut = new UserRepository()
-    const userMock = {
-      _id: '64f9304f0f87f700a28984b5',
-      name: 'anyName',
-      email: 'email@email.com',
-      password: 'Password1*',
-      sessionToken: 'stringToken',
-      createdAt: new Date('01-01-01')
-    }
-
-    jest.spyOn(sut, 'findUserByEmailOrId').mockResolvedValue(userMock)
-    const result = await sut.getUser(userMock._id)
-    expect(result).toStrictEqual({
-      message: 'Usuário encontrado com sucesso',
-      data: userMock
-    })
+    expect(await sut.existsSessionTokenUser(session._id)).toBeTruthy()
   })
 })

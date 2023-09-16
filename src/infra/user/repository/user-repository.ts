@@ -63,7 +63,7 @@ export class UserRepository implements IUserDataAccess {
   }
 
   async getUser (_id: string): Promise<any> {
-    const user = await this.findUserByEmailOrId(_id)
+    const user = await this.findUserByEmailOrId({ _id, email: '' })
     if (user) {
       return { message: 'Usuário encontrado com sucesso', data: user }
     } else {

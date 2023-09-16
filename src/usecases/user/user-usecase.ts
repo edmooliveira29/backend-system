@@ -2,13 +2,14 @@ import { type UserEntity } from '../../entities/user/user-entity'
 import { type IUserDataAccess } from './port/user-data-access'
 import { type UserEdit, type IUserCreateUseCase } from './port/user-port'
 import { ValidationUser } from '../validation/validation-user'
-import { type SessionTokenUseCase } from '../session-token/session-token-usecase'
+import { type ISessionTokenUseCase } from '../session-token/session-token-interface'
 
 export class UserUseCase implements IUserDataAccess {
   public readonly portRepository: IUserCreateUseCase
   public readonly validation: ValidationUser
-  public readonly sessionToken: SessionTokenUseCase
-  constructor (IUserCreateUseCase: IUserCreateUseCase, ISessionTokenUseCase: SessionTokenUseCase) {
+  public readonly sessionToken: ISessionTokenUseCase
+
+  constructor (IUserCreateUseCase: IUserCreateUseCase, ISessionTokenUseCase: ISessionTokenUseCase) {
     this.portRepository = IUserCreateUseCase
     this.validation = new ValidationUser()
     this.sessionToken = ISessionTokenUseCase

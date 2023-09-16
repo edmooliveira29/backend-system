@@ -22,8 +22,7 @@ describe('Register Routes', () => {
       .send({
         name: 'Name Test',
         email: 'email-test@gmail.com',
-        password: 'anyPassword1*',
-        sessionToken: new Date()
+        password: 'anyPassword1*'
       })
       .expect(200)
   })
@@ -34,8 +33,7 @@ describe('Register Routes', () => {
       .send({
         name: 'Name Test',
         email: 'email-testgmail.com',
-        password: 'anyPassword*1',
-        sessionToken: new Date()
+        password: 'anyPassword*1'
       })
     expect(user.statusCode).toBe(400)
     expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro inválido: E-mail não é valido.' })
@@ -47,8 +45,7 @@ describe('Register Routes', () => {
       .send({
         name: 'a',
         email: 'email-test@gmail.com',
-        password: 'anyPassword*1',
-        sessionToken: new Date()
+        password: 'anyPassword*1'
       })
     expect(user.statusCode).toBe(400)
     expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro inválido: Nome não é valido.' })
@@ -59,8 +56,7 @@ describe('Register Routes', () => {
       .post('/v1/user')
       .send({
         name: 'a',
-        email: 'email-test@gmail.com',
-        sessionToken: new Date()
+        email: 'email-test@gmail.com'
       })
     expect(user.statusCode).toBe(400)
     expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro ausente: password.' })

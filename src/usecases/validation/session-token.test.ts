@@ -29,7 +29,8 @@ describe('createSession', () => {
       },
       expect.any(String)
     )
-    expect(token).toBe('mocked-token')
+    token.expirationTime = 123
+    expect(token).toStrictEqual({ expirationTime: 123, token: 'mocked-token' })
   })
 
   it('Should create a session token without remember option', () => {
@@ -50,6 +51,7 @@ describe('createSession', () => {
       },
       expect.any(String)
     )
-    expect(token).toBe('mocked-token')
+    token.expirationTime = 123
+    expect(token).toStrictEqual({ expirationTime: 123, token: 'mocked-token' })
   })
 })
