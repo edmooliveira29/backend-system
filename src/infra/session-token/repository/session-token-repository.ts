@@ -7,6 +7,7 @@ interface SessionTokenCreate {
   createdAt?: string
   token: string
   updatedAt?: string
+  history?: any[]
 }
 
 export class SessionTokenRepository implements ISessionTokenDataAccess {
@@ -14,6 +15,8 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
     const userCollection = MongoConnection.getCollection('session')
     const exists = await this.existsSessionTokenUser(session.userId)
     if (!exists) {
+      session.createdAt = new Date().toLocaleString('pt-BR')
+      session.history = [{ login: `Login in system at ${new Date().toLocaleString('pt-BR')}` }]
       const sessionToken = await userCollection.insertOne(session)
       return { message: 'Token criado com sucesso', data: sessionToken }
     } else {
@@ -27,7 +30,7 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
     updatedSession.updatedAt = new Date().toLocaleString('pt-BR')
     const sessionToken = await userCollection.updateOne(
       { _id: objectId },
-      { $set: updatedSession }
+      { $set: updatedSession, $push: { history: { login: `Login in system at ${new Date().toLocaleString('pt-BR')}` } } }
     )
     return { message: 'Token editado com sucesso', data: sessionToken }
   }

@@ -12,9 +12,7 @@ export class SessionTokenUseCase implements ISessionTokenDataAccess {
 
   async createSessionToken (user: any, remember: boolean): Promise<any> {
     const sessionToken = this.sessionToken.create(user, remember)
-    console.log(user)
     const session: SessionTokenEntity = {
-      createdAt: new Date().toLocaleString('pt-BR'),
       expiresIn: new Date(sessionToken.expirationTime * 1000).toLocaleString('pt-BR'),
       token: sessionToken.token,
       userId: user.data._id
