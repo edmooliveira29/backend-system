@@ -32,7 +32,7 @@ export class UserController {
       }
       return ok(createUserResponse)
     } catch (error: any) {
-      //console.error(error)
+      // console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
@@ -73,7 +73,7 @@ export class UserController {
       }
       return ok(createUserResponse)
     } catch (error: any) {
-      //console.error(error)
+      // console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
@@ -97,7 +97,7 @@ export class UserController {
       delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, data: userReponseUseCase.data })
     } catch (error: any) {
-      //console.error(error)
+      // console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
@@ -112,7 +112,7 @@ export class UserController {
       delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, ...userReponseUseCase })
     } catch (error: any) {
-      //console.error(error)
+      // console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
