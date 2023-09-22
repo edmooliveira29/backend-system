@@ -49,7 +49,6 @@ export class UserUseCase implements IUserDataAccess {
     } else {
       const userResponse = (await this.portRepository.createUser(user))
       const sessionToken = await this.sessionToken.createSessionToken({ data: user }, false)
-      console.log(sessionToken)
       return {
         message: 'Usuário criado com sucesso',
         data: {
