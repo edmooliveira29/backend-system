@@ -22,7 +22,7 @@ export const corsOrigin = (req: Request, res: Response, next: NextFunction): voi
     console.log('Request Body:')
     console.log(JSON.stringify(req.body, null, 4))
     console.log('Response Body:')
-    console.log('{\n   error: Origin not allowew\n}')
+    console.log('{\n   error: Origin not allowed\n}')
   }
 
   next()
