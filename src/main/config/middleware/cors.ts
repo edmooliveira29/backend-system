@@ -16,11 +16,13 @@ export const corsOrigin = (req: Request, res: Response, next: NextFunction): voi
     res.header('Access-Control-Allow-Origin', requestOrigin)
   } else {
     res.status(403).send({ error: 'Origin not allowed' })
+    console.log(`Response: ${res.statusCode}`, { error: 'Origin not allowed' })
     console.log(`Request: ${req.method} ${req.url} at ${new Date().toLocaleString('pt-BR')},
     IP: ${req.socket.remoteAddress}, User Agent: ${req.headers['user-agent']}`)
-    console.log('Response Body:')
+    console.log('Request Body:')
     console.log(JSON.stringify(req.body, null, 4))
-    console.log(`Response: ${res.statusCode}`, { error: 'Origin not allowed' })
+    console.log('Response Body:')
+    console.log('{\n   error: Origin not allowew\n}')
   }
 
   next()
