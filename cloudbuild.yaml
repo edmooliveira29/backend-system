@@ -10,8 +10,6 @@ steps:
       chmod 600 ~/root/.ssh/id_rsa && \
       gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > ~/root/.ssh/id_rsa.pub && \
       chmod 600 ~/root/.ssh/id_rsa.pub && \
-      cat ~/root/.ssh/id_rsa.pub && \
-      echo "====================" && \
-      cat ~/root/.ssh/id_rsa && \
       set -x && \
+      ls ~/root/.ssh && \
       ssh -i ~/root/.ssh/id_rsa@34.139.250.184
