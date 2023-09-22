@@ -14,7 +14,15 @@ export const corsOrigin = (req: Request, res: Response, next: NextFunction): voi
   const requestOrigin = req.get('origin') as string
   if (allowedOrigins.includes(requestOrigin)) {
     res.header('Access-Control-Allow-Origin', requestOrigin)
+  } else {
+    res.status(403).send({ error: 'Origin not allowed' })
+    console.log(`Request: ${req.method} ${req.url} at ${new Date().toLocaleString('pt-BR')},
+    IP: ${req.socket.remoteAddress}, User Agent: ${req.headers['user-agent']}`)
+    console.log('Response Body:')
+    console.log(JSON.stringify(req.body, null, 4))
+    console.log(`Response: ${res.statusCode}`, { error: 'Origin not allowed' })
   }
+
   next()
 }
 
@@ -22,10 +30,6 @@ export const corsOptions = cors({
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin as string)) {
       callback(null, true)
-    } else {
-      const error = new Error('Origin not allowed')
-      error.stack = ''
-      callback(error)
     }
   },
   allowedHeaders: ['Content-Type']
