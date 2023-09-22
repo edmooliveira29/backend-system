@@ -10,5 +10,5 @@ export default (app: Express): void => {
   app.use(corsGeneral)
   app.use(corsOrigin)
   app.use(corsOptions)
-  morganBody(app, { timezone: 'America/Sao_Paulo' })
+  morganBody(app, { timezone: 'America/Sao_Paulo', includeFinalNewLine: true, includeNewLine: true, stream: process.stdout })
 }
