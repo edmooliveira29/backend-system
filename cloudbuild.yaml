@@ -1,4 +1,6 @@
 steps:
-- name: gcr.io/$PROJECT_ID/remote-builder
-  env:
-    - COMMAND=~/deploy.sh
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [
+      'compute', 'ssh', 'system', '--command',
+      '~/deploy.sh'
+    ]
