@@ -10,8 +10,5 @@ export default (app: Express): void => {
   app.use(corsGeneral)
   app.use(corsOrigin)
   app.use(corsOptions)
-  morganBody(app, {
-    theme: 'dimmed',
-    timezone: 'America/Sao_Paulo'
-  })
+  morganBody(app, { theme: 'dimmed', timezone: 'America/Sao_Paulo' })
 }
