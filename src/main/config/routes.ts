@@ -1,5 +1,5 @@
 /* eslint-disable n/no-path-concat */
-import { type Express, Router } from 'express'
+import { type Express, Router, type Response } from 'express'
 import { readdirSync } from 'fs'
 
 export default (app: Express): void => {
@@ -10,5 +10,9 @@ export default (app: Express): void => {
     if (!fileName.includes('.test.')) {
       (await import(`../routes/${fileName}/${fileName}-router`)).default(router)
     }
+  })
+
+  app.use((req: any, res: Response) => {
+    res.status(403).json({ error: 'Route not allowed' })
   })
 }

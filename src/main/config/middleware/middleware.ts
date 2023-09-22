@@ -3,6 +3,7 @@ import { bodyParser } from './body-parser'
 import { contentType } from './content-type'
 import { corsGeneral, corsOptions, corsOrigin } from './cors'
 import morganBody from 'morgan-body'
+
 export default (app: Express): void => {
   app.use(bodyParser)
   app.use(contentType)

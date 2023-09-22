@@ -63,7 +63,7 @@ gcloud compute ssh system
 
 Keep in mind that to access the instance via SSH using `gcloud`, you need to have the Google Cloud Platform SDK installed and configured on your local machine.
 
-### **Nginx configuration**
+### **Nginx configuration and ssl**
 
 To configure NGINX in project, follow the steps below inside vm instance.
 
@@ -74,28 +74,76 @@ To configure NGINX in project, follow the steps below inside vm instance.
    sudo apt-get install nginx
    ```
 
-2. Open the NGINX configuration file for editing:
+2. Insert into netlify this informations in DNS Settings
 
+ - Name: api.edmopuc.online
+ - TTL: 3600 seconds
+ - Type: A
+ - Value: 34.139.250.184 => This VM IP
+
+3. Run the folling command
    ```
-   sudo nano /etc/nginx/sites-available/default
-   ```
-
-3. Add the following block of code inside the "server" block:
-
-   ```                                                                                              
-    location / {
-        proxy_pass http://localhost:5000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
+   sudo certbot --nginx
    ```
 
-   This configuration block will redirect requests made to the URL "http://{you_ip}:5000/" to your Node.js server running on port 5000.
+   And write api.edmopuc.online when request
 
-4. Save and close the file.
+  
+
+4. Edit de file /etc/nginx/sites-enabled/default. Insert this command
+```
+   server {
+   	listen 80 default_server;
+   	listen [::]:80 default_server;
+   	root /var/www/html;
+   	index index.html index.htm index.nginx-debian.html;
+
+   	server_name _;
+
+   	location / {
+   		try_files $uri $uri/ =404;
+   	}
+   }
+
+   server {
+   	root /var/www/html;
+   	index index.html index.htm index.nginx-debian.html;
+     server_name api.edmopuc.online
+
+     server_name api.example.com;
+       location / {
+           proxy_pass http://localhost:5000;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'upgrade';
+           proxy_set_header Host $host;
+           proxy_cache_bypass $http_upgrade;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+       }
+
+       listen [::]:443 ssl ipv6only=on;
+       listen 443 ssl;
+       ssl_certificate /etc/letsencrypt/live/api.edmopuc.online/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/api.edmopuc.online/privkey.pem;
+       include /etc/letsencrypt/options-ssl-nginx.conf;
+       ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+   }
+
+   server {
+       if ($host = api.edmopuc.online) {
+           return 301 https://$host$request_uri;
+       }
+
+
+   	listen 80 ;
+   	listen [::]:80 ;
+       server_name api.edmopuc.online;
+       return 404;
+   }
+
+```
 
 5. Restart NGINX:
 
@@ -104,89 +152,4 @@ To configure NGINX in project, follow the steps below inside vm instance.
    ```
 
    This configuration is based on the official NGINX documentation: https://www.nginx.com/resources/wiki/start/topics/tutorials/install/
-   
-### **Create Certificate SSL to API**
-To issue an SSL certificate for a specific IP, you can follow these steps:
-
-1. Ensure that the IP address of your server is pointing to the correct domain name. This can be done by adding an *A* record in your domain provider's DNS withe the IP address of the server VM.
-
-2. Install Certbot on your server. Certbot is an automated tool for issuing free SSL certificates from Let's Encrypt.
-To install Certbot on your server, you can follow these steps:
-
-   2.1. Update your system's package manager:
-
-   ```
-   sudo apt-get update
-   ```
-
-   2.2. Install Certbot's package:
-
-   ```
-   sudo apt-get install certbot
-   ```
-
-   2.3. Run the following command to generate a new certificate:
-
-   ```
-   sudo certbot certonly --cert-name subdominio.dominio --standalone -d api.edmopuc.online --agree-tos --email email@email.com
-   ```
-
-   2.4. Certbot will ask you to confirm whether you want to allow it to modify firewall settings to allow HTTPS traffic. Select the option that corresponds to your needs.
-
-   2.5. Wait for Certbot to obtain and install the new SSL certificate.
-
-   2.6. Check that the Nginx configuration file for your site is pointing to the correct path for the SSL certificate and key file.
-
-   ```
-   server {
-    listen 80;
-    server_name subdominio.dominio;
-    return 301 https://$host$request_uri;
-   }
-
-   server {
-       listen 443 ssl;
-       server_name subdominio.dominio;
-       ssl on;
-       ssl_certificate /etc/letsencrypt/live/subdominio.dominio/fullchain.pem;
-       ssl_certificate_key /etc/letsencrypt/live/subdominio.dominio/privkey.pem;
-
-       location / {
-           proxy_pass http://localhost:5000;
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-       }
-      }
-   ```
-
-   2.7. Restart the Nginx service to load the new configuration.
-
-   ```
-   sudo systemctl restart nginx
-   ```
-
-   With these steps, you should have a new SSL certificate configured on your server and Nginx should be configured to use it correctly.
-
-   ### **Create User with password to mongodb**
-   1. Run the following command
-
-   ```
-   mongosh
-   ```
-
-   2. Switch to system-database with the follow command
-
-   ```
-   use system-database
-   ```
-
-   3. Create a new user with the password and username that be in file .env
-
-   ```
-   db.createUser({
-     user: "system-user-database",
-     pwd: "M@nag3r$%Syst3m",
-     roles: [{ role: "dbOwner", db: "system-batabase" }]
-   })
-```
-
+ 

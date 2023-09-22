@@ -7,7 +7,7 @@ export const corsGeneral = (req: Request, res: Response, next: NextFunction): vo
   next()
 }
 
-const allowedOrigins: string = 'https://edmopuc.online, http://localhost:3000'
+const allowedOrigins: string = 'https://api.edmopuc.online, http://localhost:3000'
 export const corsOrigin = (req: Request, res: Response, next: NextFunction): void => {
   const requestOrigin = String(req.get('origin'))
   if (allowedOrigins.includes(requestOrigin)) {

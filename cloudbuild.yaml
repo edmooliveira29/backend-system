@@ -1,9 +1,4 @@
 steps:
-  - name: 'gcr.io/cloud-builders/gcloud'
-    id: 'Update server'
-    entrypoint: /bin/sh
-    args:
-      - '-c'
-      - |
-        set -x && \
-         gcloud compute ssh --zone "us-west1-b" "system" --project "api-8702109450667741338-992005" --command='/bin/sh ~/deploy.sh' 
+- name: gcr.io/$PROJECT_ID/remote-builder
+  env:
+    - COMMAND=~/deploy.sh
