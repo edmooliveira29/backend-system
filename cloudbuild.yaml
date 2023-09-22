@@ -1,6 +1,14 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: [
-      'compute', 'ssh', '--zone', 'us-east1-d', 'system', '--command',
-      '~/deploy.sh'
-    ]
+    id: Connect to instance
+    entrypoint: /bin/sh
+    args:
+    - '-c'
+    - |
+      mkdir -p ~/root/.ssh && \\
+      gcloud secrets versions access latest --secret=cloud-build-ssh-key > ~/root/.ssh/id_rsa && \\
+      chmod 600 ~/root/.ssh/id_rsa && \\
+      gcloud secrets versions access latest --secret=cloud-build-ssh-key-pub > ~/root/.ssh/id_rsa.pub && \\
+      chmod 600 ~/root/.ssh/id_rsa.pub && \\
+      set -x && \\
+      gcloud compute ssh system --ssh-key-file=~/root/.ssh/id_rsa --zone=us-east1-d --project=api-8702109450667741338-992005 --command="cd ~/Documents/backend-system/ && npm run start-production"
