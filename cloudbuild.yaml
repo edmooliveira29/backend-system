@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
-      'compute', 'ssh', 'system', '--command',
+      'compute', 'ssh', '--zone', 'us-east1-d', 'system', '--command',
       '~/deploy.sh'
     ]
