@@ -17,7 +17,7 @@ export class UserController {
         name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
-        createdAt: new Date().toLocaleString('pt-BR')
+        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
       const fildsRequired = ['name', 'password', 'email']
       for (const field of fildsRequired) {
@@ -56,7 +56,7 @@ export class UserController {
         stateOfTheCountry: userHttpRequest.body.stateOfTheCountry,
         zipCode: userHttpRequest.body.zipCode,
         password: userHttpRequest.body.password,
-        editAt: new Date().toLocaleString('pt-BR')
+        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
       const fildsRequired = [
         'name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry', 'city'

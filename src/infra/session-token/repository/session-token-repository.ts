@@ -15,8 +15,8 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
     const userCollection = MongoConnection.getCollection('session')
     const exists = await this.existsSessionTokenUser(session.userId)
     if (!exists) {
-      session.createdAt = new Date().toLocaleString('pt-BR')
-      session.history = [{ login: `Login in system at ${new Date().toLocaleString('pt-BR')}` }]
+      session.createdAt = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+      session.history = [{ login: `Login in system at ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}` }]
       const sessionToken = await userCollection.insertOne(session)
       return { message: 'Token criado com sucesso', data: sessionToken }
     } else {
@@ -27,10 +27,17 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
   async editSessionToken (existingSessionId: string, updatedSession: SessionTokenCreate): Promise<any> {
     const userCollection = MongoConnection.getCollection('session')
     const objectId = new ObjectId(existingSessionId)
-    updatedSession.updatedAt = new Date().toLocaleString('pt-BR')
+    updatedSession.updatedAt = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
     const sessionToken = await userCollection.updateOne(
       { _id: objectId },
-      { $set: updatedSession, $push: { history: { login: `Login in system at ${new Date().toLocaleString('pt-BR')}` } } }
+      {
+        $set: updatedSession,
+        $push: {
+          history: {
+            login: `Login in system at ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`
+          }
+        }
+      }
     )
     return { message: 'Token editado com sucesso', data: sessionToken }
   }

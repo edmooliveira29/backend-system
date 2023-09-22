@@ -30,7 +30,7 @@ export class UserUseCase implements IUserDataAccess {
           name: userRepository.data.name,
           email: userRepository.data.email,
           sessionToken: sessionToken.data.token,
-          createdAt: new Date().toLocaleString('pt-BR')
+          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
         }
       }
     } else {
@@ -57,7 +57,7 @@ export class UserUseCase implements IUserDataAccess {
           name: userResponse.data.name,
           email: userResponse.data.email,
           sessionToken: sessionToken.data.token,
-          createdAt: new Date().toLocaleString('pt-BR')
+          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
         }
       }
     }

@@ -21,7 +21,7 @@ describe('User Adapter', () => {
         email: 'email@email.com',
         password: 'password',
         sessionToken: 'stringToken',
-        createdAt: new Date().toLocaleString('pt-BR')
+        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
     }
   })
@@ -35,7 +35,7 @@ describe('User Adapter', () => {
           _id: 'anyId',
           name: 'anyName',
           email: 'email@email.com',
-          createdAt: new Date().toLocaleString('pt-BR')
+          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
         }
       }),
       editUser: jest.fn(),
@@ -51,7 +51,7 @@ describe('User Adapter', () => {
           _id: 'anyId',
           name: 'anyName',
           email: 'email@email.com',
-          createdAt: new Date().toLocaleString('pt-BR')
+          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
         },
         message: 'Usuário criado com sucesso'
       }
