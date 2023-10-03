@@ -22,31 +22,31 @@ export class ValidationUser {
     if ((password.length < 8)) {
       return {
         message: 'A senha deve conter pelo menos 8 caracteres',
-        isValid: false
+        passwordIsValid: false
       }
     } else if (!(/[0-9]/).test(password)) {
       return {
         message: 'A senha deve conter pelo menos 1 dígito',
-        isValid: false
+        passwordIsValid: false
       }
     } else if (!(/[A-Z]/).test(password)) {
       return {
         message: 'A senha deve conter pelo menos uma letra maiúscula',
-        isValid: false
+        passwordIsValid: false
       }
     } else if (!(/[a-z]/).test(password)) {
       return {
         message: 'A senha deve conter pelo menos uma letra minúscula',
-        isValid: false
+        passwordIsValid: false
       }
     } else if (!(/[^a-zA-Z0-9]+/g).test(password)) {
       return {
         message: 'A senha deve conter pelo menos um caracter especial',
-        isValid: false
+        passwordIsValid: false
       }
     } else {
       return {
-        isValid: true
+        passwordIsValid: true
       }
     }
   }
@@ -56,13 +56,11 @@ export class ValidationUser {
       return result
     })
     if (result) {
-      return { passwordValid: true }
+      return { passwordIsValid: true }
     } else {
       return {
-        data: {
-          message: 'Senha inválida. Tente novamente',
-          passwordValid: false
-        }
+        message: 'Senha inválida. Tente novamente',
+        passwordIsValid: false
       }
     }
   }

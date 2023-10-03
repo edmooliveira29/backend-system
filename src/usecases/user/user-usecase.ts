@@ -22,7 +22,7 @@ export class UserUseCase implements IUserDataAccess {
     }
     const validationPassword: any = await this.validation.comparePassword(user.password, userRepository.data.password)
     const sessionToken = await this.sessionToken.createSessionToken(userRepository, user.remember)
-    if (validationPassword.passwordValid) {
+    if (validationPassword.passwordIsValid) {
       return {
         message: 'Usuário autenticado com sucesso',
         data: {
@@ -44,7 +44,7 @@ export class UserUseCase implements IUserDataAccess {
       ...user,
       password: await this.validation.hashPassword(user.password)
     }
-    if (!validationPassword.isValid) {
+    if (!validationPassword.passwordIsValid) {
       return { message: validationPassword.message }
     } else if (!this.validation.emailIsValid(user.email)) {
       return { message: 'E-mail não é valido' }
@@ -67,9 +67,10 @@ export class UserUseCase implements IUserDataAccess {
   }
 
   async editUser (_id: string, user: UserEdit): Promise<any> {
-    let validationPassword: any = { isValid: true }
+    let validationPassword: any = { passwordIsValid: true }
     const userFound = await this.getUser(_id)
-    if (userFound.data.password !== user.password && user.newPassword) {
+    validationPassword = user.newPassword ? await this.validation.comparePassword(user.password, userFound.data.password) : validationPassword
+    if (!validationPassword.passwordIsValid && user.newPassword) {
       return { message: 'Senha atual esta incorreta' }
     }
     const newPassword = user.newPassword
@@ -87,16 +88,14 @@ export class UserUseCase implements IUserDataAccess {
         password: userFound.data.password
       }
     }
-    console.log(user)
     const userResponse = (await this.portRepository.editUser(_id, user))
-    if (!validationPassword.isValid) {
+    if (!validationPassword.passwordIsValid) {
       return { message: validationPassword.message }
     } else if (!this.validation.emailIsValid(user.email)) {
       return { message: 'E-mail não é valido' }
     } else if (!this.validation.nameIsValid(user.name)) {
       return { message: 'Nome não é valido' }
     } else {
-      console.log(user)
       return {
         message: newPassword ? 'Senha editada com sucesso' : 'Usuário editado com sucesso',
         data: {
