@@ -20,7 +20,7 @@ export class UserUseCase implements IUserDataAccess {
     if (!userRepository.data) {
       return { message: 'Usuário não encontrado' }
     }
-    const validationPassword: any = this.validation.comparePassword(userRepository.data.password, user.password)
+    const validationPassword: any = await this.validation.comparePassword(user.password, userRepository.data.password)
     const sessionToken = await this.sessionToken.createSessionToken(userRepository, user.remember)
     if (validationPassword.passwordValid) {
       return {
@@ -40,6 +40,10 @@ export class UserUseCase implements IUserDataAccess {
 
   async createUser (user: UserEntity): Promise<any> {
     const validationPassword: any = this.validation.passwordIsValid(user.password)
+    user = {
+      ...user,
+      password: await this.validation.hashPassword(user.password)
+    }
     if (!validationPassword.isValid) {
       return { message: validationPassword.message }
     } else if (!this.validation.emailIsValid(user.email)) {
@@ -68,12 +72,13 @@ export class UserUseCase implements IUserDataAccess {
     if (userFound.data.password !== user.password && user.newPassword) {
       return { message: 'Senha atual esta incorreta' }
     }
+    const newPassword = user.newPassword
     if (user.newPassword) {
       validationPassword = this.validation.passwordIsValid(user.newPassword)
       user = {
         ...userFound.data,
         lastChangedPassword: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-        password: user.newPassword
+        password: await this.validation.hashPassword(user.newPassword)
       }
     } else {
       user = {
@@ -82,7 +87,7 @@ export class UserUseCase implements IUserDataAccess {
         password: userFound.data.password
       }
     }
-
+    console.log(user)
     const userResponse = (await this.portRepository.editUser(_id, user))
     if (!validationPassword.isValid) {
       return { message: validationPassword.message }
@@ -91,8 +96,9 @@ export class UserUseCase implements IUserDataAccess {
     } else if (!this.validation.nameIsValid(user.name)) {
       return { message: 'Nome não é valido' }
     } else {
+      console.log(user)
       return {
-        message: user.newPassword ? 'Senha editada com sucesso' : 'Usuário editado com sucesso',
+        message: newPassword ? 'Senha editada com sucesso' : 'Usuário editado com sucesso',
         data: {
           _id: userResponse.data._id,
           address: userResponse.data.address,

@@ -1,7 +1,8 @@
+import bcrypt from 'bcrypt'
 export class ValidationUser {
   emailIsValid (email: string): boolean {
     // eslint-disable-next-line max-len, no-useless-escape, prefer-regex-literals
-    const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    const regexp = new RegExp(/^(([^<>()\[\]\\.,:\s@"]+(\.[^<>()\[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     if (regexp.test(email)) {
       return true
     } else {
@@ -50,8 +51,11 @@ export class ValidationUser {
     }
   }
 
-  comparePassword (passwordRequest: string, passwordRepository: string): object {
-    if (passwordRequest === passwordRepository) {
+  async comparePassword (passwordRequest: string, passwordRepository: string): Promise<object> {
+    const result = await bcrypt.compare(passwordRequest, passwordRepository).then(function (result) {
+      return result
+    })
+    if (result) {
       return { passwordValid: true }
     } else {
       return {
@@ -61,5 +65,9 @@ export class ValidationUser {
         }
       }
     }
+  }
+
+  async hashPassword (password: string): Promise<any> {
+    return bcrypt.hash(password, 10).then(function (hash) { return hash })
   }
 }
