@@ -14,6 +14,10 @@ export interface UserEdit {
   phoneNumber: string
   stateOfTheCountry: string
   zipCode: string
+  newPassword: string
+  newPasswordConfirmation: string
+  password: string
+  lastChangedPassword?: string
 }
 export interface IUserCreateUseCase {
   createUser: (user: {

@@ -63,14 +63,36 @@ export class UserUseCase implements IUserDataAccess {
   }
 
   async editUser (_id: string, user: UserEdit): Promise<any> {
-    if (!this.validation.emailIsValid(user.email)) {
+    let validationPassword: any = { isValid: true }
+    const userFound = await this.getUser(_id)
+    if (userFound.data.password !== user.password && user.newPassword) {
+      return { message: 'Senha atual esta incorreta' }
+    }
+    if (user.newPassword) {
+      validationPassword = this.validation.passwordIsValid(user.newPassword)
+      user = {
+        ...userFound.data,
+        lastChangedPassword: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        password: user.newPassword
+      }
+    } else {
+      user = {
+        ...user,
+        lastChangedPassword: userFound.data.lastChangedPassword,
+        password: userFound.data.password
+      }
+    }
+
+    const userResponse = (await this.portRepository.editUser(_id, user))
+    if (!validationPassword.isValid) {
+      return { message: validationPassword.message }
+    } else if (!this.validation.emailIsValid(user.email)) {
       return { message: 'E-mail não é valido' }
     } else if (!this.validation.nameIsValid(user.name)) {
       return { message: 'Nome não é valido' }
     } else {
-      const userResponse = (await this.portRepository.editUser(_id, user))
       return {
-        message: 'Usuário editado com sucesso',
+        message: user.newPassword ? 'Senha editada com sucesso' : 'Usuário editado com sucesso',
         data: {
           _id: userResponse.data._id,
           address: userResponse.data.address,
@@ -86,7 +108,8 @@ export class UserUseCase implements IUserDataAccess {
           nickname: userResponse.data.nickname,
           phoneNumber: userResponse.data.phoneNumber,
           stateOfTheCountry: userResponse.data.stateOfTheCountry,
-          zipCode: userResponse.data.zipCode
+          zipCode: userResponse.data.zipCode,
+          lastChangedPassword: userResponse.data.lastChangedPassword ? userResponse.data.lastChangedPassword : null
         }
       }
     }

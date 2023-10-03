@@ -75,12 +75,16 @@ export class UserRepository implements IUserDataAccess {
     const userCollection = MongoConnection.getCollection('users')
     const objectId = new ObjectId(_id)
     delete updatedUserData._id
+    delete updatedUserData.newPassword
+    delete updatedUserData.newPasswordConfirmation
     const user = await userCollection.updateOne(
       { _id: objectId },
       { $set: updatedUserData }
     )
+
     if (user) {
-      return { message: 'Usuário editado com sucesso', data: user }
+      updatedUserData._id = _id
+      return { data: updatedUserData }
     } else {
       return { message: 'Usuário não encontrado' }
     }

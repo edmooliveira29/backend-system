@@ -1,6 +1,6 @@
 export class InvalidParamError extends Error {
   constructor (paramName: string) {
-    super('Parâmetro inválido: ' + paramName + '.')
+    super(paramName + '.')
     this.name = 'InvalidParamError'
   }
 }

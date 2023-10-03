@@ -56,24 +56,27 @@ export class UserController {
         stateOfTheCountry: userHttpRequest.body.stateOfTheCountry,
         zipCode: userHttpRequest.body.zipCode,
         password: userHttpRequest.body.password,
+        newPassword: userHttpRequest.body.newPassword,
+        newPasswordConfirmation: userHttpRequest.body.newPasswordConfirmation,
         editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
-      const fildsRequired = [
-        'name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry', 'city'
-      ]
+
+      const fildsRequired = userData.newPassword
+        ? ['newPassword', 'newPasswordConfirmation']
+        : ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry', 'city']
       for (const field of fildsRequired) {
         if (!Object.prototype.hasOwnProperty.call(userHttpRequest.body, field)) {
           return badRequest(new MissingParamError(field))
         }
       }
-
       const createUserResponse = await this.userUseCase.editUser(userHttpRequest.body._id, userData)
-      if (createUserResponse.message !== 'Usuário editado com sucesso') {
+
+      if (!createUserResponse.data) {
         return badRequest(new InvalidParamError(createUserResponse.message))
       }
       return ok(createUserResponse)
     } catch (error: any) {
-      // console.error(error)
+      console.error(error)
       return internalError(new ServerError(error.message))
     }
   }
