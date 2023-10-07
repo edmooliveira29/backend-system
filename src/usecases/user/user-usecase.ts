@@ -30,7 +30,8 @@ export class UserUseCase implements IUserDataAccess {
           name: userRepository.data.name,
           email: userRepository.data.email,
           sessionToken: sessionToken.data.token,
-          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+          profilePicture: userRepository.data.profilePicture
         }
       }
     } else {
@@ -114,7 +115,8 @@ export class UserUseCase implements IUserDataAccess {
           phoneNumber: userResponse.data.phoneNumber,
           stateOfTheCountry: userResponse.data.stateOfTheCountry,
           zipCode: userResponse.data.zipCode,
-          lastChangedPassword: userResponse.data.lastChangedPassword ? userResponse.data.lastChangedPassword : null
+          lastChangedPassword: userResponse.data.lastChangedPassword ? userResponse.data.lastChangedPassword : null,
+          profilePicture: userResponse.data.profilePicture
         }
       }
     }

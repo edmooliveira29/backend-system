@@ -66,6 +66,6 @@ export class ValidationUser {
   }
 
   async hashPassword (password: string): Promise<any> {
-    return bcrypt.hash(password, 10).then(function (hash) { return hash })
+    return await bcrypt.hash(password, 10).then(function (hash) { return hash })
   }
 }

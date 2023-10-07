@@ -58,7 +58,8 @@ export class UserController {
         password: userHttpRequest.body.password,
         newPassword: userHttpRequest.body.newPassword,
         newPasswordConfirmation: userHttpRequest.body.newPasswordConfirmation,
-        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        profilePicture: userHttpRequest.body.profilePicture
       }
 
       const fildsRequired = userData.newPassword
