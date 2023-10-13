@@ -15,12 +15,14 @@ export class UserUseCase implements IUserDataAccess {
     this.sessionToken = ISessionTokenUseCase
   }
 
-  async login (user: { email: string, password: string, remember: boolean }): Promise<any> {
+  async login (user: { email: string, password: string, remember: boolean, loginWithGoogle?: boolean }): Promise<any> {
     const userRepository = await this.portRepository.login(user)
     if (!userRepository.data) {
       return { message: 'Usuário não encontrado' }
     }
-    const validationPassword: any = await this.validation.comparePassword(user.password, userRepository.data.password)
+    const validationPassword: any = !user.loginWithGoogle
+      ? await this.validation.comparePassword(user.password, userRepository.data.password)
+      : { passwordIsValid: true }
     const sessionToken = await this.sessionToken.createSessionToken(userRepository, user.remember)
     if (validationPassword.passwordIsValid) {
       return {
