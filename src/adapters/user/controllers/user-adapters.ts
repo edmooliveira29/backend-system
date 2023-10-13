@@ -20,7 +20,7 @@ export class UserController {
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
         profilePicture: userHttpRequest.body.profilePicture || null
       }
-      const fildsRequired = ['name', 'password', 'email']
+      const fildsRequired = ['name', 'email']
       for (const field of fildsRequired) {
         if (!Object.prototype.hasOwnProperty.call(userHttpRequest.body, field)) {
           return badRequest(new MissingParamError(field))
