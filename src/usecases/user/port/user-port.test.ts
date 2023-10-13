@@ -1,5 +1,5 @@
 import { type UserEntity } from '../../../entities/user/user-entity'
-import { type UserEdit, type IUserCreateUseCase } from './user-port'
+import { type IUserCreateUseCase } from './user-port'
 describe('User Port Interface', () => {
   let user: UserEntity
   let userPortMock: IUserCreateUseCase
@@ -28,7 +28,7 @@ describe('User Port Interface', () => {
 
   test('Should return the message user edited with success', async () => {
     userPortMock.editUser = jest.fn().mockResolvedValue('Usuário editado com sucesso')
-    const user: UserEdit = {
+    const user: any = {
       _id: '1234567890',
       address: '123 Main Street',
       birthday: '01/01/1990',
