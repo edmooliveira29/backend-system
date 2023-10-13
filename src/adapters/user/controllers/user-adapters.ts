@@ -17,7 +17,8 @@ export class UserController {
         name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        profilePicture: userHttpRequest.body.profilePicture || null
       }
       const fildsRequired = ['name', 'password', 'email']
       for (const field of fildsRequired) {

@@ -61,7 +61,8 @@ export class UserUseCase implements IUserDataAccess {
           name: userResponse.data.name,
           email: userResponse.data.email,
           sessionToken: sessionToken.data.token,
-          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+          profilePicture: userResponse.data.profilePicture
         }
       }
     }
