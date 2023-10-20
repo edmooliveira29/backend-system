@@ -26,8 +26,9 @@ export interface IUserCreateUseCase {
     name: string
     password: string
     createdAt: string
+    createWithGoogle: boolean
   }) => Promise<any>
-  login: (user: { email: string, password: string, remember: boolean }, sessionToken?: string) => Promise<any>
+  login: (user: { email: string, password: string, remember: boolean}, sessionToken?: string) => Promise<any>
   editUser: (_id: string, user: UserEdit) => Promise<any>
   getUser: (objectId: string) => Promise<any>
 }

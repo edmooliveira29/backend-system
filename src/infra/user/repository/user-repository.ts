@@ -9,6 +9,7 @@ export class UserRepository implements IUserDataAccess {
     name: string
     password: string
     createdAt: string
+    createWithGoogle: boolean
   }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
     const exists = await this.exists(user)

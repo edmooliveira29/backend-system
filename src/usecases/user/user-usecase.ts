@@ -33,7 +33,8 @@ export class UserUseCase implements IUserDataAccess {
           email: userRepository.data.email,
           sessionToken: sessionToken.data.token,
           createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-          profilePicture: userRepository.data.profilePicture
+          profilePicture: userRepository.data.profilePicture,
+          createWithGoogle: userRepository.data.createWithGoogle
         }
       }
     } else {
@@ -64,7 +65,8 @@ export class UserUseCase implements IUserDataAccess {
           email: userResponse.data.email,
           sessionToken: sessionToken.data.token,
           createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-          profilePicture: userResponse.data.profilePicture
+          profilePicture: userResponse.data.profilePicture,
+          createWithGoogle: userResponse.data.createWithGoogle
         }
       }
     }

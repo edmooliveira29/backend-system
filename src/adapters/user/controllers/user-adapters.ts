@@ -18,7 +18,8 @@ export class UserController {
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password || `${Math.random().toFixed(5)}Aa*`,
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-        profilePicture: userHttpRequest.body.profilePicture || null
+        profilePicture: userHttpRequest.body.profilePicture || null,
+        createWithGoogle: userHttpRequest.body.createWithGoogle
       }
       const fildsRequired = ['name', 'password', 'email']
       for (const field of fildsRequired) {
