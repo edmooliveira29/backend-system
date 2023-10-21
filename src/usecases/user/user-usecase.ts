@@ -16,25 +16,25 @@ export class UserUseCase implements IUserDataAccess {
   }
 
   async login (user: { email: string, password: string, remember: boolean, loginWithGoogle?: boolean }): Promise<any> {
-    const userRepository = await this.portRepository.login(user)
-    if (!userRepository.data) {
+    const UserRepositoryInfra = await this.portRepository.login(user)
+    if (!UserRepositoryInfra.data) {
       return { message: 'Usuário não encontrado' }
     }
     const validationPassword: any = !user.loginWithGoogle
-      ? await this.validation.comparePassword(user.password, userRepository.data.password)
+      ? await this.validation.comparePassword(user.password, UserRepositoryInfra.data.password)
       : { passwordIsValid: true }
-    const sessionToken = await this.sessionToken.createSessionToken(userRepository, user.remember)
+    const sessionToken = await this.sessionToken.createSessionToken(UserRepositoryInfra, user.remember)
     if (validationPassword.passwordIsValid) {
       return {
         message: 'Usuário autenticado com sucesso',
         data: {
-          _id: userRepository.data._id,
-          name: userRepository.data.name,
-          email: userRepository.data.email,
+          _id: UserRepositoryInfra.data._id,
+          name: UserRepositoryInfra.data.name,
+          email: UserRepositoryInfra.data.email,
           sessionToken: sessionToken.data.token,
           createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-          profilePicture: userRepository.data.profilePicture,
-          createWithGoogle: userRepository.data.createWithGoogle
+          profilePicture: UserRepositoryInfra.data.profilePicture,
+          createWithGoogle: UserRepositoryInfra.data.createWithGoogle
         }
       }
     } else {
@@ -128,11 +128,11 @@ export class UserUseCase implements IUserDataAccess {
   }
 
   async getUser (userId: string): Promise<any> {
-    const userRepository = await this.portRepository.getUser(userId)
-    if (!userRepository) {
+    const UserRepositoryInfra = await this.portRepository.getUser(userId)
+    if (!UserRepositoryInfra) {
       return { message: 'Usuário não encontrado' }
     }
 
-    return { message: 'Usuário encontrado com sucesso', ...userRepository }
+    return { message: 'Usuário encontrado com sucesso', ...UserRepositoryInfra }
   }
 }

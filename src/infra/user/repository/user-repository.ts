@@ -2,7 +2,7 @@ import { type IUserDataAccess } from '../../../usecases/user/port/user-data-acce
 import { MongoConnection } from '../../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 
-export class UserRepository implements IUserDataAccess {
+export class UserRepositoryInfra implements IUserDataAccess {
   async createUser (user: {
     _id?: any
     email: string

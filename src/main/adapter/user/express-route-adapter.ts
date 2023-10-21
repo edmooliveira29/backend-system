@@ -1,8 +1,8 @@
 /** Adaptar o http generico do user para o http do express */
 import { type Request, type Response } from 'express'
-import { type UserController } from '../../../adapters/user/controllers/user-adapters'
-import { type UserHttpRequest } from '../../../adapters/user/ports/user-http-request'
-import { type UserHttpResponse } from '../../../adapters/user/ports/user-http-response'
+import { type UserController } from '../../../interfaces/user/controllers/user-adapters'
+import { type UserHttpRequest } from '../../../interfaces/user/ports/user-http-request'
+import { type UserHttpResponse } from '../../../interfaces/user/ports/user-http-response'
 
 export const createUserAdapterRoute = (controller: UserController) => {
   return async (request: Request, response: Response) => {

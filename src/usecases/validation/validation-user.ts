@@ -11,6 +11,9 @@ export class ValidationUser {
   }
 
   nameIsValid (name: string): boolean {
+    if (!name) {
+      return false
+    }
     if (name.length <= 2 || name.length > 255) {
       return false
     } else {

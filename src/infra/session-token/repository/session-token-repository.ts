@@ -12,7 +12,7 @@ interface SessionTokenCreate {
 
 export class SessionTokenRepository implements ISessionTokenDataAccess {
   async createSessionToken (session: SessionTokenCreate): Promise<any> {
-    const userCollection = MongoConnection.getCollection('session')
+    const userCollection = MongoConnection.getCollection('sessions')
     const exists = await this.existsSessionTokenUser(session.userId)
     if (!exists) {
       session.createdAt = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
@@ -25,7 +25,7 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
   }
 
   async editSessionToken (existingSessionId: string, updatedSession: SessionTokenCreate): Promise<any> {
-    const userCollection = MongoConnection.getCollection('session')
+    const userCollection = MongoConnection.getCollection('sessions')
     const objectId = new ObjectId(existingSessionId)
     updatedSession.updatedAt = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
     const sessionToken = await userCollection.updateOne(
@@ -43,7 +43,7 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
   }
 
   async findSessionTokenByUserId (userId: any): Promise<any> {
-    const userCollection = MongoConnection.getCollection('session')
+    const userCollection = MongoConnection.getCollection('sessions')
     const result = await userCollection.findOne({ userId })
     if (result == null) {
       return false

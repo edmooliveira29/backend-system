@@ -1,10 +1,12 @@
-import { CompanyController } from '../../../adapters/company/controllers/company-adapters'
-import { CompanyRepository } from '../../../infra/company/repository/company-repository'
+import { CompanyRepositoryInfra } from '../../../infra/company/repository/company-repository'
+import { UserRepositoryInfra } from '../../../infra/user/repository/user-repository'
+import { CompanyControllerInterface } from '../../../interfaces/company/controllers/company-adapters'
 import { CompanyUseCase } from '../../../usecases/company/company-usecase'
 
-export const CompanyFactory = (): CompanyController => {
-  const companyRepository = new CompanyRepository()
-  const companyUseCase = new CompanyUseCase(companyRepository)
-  const companyController = new CompanyController(companyUseCase)
+const companyRepositoryInfra = new CompanyRepositoryInfra()
+const userRepositoryInfra = new UserRepositoryInfra()
+const companyUseCase = new CompanyUseCase(companyRepositoryInfra, userRepositoryInfra)
+const companyController = new CompanyControllerInterface(companyUseCase)
+export const CompanyFactory = (): CompanyControllerInterface => {
   return companyController
 }

@@ -6,8 +6,8 @@ import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../
 export class UserController {
   public readonly userUseCase: IUserCreateUseCase
 
-  constructor (IUserCreateUseCase: IUserCreateUseCase) {
-    this.userUseCase = IUserCreateUseCase
+  constructor (userUseCase: IUserCreateUseCase) {
+    this.userUseCase = userUseCase
   }
 
   async create (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {

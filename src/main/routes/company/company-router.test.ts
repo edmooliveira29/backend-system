@@ -13,7 +13,7 @@ describe('Register Routes', () => {
   })
 
   beforeEach(async () => {
-    await MongoConnection.clearCollection('companys')
+    await MongoConnection.clearCollection('companies')
   })
 
   test('Should return 200 if company to be created with success', async () => {

@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { type Router } from 'express'
 import { createCompanyAdapterRoute } from '../../adapter/company/express-company-adapter'
-import { UserFactory } from '../../factories/user/user'
+import { CompanyFactory } from '../../factories/company/company'
 
 export default (router: Router): void => {
-  const userFactory = UserFactory()
+  const userFactory = CompanyFactory()
+  console.log('aqui')
   router.post('/company', createCompanyAdapterRoute(userFactory))
 }

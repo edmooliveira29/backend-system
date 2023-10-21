@@ -14,7 +14,7 @@ describe('Mongodb Session repository', () => {
   })
 
   afterEach(async () => {
-    await MongoConnection.clearCollection('session')
+    await MongoConnection.clearCollection('sessions')
   })
 
   test('Should created a new session', async () => {
