@@ -6,5 +6,6 @@ export interface ICompanyCreateUseCase {
     password: string
     createdAt: string
     createWithGoogle: boolean
+    profilePicture: string
   }) => Promise<any>
 }

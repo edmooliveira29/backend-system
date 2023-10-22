@@ -3,12 +3,6 @@ import { MongoConnection } from '../../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 
 export class CompanyRepositoryInfra implements ICompanyDataAccess {
-  login (arg0: { email: string; password: string }): any {
-    throw new Error('Method not implemented.')
-  }
-  getUser (arg0: string): any {
-    throw new Error('Method not implemented.')
-  }
   async createCompany (company: { _id?: any, name: string, email: string, password: string, createdAt: string, createWithGoogle: boolean }): Promise<any> {
     const companyCollection = MongoConnection.getCollection('companies')
 

@@ -42,7 +42,7 @@ export class UserUseCase implements IUserDataAccess {
     }
   }
 
-  async createUser (user: UserEntity): Promise<any> {
+  async createUser (user: UserEntity, createdByCompany?: true): Promise<any> {
     const validationPassword: any = this.validation.passwordIsValid(user.password)
     user = {
       ...user,
@@ -55,18 +55,19 @@ export class UserUseCase implements IUserDataAccess {
     } else if (!this.validation.nameIsValid(user.name)) {
       return { message: 'Nome não é valido' }
     } else {
-      const userResponse = (await this.portRepository.createUser(user))
-      const sessionToken = await this.sessionToken.createSessionToken({ data: user }, false)
+      const userResponse = await this.portRepository.createUser(user)
       return {
         message: 'Usuário criado com sucesso',
         data: {
           _id: userResponse.data._id,
           name: userResponse.data.name,
           email: userResponse.data.email,
-          sessionToken: sessionToken.data.token,
+          sessionToken: createdByCompany ? (await this.sessionToken.createSessionToken({ data: userResponse.data }, false)).data.token : '',
           createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
           profilePicture: userResponse.data.profilePicture,
-          createWithGoogle: userResponse.data.createWithGoogle
+          createWithGoogle: userResponse.data.createWithGoogle,
+          companyId: userResponse.data.companyId,
+          createdBy: userResponse.data.createdBy
         }
       }
     }

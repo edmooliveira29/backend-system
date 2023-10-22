@@ -2,14 +2,14 @@ import { type ICompanyCreateUseCase } from './port/company-port'
 import { type CompanyEntity } from '../../entities/company/company-entity'
 import { ValidationUser } from '../validation/validation-user'
 import { type ICompanyDataAccess } from './port/company-data-access'
-import { type IUserCreateUseCase } from '../user/port/user-port'
+import { type UserUseCase } from '../user/user-usecase'
 
 export class CompanyUseCase implements ICompanyDataAccess {
   public companyUseCase: ICompanyCreateUseCase
-  public userUseCase: IUserCreateUseCase
+  public userUseCase: UserUseCase
   public validation: ValidationUser
 
-  constructor (companyUseCase: ICompanyCreateUseCase, userUseCase: IUserCreateUseCase) {
+  constructor (companyUseCase: ICompanyCreateUseCase, userUseCase: UserUseCase) {
     this.companyUseCase = companyUseCase
     this.userUseCase = userUseCase
     this.validation = new ValidationUser()
@@ -29,19 +29,29 @@ export class CompanyUseCase implements ICompanyDataAccess {
     } else if (!this.validation.nameIsValid(company.name)) {
       return { message: 'Nome não é válido' }
     } else {
-      await this.companyUseCase.createCompany(company)
-      const userResponse = await this.userUseCase.createUser(company)
-      console.log(userResponse)
+      const companyResponse = await this.companyUseCase.createCompany(company)
+      delete company._id
+      const user = {
+        name: company.name,
+        email: company.email,
+        password: company.password,
+        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        profilePicture: company.profilePicture,
+        createWithGoogle: company.createWithGoogle,
+        companyId: companyResponse.data._id,
+        createdBy: companyResponse.data._id
+      }
+      const userResponse = await this.userUseCase.createUser(user, true)
       return {
-        message: 'Empresa criada com sucesso'
-        // data: {
-        //   _id: userResponse.data._id,
-        //   name: userResponse.data.name,
-        //   email: userResponse.data.email,
-        //   createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-        //   profilePicture: userResponse.data.profilePicture,
-        //   createWithGoogle: userResponse.data.createWithGoogle
-        // }
+        message: 'Empresa e usuário inicial criado com sucesso',
+        data: {
+          company: {
+            ...companyResponse.data
+          },
+          user: {
+            ...userResponse.data
+          }
+        }
       }
     }
   }

@@ -12,21 +12,26 @@ export class UserController {
 
   async create (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
     try {
-      const userData = {
+      const userData: any = {
         _id: userHttpRequest.body._id,
         name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password || `${Math.random().toFixed(5)}Aa*`,
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
         profilePicture: userHttpRequest.body.profilePicture || null,
-        createWithGoogle: userHttpRequest.body.createWithGoogle
+        createWithGoogle: userHttpRequest.body.createWithGoogle,
+        companyId: userHttpRequest.body.companyId,
+        createdBy: userHttpRequest.body.createdBy
       }
-      const fildsRequired = ['name', 'password', 'email']
-      for (const field of fildsRequired) {
-        if (!Object.prototype.hasOwnProperty.call(userData, field)) {
+      const fieldsRequired = ['name', 'password', 'email', 'companyId', 'createdBy']
+      for (const field of fieldsRequired) {
+        const fieldExists = Object.prototype.hasOwnProperty.call(userData, field)
+        const value = userData[`${field}`]
+        if (!fieldExists || value === undefined || value == null) {
           return badRequest(new MissingParamError(field))
         }
       }
+
       const createUserResponse = await this.userUseCase.createUser(userData)
       if (createUserResponse.message !== 'Usuário criado com sucesso') {
         return badRequest(new InvalidParamError(createUserResponse.message))
@@ -89,7 +94,9 @@ export class UserController {
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
         remember: userHttpRequest.body.remember,
-        loginWithGoogle: userHttpRequest.body.loginWithGoogle || false
+        loginWithGoogle: userHttpRequest.body.loginWithGoogle || false,
+        companyId: userHttpRequest.body.companyId,
+        createdBy: userHttpRequest.body.createdBy
       }
       const userReponseUseCase = await this.userUseCase.login(userData)
 

@@ -29,7 +29,7 @@ export class CompanyControllerInterface {
         }
       }
       const createCompanyResponse = await this.companyUseCase.createCompany(companyData)
-      if (createCompanyResponse.message !== 'Empresa criada com sucesso') {
+      if (createCompanyResponse.message !== 'Empresa e usuário inicial criado com sucesso') {
         return badRequest(new InvalidParamError(createCompanyResponse.message))
       }
       return ok(createCompanyResponse)

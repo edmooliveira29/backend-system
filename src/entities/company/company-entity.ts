@@ -5,7 +5,9 @@ interface CompanyData {
   password: string
   createdAt: string
   createWithGoogle: boolean
+  profilePicture: string
 }
+
 export class CompanyEntity {
   email: string
   _id: any
@@ -13,7 +15,7 @@ export class CompanyEntity {
   password: string
   createdAt: string
   createWithGoogle: boolean
-
+  profilePicture: string
   constructor (user: CompanyData) {
     this._id = user._id
     this.email = user.email
@@ -21,6 +23,7 @@ export class CompanyEntity {
     this.password = user.password
     this.createdAt = user.createdAt
     this.createWithGoogle = user.createWithGoogle
+    this.profilePicture = user.profilePicture
     Object.freeze(this)
   }
 }
