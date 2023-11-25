@@ -10,19 +10,13 @@ export class UserRepositoryInfra implements IUserDataAccess {
     password: string
     createdAt: string
     createWithGoogle: boolean
-    companyId: any
     createdBy: any
   }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
-    const companyCollection = MongoConnection.getCollection('companies')
-    const companyExist = await companyCollection.findOne({ _id: new ObjectId(user.companyId) })
-    const createdByExist = await userCollection.findOne({ _id: new ObjectId(user.createdBy) })
     const exists = await this.exists(user)
-    if ((!exists && companyExist !== null && createdByExist !== null) || user.createdBy === user.companyId) {
+    if ((!exists)) {
       user = {
-        ...user,
-        companyId: typeof user.companyId === 'string' ? new ObjectId(user.companyId) : user.companyId,
-        createdBy: typeof user.createdBy === 'string' ? new ObjectId(user.createdBy) : user.createdBy
+        ...user
       }
       const userInserted = await userCollection.insertOne(user)
       return {
@@ -31,8 +25,6 @@ export class UserRepositoryInfra implements IUserDataAccess {
           _id: userInserted.insertedId
         }
       }
-    } else if (companyExist === null) {
-      throw new Error('A empresa não existe')
     } else {
       throw new Error('Já existe um usuário com este e-mail')
     }

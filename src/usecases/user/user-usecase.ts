@@ -42,7 +42,7 @@ export class UserUseCase implements IUserDataAccess {
     }
   }
 
-  async createUser (user: UserEntity, createdByCompany?: true): Promise<any> {
+  async createUser (user: UserEntity): Promise<any> {
     const validationPassword: any = this.validation.passwordIsValid(user.password)
     user = {
       ...user,
@@ -62,11 +62,10 @@ export class UserUseCase implements IUserDataAccess {
           _id: userResponse.data._id,
           name: userResponse.data.name,
           email: userResponse.data.email,
-          sessionToken: createdByCompany ? (await this.sessionToken.createSessionToken({ data: userResponse.data }, false)).data.token : '',
+          sessionToken: (await this.sessionToken.createSessionToken({ data: userResponse.data }, false)).data.token,
           createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
           profilePicture: userResponse.data.profilePicture,
           createWithGoogle: userResponse.data.createWithGoogle,
-          companyId: userResponse.data.companyId,
           createdBy: userResponse.data.createdBy
         }
       }

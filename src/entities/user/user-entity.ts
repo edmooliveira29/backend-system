@@ -5,7 +5,6 @@ interface UserData {
   password: string
   createdAt: string
   createWithGoogle: boolean
-  companyId: any
   createdBy: any
   profilePicture: string
 }
@@ -17,7 +16,6 @@ export class UserEntity {
   createdAt: string
   createWithGoogle: boolean
   profilePicture: string
-  companyId: any
   createdBy: any
   constructor (user: UserData) {
     this._id = user._id
@@ -26,7 +24,6 @@ export class UserEntity {
     this.password = user.password
     this.createdAt = user.createdAt
     this.createWithGoogle = user.createWithGoogle
-    this.companyId = user.companyId
     this.createdBy = user.createdBy
     this.profilePicture = user.profilePicture
     Object.freeze(this)

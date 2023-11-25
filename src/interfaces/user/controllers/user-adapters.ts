@@ -20,10 +20,8 @@ export class UserController {
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
         profilePicture: userHttpRequest.body.profilePicture || null,
         createWithGoogle: userHttpRequest.body.createWithGoogle,
-        companyId: userHttpRequest.body.companyId,
-        createdBy: userHttpRequest.body.createdBy
       }
-      const fieldsRequired = ['name', 'password', 'email', 'companyId', 'createdBy']
+      const fieldsRequired = ['name', 'password', 'email']
       for (const field of fieldsRequired) {
         const fieldExists = Object.prototype.hasOwnProperty.call(userData, field)
         const value = userData[`${field}`]
@@ -31,7 +29,6 @@ export class UserController {
           return badRequest(new MissingParamError(field))
         }
       }
-
       const createUserResponse = await this.userUseCase.createUser(userData)
       if (createUserResponse.message !== 'Usuário criado com sucesso') {
         return badRequest(new InvalidParamError(createUserResponse.message))
@@ -95,7 +92,6 @@ export class UserController {
         password: userHttpRequest.body.password,
         remember: userHttpRequest.body.remember,
         loginWithGoogle: userHttpRequest.body.loginWithGoogle || false,
-        companyId: userHttpRequest.body.companyId,
         createdBy: userHttpRequest.body.createdBy
       }
       const userReponseUseCase = await this.userUseCase.login(userData)

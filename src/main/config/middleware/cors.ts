@@ -7,6 +7,7 @@ export const corsGeneral = (req: Request, res: Response, next: NextFunction): vo
   res.header('Access-Control-Allow-Headers', '*')
   res.header('Access-Control-Allow-Methods', '*')
   res.header('Access-Control-Allow-Credentials', 'true')
+  res.header('Access-Control-Allow-Origin', '*')
   next()
 }
 
@@ -29,10 +30,7 @@ export const corsOrigin = (req: Request, res: Response, next: NextFunction): voi
 }
 
 export const corsOptions = cors({
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin as string)) {
-      callback(null, true)
-    }
-  },
+  origin: ['*'],
+  // credentials: true,
   allowedHeaders: ['Content-Type']
 })

@@ -29,7 +29,6 @@ export interface IUserCreateUseCase {
     createdAt: string
     createWithGoogle: boolean
     profilePicture: string
-    companyId: string
     createdBy: string
   }) => Promise<any>
   login: (user: { email: string, password: string, remember: boolean }, sessionToken?: string) => Promise<any>

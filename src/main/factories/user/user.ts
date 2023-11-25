@@ -9,6 +9,7 @@ export const UserFactory = (): UserController => {
   const sessionTokenRepository = new SessionTokenRepository()
   const sessionTokenUseCase = new SessionTokenUseCase(sessionTokenRepository)
   const userUseCase = new UserUseCase(userRepositoryInfra, sessionTokenUseCase)
+
   const userController = new UserController(userUseCase)
   return userController
 }
