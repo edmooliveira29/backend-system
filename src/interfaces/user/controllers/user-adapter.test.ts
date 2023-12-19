@@ -11,7 +11,8 @@ describe('User Adapter', () => {
       getUser: jest.fn(),
       createUser: jest.fn(),
       editUser: jest.fn(),
-      login: jest.fn()
+      login: jest.fn(),
+      deleteUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
     userHttpRequestMock = {
@@ -39,7 +40,8 @@ describe('User Adapter', () => {
         }
       }),
       editUser: jest.fn(),
-      login: jest.fn()
+      login: jest.fn(),
+      deleteUser: jest.fn()
 
     }
     sut = new UserController(IUserCreateUseCaseMock)
@@ -64,7 +66,8 @@ describe('User Adapter', () => {
       getUser: jest.fn(),
       createUser: jest.fn().mockResolvedValue('E-mail não é valido'),
       editUser: jest.fn(),
-      login: jest.fn()
+      login: jest.fn(),
+      deleteUser: jest.fn()
 
     }
     sut = new UserController(IUserCreateUseCaseMock)
@@ -96,7 +99,8 @@ describe('User Adapter', () => {
         throw new Error('Internal error')
       }),
       editUser: jest.fn(),
-      login: jest.fn()
+      login: jest.fn(),
+      deleteUser: jest.fn()
 
     }
     userHttpRequestMock.body.password = 'Password*1'
@@ -109,7 +113,8 @@ describe('User Adapter', () => {
       getUser: jest.fn().mockImplementationOnce(() => { throw new Error('Internal error') }),
       createUser: jest.fn(),
       editUser: jest.fn(),
-      login: jest.fn()
+      login: jest.fn(),
+      deleteUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.getUser('')).toStrictEqual({ body: { message: 'Erro do servidor: Internal error.' }, statusCode: 500 })
@@ -122,7 +127,8 @@ describe('User Adapter', () => {
         throw new Error('Internal error')
       }),
       editUser: jest.fn(),
-      login: jest.fn()
+      login: jest.fn(),
+      deleteUser: jest.fn()
     }
     userHttpRequestMock.body.password = 'Password*1'
     sut = new UserController(IUserCreateUseCaseMock)
@@ -136,7 +142,8 @@ describe('User Adapter', () => {
       login: jest.fn().mockImplementationOnce(() => {
         throw new Error('Internal error')
       }),
-      editUser: jest.fn()
+      editUser: jest.fn(),
+      deleteUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Erro do servidor: Internal error.' }, statusCode: 500 })
@@ -147,7 +154,8 @@ describe('User Adapter', () => {
       getUser: jest.fn(),
       createUser: jest.fn(),
       editUser: jest.fn(),
-      login: jest.fn().mockResolvedValue({ message: 'Usuário não encontrado' })
+      login: jest.fn().mockResolvedValue({ message: 'Usuário não encontrado' }),
+      deleteUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Erro: Usuário não encontrado.' }, statusCode: 404 })
@@ -158,7 +166,8 @@ describe('User Adapter', () => {
       getUser: jest.fn(),
       createUser: jest.fn(),
       editUser: jest.fn(),
-      login: jest.fn().mockResolvedValue({ message: 'Usuário autenticado com sucesso', data: 'data json' })
+      login: jest.fn().mockResolvedValue({ message: 'Usuário autenticado com sucesso', data: 'data json' }),
+      deleteUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.login(userHttpRequestMock))
@@ -176,7 +185,8 @@ describe('User Adapter', () => {
       getUser: jest.fn(),
       createUser: jest.fn(),
       editUser: jest.fn(),
-      login: jest.fn().mockResolvedValue({ data: { message: 'Password is invalid', passwordValid: false } })
+      login: jest.fn().mockResolvedValue({ data: { message: 'Password is invalid', passwordValid: false } }),
+      deleteUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Parâmetro inválido: Password is invalid.' }, statusCode: 400 })

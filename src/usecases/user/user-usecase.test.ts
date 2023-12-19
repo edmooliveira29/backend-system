@@ -8,7 +8,8 @@ describe('UserUseCase', () => {
       login: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn(),
-      editUser: jest.fn()
+      editUser: jest.fn(),
+      deleteUser: jest.fn()
     }
 
     const mockSessionTokenUseCase = {

@@ -11,7 +11,12 @@ describe('Email Validation', () => {
       email: 'validEmail@email.com',
       name: 'user',
       password: 'password',
-      createdAt: new Date('01-01-01').toLocaleString('pt-BR')
+      createdAt: new Date('01-01-01').toLocaleString('pt-BR'),
+      role: 'admin',
+      profilePicture: 'profilePicture',
+      createdBy: 'userId',
+      createWithGoogle: false,
+      sessionToken: 'stringToken'
     }
 
     validateMock = new ValidationUser()

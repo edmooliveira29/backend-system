@@ -10,14 +10,20 @@ describe('User Port Interface', () => {
       email: 'user@email.com',
       name: 'user',
       password: 'password',
-      createdAt: new Date('01-01-01').toLocaleString('pt-BR')
+      createdAt: new Date('01-01-01').toLocaleString('pt-BR'),
+      createWithGoogle: false,
+      profilePicture: 'profilePicture',
+      role: 'user',
+      sessionToken: 'stringToken',
+      createdBy: 'userId'
     }
 
     userPortMock = {
       getUser: jest.fn(),
       createUser: jest.fn().mockResolvedValue('Usuário criado com sucesso'),
       login: jest.fn(),
-      editUser: jest.fn()
+      editUser: jest.fn(),
+      deleteUser: jest.fn().mockResolvedValue('Usuário excluído com sucesso')
 
     }
   })

@@ -7,7 +7,11 @@ describe('User Entity', () => {
       email: 'user@email.com',
       name: 'user',
       password: 'password',
-      createdAt: new Date('01-01-01').toLocaleString('pt-BR')
+      createdAt: new Date('01-01-01').toLocaleString('pt-BR'),
+      role: 'admin',
+      createWithGoogle: false,
+      createdBy: 'userId',
+      profilePicture: 'profilePicture'
     }
 
     const userEntity = new UserEntity(user)
