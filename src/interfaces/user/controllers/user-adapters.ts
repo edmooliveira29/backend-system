@@ -17,9 +17,10 @@ export class UserController {
         name: userHttpRequest.body.name,
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password || `${Math.random().toFixed(5)}Aa*`,
+        role: userHttpRequest.body.role,
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
         profilePicture: userHttpRequest.body.profilePicture || null,
-        createWithGoogle: userHttpRequest.body.createWithGoogle,
+        createWithGoogle: userHttpRequest.body.createWithGoogle
       }
       const fieldsRequired = ['name', 'password', 'email']
       for (const field of fieldsRequired) {
@@ -59,6 +60,7 @@ export class UserController {
         stateOfTheCountry: userHttpRequest.body.stateOfTheCountry,
         zipCode: userHttpRequest.body.zipCode,
         password: userHttpRequest.body.password,
+        role: userHttpRequest.body.role,
         newPassword: userHttpRequest.body.newPassword,
         newPasswordConfirmation: userHttpRequest.body.newPasswordConfirmation,
         editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
@@ -67,7 +69,7 @@ export class UserController {
 
       const fildsRequired = userData.newPassword
         ? ['newPassword', 'newPasswordConfirmation']
-        : ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry', 'city']
+        : []
       for (const field of fildsRequired) {
         if (!Object.prototype.hasOwnProperty.call(userHttpRequest.body, field)) {
           return badRequest(new MissingParamError(field))
@@ -90,6 +92,7 @@ export class UserController {
       const userData = {
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password,
+        role: userHttpRequest.body.role,
         remember: userHttpRequest.body.remember,
         loginWithGoogle: userHttpRequest.body.loginWithGoogle || false,
         createdBy: userHttpRequest.body.createdBy
@@ -121,7 +124,17 @@ export class UserController {
       delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, ...userReponseUseCase })
     } catch (error: any) {
-      // console.error(error)
+      console.error(error)
+      return internalError(new ServerError(error.message))
+    }
+  }
+
+  async deleteUser (objectId: string): Promise<UserHttpResponse> {
+    try {
+      const userReponseUseCase = await this.userUseCase.deleteUser(objectId)
+      return ok({ message: userReponseUseCase.message, data: userReponseUseCase.data })
+    } catch (error: any) {
+      console.error(error)
       return internalError(new ServerError(error.message))
     }
   }

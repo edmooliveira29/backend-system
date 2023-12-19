@@ -8,6 +8,7 @@ export class UserRepositoryInfra implements IUserDataAccess {
     email: string
     name: string
     password: string
+    role: string
     createdAt: string
     createWithGoogle: boolean
     createdBy: any
@@ -49,6 +50,12 @@ export class UserRepositoryInfra implements IUserDataAccess {
     return result
   }
 
+  async findAllUsers (): Promise<any> {
+    const userCollection = MongoConnection.getCollection('users')
+    const result = await userCollection.find({}).toArray()
+    return result
+  }
+
   async exists (user: any): Promise<boolean> {
     const result = await this.findUserByEmailOrId(user)
     if (result != null) {
@@ -68,7 +75,12 @@ export class UserRepositoryInfra implements IUserDataAccess {
   }
 
   async getUser (_id: string): Promise<any> {
-    const user = await this.findUserByEmailOrId({ _id, email: '' })
+    let user
+    if (_id) {
+      user = await this.findUserByEmailOrId({ _id, email: '' })
+    } else {
+      user = await this.findAllUsers()
+    }
     if (user) {
       return { message: 'Usuário encontrado com sucesso', data: user }
     } else {
@@ -90,6 +102,17 @@ export class UserRepositoryInfra implements IUserDataAccess {
     if (user) {
       updatedUserData._id = _id
       return { data: updatedUserData }
+    } else {
+      return { message: 'Usuário não encontrado' }
+    }
+  }
+
+  async deleteUser (_id: string): Promise<any> {
+    const userCollection = MongoConnection.getCollection('users')
+    const objectId = new ObjectId(_id)
+    const user = await userCollection.deleteOne({ _id: objectId })
+    if (user) {
+      return { message: 'Usuário deletado com sucesso', data: await userCollection.find({}).toArray() }
     } else {
       return { message: 'Usuário não encontrado' }
     }

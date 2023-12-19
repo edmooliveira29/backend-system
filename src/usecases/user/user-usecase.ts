@@ -30,6 +30,7 @@ export class UserUseCase implements IUserDataAccess {
         data: {
           _id: UserRepositoryInfra.data._id,
           name: UserRepositoryInfra.data.name,
+          role: UserRepositoryInfra.data.role,
           email: UserRepositoryInfra.data.email,
           sessionToken: sessionToken.data.token,
           createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
@@ -46,6 +47,7 @@ export class UserUseCase implements IUserDataAccess {
     const validationPassword: any = this.validation.passwordIsValid(user.password)
     user = {
       ...user,
+      sessionToken: (await this.sessionToken.createSessionToken({ data: user }, false)).data.token,
       password: await this.validation.hashPassword(user.password)
     }
     if (!validationPassword.passwordIsValid) {
@@ -62,11 +64,12 @@ export class UserUseCase implements IUserDataAccess {
           _id: userResponse.data._id,
           name: userResponse.data.name,
           email: userResponse.data.email,
-          sessionToken: (await this.sessionToken.createSessionToken({ data: userResponse.data }, false)).data.token,
+          role: userResponse.data.role,
           createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
           profilePicture: userResponse.data.profilePicture,
           createWithGoogle: userResponse.data.createWithGoogle,
-          createdBy: userResponse.data.createdBy
+          createdBy: userResponse.data.createdBy,
+          sessionToken: userResponse.data.sessionToken
         }
       }
     }
@@ -121,18 +124,27 @@ export class UserUseCase implements IUserDataAccess {
           stateOfTheCountry: userResponse.data.stateOfTheCountry,
           zipCode: userResponse.data.zipCode,
           lastChangedPassword: userResponse.data.lastChangedPassword ? userResponse.data.lastChangedPassword : null,
-          profilePicture: userResponse.data.profilePicture
+          profilePicture: userResponse.data.profilePicture,
+          role: userResponse.data.role
         }
       }
     }
   }
 
   async getUser (userId: string): Promise<any> {
-    const UserRepositoryInfra = await this.portRepository.getUser(userId)
-    if (!UserRepositoryInfra) {
+    const userRepositoryInfra = await this.portRepository.getUser(userId)
+    if (!userRepositoryInfra) {
       return { message: 'Usuário não encontrado' }
     }
 
-    return { message: 'Usuário encontrado com sucesso', ...UserRepositoryInfra }
+    return { message: 'Usuário encontrado com sucesso', ...userRepositoryInfra }
+  }
+
+  async deleteUser (userId: string): Promise<any> {
+    const userRepositoryInfra = await this.portRepository.deleteUser(userId)
+    if (!userRepositoryInfra) {
+      return { message: 'Usuário não encontrado' }
+    }
+    return { message: 'Usuário deletado com sucesso', data: userRepositoryInfra.data }
   }
 }

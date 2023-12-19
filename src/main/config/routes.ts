@@ -4,7 +4,6 @@ import { readdirSync } from 'fs'
 
 export default (app: Express): void => {
   const router = Router()
-
   app.use('/v1', router)
   readdirSync(`${process.cwd()}/src/main/routes/`).map(async fileName => {
     if (!fileName.includes('.test.')) {

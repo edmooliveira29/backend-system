@@ -3,6 +3,7 @@ interface CompanyData {
   email: string
   name: string
   password: string
+  role: string
   createdAt: string
   createWithGoogle: boolean
   profilePicture: string
@@ -13,6 +14,7 @@ export class CompanyEntity {
   _id: any
   name: string
   password: string
+  role: string
   createdAt: string
   createWithGoogle: boolean
   profilePicture: string
@@ -21,6 +23,7 @@ export class CompanyEntity {
     this.email = user.email
     this.name = user.name
     this.password = user.password
+    this.role = user.role
     this.createdAt = user.createdAt
     this.createWithGoogle = user.createWithGoogle
     this.profilePicture = user.profilePicture

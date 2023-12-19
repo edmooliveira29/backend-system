@@ -41,3 +41,13 @@ export const getUserAdapterRoute = (controller: UserController) => {
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }
+
+export const deleteUserAdapterRoute = (controller: UserController) => {
+  return async (request: Request, response: Response): Promise<void> => {
+    const objectId = request.params.id
+    const httpResponse: UserHttpResponse = await controller.deleteUser(objectId)
+    console.log('==> deleteUserAdapterRoute')
+    console.log(httpResponse)
+    response.status(httpResponse.statusCode).json(httpResponse.body)
+  }
+}

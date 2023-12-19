@@ -14,6 +14,7 @@ export interface UserEdit {
   phoneNumber: string
   stateOfTheCountry: string
   zipCode: string
+  role: string
   newPassword: string
   newPasswordConfirmation: string
   password: string
@@ -26,6 +27,7 @@ export interface IUserCreateUseCase {
     email: string
     name: string
     password: string
+    role: string
     createdAt: string
     createWithGoogle: boolean
     profilePicture: string
@@ -34,4 +36,5 @@ export interface IUserCreateUseCase {
   login: (user: { email: string, password: string, remember: boolean }, sessionToken?: string) => Promise<any>
   editUser: (_id: string, user: UserEdit) => Promise<any>
   getUser: (objectId: string) => Promise<any>
+  deleteUser: (_id: string) => Promise<any>
 }
