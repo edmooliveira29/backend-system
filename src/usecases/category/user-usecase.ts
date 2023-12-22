@@ -12,7 +12,7 @@ export class CategoryUseCase implements ICategoryDataAccess {
   async createCategory (category: CategoryEntity): Promise<any> {
     const categoryResponse = await this.portRepository.createCategory(category)
     return {
-      message: 'Usuário criado com sucesso',
+      message: 'Categoria criada com sucesso',
       data: {
         _id: categoryResponse.data._id,
         name: categoryResponse.data.name,
@@ -50,6 +50,6 @@ export class CategoryUseCase implements ICategoryDataAccess {
     if (!categoryRepositoryInfra) {
       return { message: 'Categoria não encontrado' }
     }
-    return { message: 'Categoria deletado com sucesso', data: categoryRepositoryInfra.data }
+    return { message: 'Categoria deletada com sucesso', data: categoryRepositoryInfra.data }
   }
 }

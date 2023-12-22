@@ -32,7 +32,7 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
   async findCategoryByName (category: any): Promise<any> {
     const categoryCollection = MongoConnection.getCollection('categories')
 
-    const nameOfCategory = new ObjectId(category.name)
+    const nameOfCategory = category.name
     const result = await categoryCollection.findOne({ name: nameOfCategory })
     if (result != null) {
       const objectId = new ObjectId(result._id)
@@ -44,7 +44,7 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     return result
   }
 
-  async findAllCategorys (): Promise<any> {
+  async findAllCategories (): Promise<any> {
     const categoryCollection = MongoConnection.getCollection('categories')
     const result = await categoryCollection.find({}).toArray()
     return result
@@ -64,7 +64,7 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     if (_id) {
       category = await this.findCategoryByName({ _id, email: '' })
     } else {
-      category = await this.findAllCategorys()
+      category = await this.findAllCategories()
     }
     if (category) {
       return { message: 'Categoria encontrada com sucesso', data: category }
@@ -93,9 +93,10 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
   }
 
   async deleteCategory (_id: string): Promise<any> {
-    const categoryCollection = MongoConnection.getCollection('categorys')
+    const categoryCollection = MongoConnection.getCollection('categories')
     const objectId = new ObjectId(_id)
     const category = await categoryCollection.deleteOne({ _id: objectId })
+
     if (category) {
       return { message: 'Categoria deletada com sucesso', data: await categoryCollection.find({}).toArray() }
     } else {

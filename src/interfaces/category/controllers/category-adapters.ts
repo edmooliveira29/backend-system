@@ -16,7 +16,7 @@ export class CategoryController {
         _id: categoryHttpRequest.body._id,
         type: categoryHttpRequest.body.type,
         name: categoryHttpRequest.body.name,
-        description: categoryHttpRequest.body.email,
+        description: categoryHttpRequest.body.description,
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
       const fieldsRequired = ['type', 'name']
