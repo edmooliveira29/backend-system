@@ -1,5 +1,5 @@
-import { type ICategoryDataAccess } from '../../../usecases/category/port/category-data-access'
-import { MongoConnection } from '../../helpers/mongo-helper'
+import { type ICategoryDataAccess } from '../../usecases/category/port/category-data-access'
+import { MongoConnection } from '../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 
 export class CategoryRepositoryInfra implements ICategoryDataAccess {
@@ -14,9 +14,6 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     const categoryCollection = MongoConnection.getCollection('categories')
     const exists = await this.exists(category)
     if ((!exists)) {
-      category = {
-        ...category
-      }
       const categoryInserted = await categoryCollection.insertOne(category)
       return {
         data: {
@@ -77,8 +74,6 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     const categoryCollection = MongoConnection.getCollection('categories')
     const objectId = new ObjectId(_id)
     delete updatedCategoryData._id
-    delete updatedCategoryData.newPassword
-    delete updatedCategoryData.newPasswordConfirmation
     const category = await categoryCollection.updateOne(
       { _id: objectId },
       { $set: updatedCategoryData }

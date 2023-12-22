@@ -1,6 +1,6 @@
 import { CategoryController } from '../../../interfaces/category/controllers/category-adapters'
-import { CategoryRepositoryInfra } from '../../../infra/category/repository/category-repository'
-import { CategoryUseCase } from '../../../usecases/category/user-usecase'
+import { CategoryRepositoryInfra } from '../../../infra/category/category-repository'
+import { CategoryUseCase } from '../../../usecases/category/category-usecase'
 
 export const CategoryFactory = (): CategoryController => {
   const categoryRepositoryInfra = new CategoryRepositoryInfra()
