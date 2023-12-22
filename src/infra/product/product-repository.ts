@@ -8,7 +8,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     name: string
     description?: string
     categoryId: string
-    price: number
+    price: string
     quantityInStock: number
     createdAt: string
     createdBy: any
@@ -17,7 +17,6 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     const exists = await this.exists(product)
     if ((!exists)) {
       const productInserted = await productCollection.insertOne(product)
-      console.log(productInserted)
       return {
         data: {
           ...product,
@@ -25,7 +24,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
         }
       }
     } else {
-      throw new Error('Já existe um produto com este nome.')
+      throw new Error('Já existe um produto com este nome')
     }
   }
 
@@ -47,7 +46,24 @@ export class ProductRepositoryInfra implements IProductDataAccess {
   async findAllProducts (): Promise<any> {
     const productCollection = MongoConnection.getCollection('products')
     const result = await productCollection.find({}).toArray()
-    return result
+
+    // Mapear os resultados e buscar detalhes da categoria
+    const productsWithCategoryDetails = await Promise.all(result.map(async (product) => {
+      const categoryId = new ObjectId(product.categoryId)
+      const categoryDetails = await this.getCategoryDetails(categoryId)
+      return {
+        ...product,
+        categoryId: categoryDetails
+      }
+    }))
+
+    return productsWithCategoryDetails
+  }
+
+  async getCategoryDetails (categoryId: ObjectId): Promise<any> {
+    const categoryCollection = MongoConnection.getCollection('categories')
+    const categoryDetails = await categoryCollection.findOne({ _id: categoryId })
+    return categoryDetails
   }
 
   async exists (product: any): Promise<boolean> {
@@ -60,12 +76,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
   }
 
   async getProduct (_id: string): Promise<any> {
-    let product
-    if (_id) {
-      product = await this.findProductByName({ _id, email: '' })
-    } else {
-      product = await this.findAllProducts()
-    }
+    const product = await this.findAllProducts()
     if (product) {
       return { message: 'Produto encontrado com sucesso', data: product }
     } else {

@@ -3,7 +3,7 @@ export interface ProductEdit {
   name: string
   description?: string
   categoryId: string
-  price: number
+  price: string
   quantityInStock: number
 }
 
@@ -13,7 +13,7 @@ export interface IProductCreateUseCase {
     name: string
     description?: string
     categoryId: string
-    price: number
+    price: string
     quantityInStock: number
     createdAt: string
     createdBy: string

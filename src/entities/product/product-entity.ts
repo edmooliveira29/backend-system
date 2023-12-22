@@ -3,7 +3,7 @@ interface ProductData {
   name: string
   description?: string
   categoryId: string
-  price: number
+  price: string
   quantityInStock: number
   createdAt: string
   createdBy: any
@@ -13,7 +13,7 @@ export class ProductEntity {
   name: string
   description?: string
   categoryId: string
-  price: number
+  price: string
   quantityInStock: number
   createdAt: string
   createdBy: any

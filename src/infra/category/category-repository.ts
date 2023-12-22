@@ -22,7 +22,7 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
         }
       }
     } else {
-      throw new Error('Já existe uma categoria com este nome.')
+      throw new Error('Já existe uma categoria com este nome')
     }
   }
 

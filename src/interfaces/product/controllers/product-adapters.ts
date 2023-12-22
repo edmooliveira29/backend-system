@@ -30,7 +30,7 @@ export class ProductController {
         }
       }
       const createProductResponse = await this.productUseCase.createProduct(productData)
-      if (createProductResponse.message !== 'Produto criada com sucesso') {
+      if (createProductResponse.message !== 'Produto criado com sucesso') {
         return badRequest(new InvalidParamError(createProductResponse.message))
       }
       return ok(createProductResponse)
@@ -76,7 +76,6 @@ export class ProductController {
       if (!productReponseUseCase.data) {
         return noContent(new NotFound(productReponseUseCase.message))
       }
-      delete productReponseUseCase.data.password
       return ok({ message: productReponseUseCase.message, ...productReponseUseCase })
     } catch (error: any) {
       console.error(error)
