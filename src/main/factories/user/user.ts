@@ -1,6 +1,6 @@
 import { UserController } from '../../../interfaces/user/controllers/user-adapters'
-import { SessionTokenRepository } from '../../../infra/session-token/repository/session-token-repository'
-import { UserRepositoryInfra } from '../../../infra/user/repository/user-repository'
+import { SessionTokenRepository } from '../../../infra/session-token/session-token-repository'
+import { UserRepositoryInfra } from '../../../infra/user/user-repository'
 import { SessionTokenUseCase } from '../../../usecases/session-token/session-token-usecase'
 import { UserUseCase } from '../../../usecases/user/user-usecase'
 

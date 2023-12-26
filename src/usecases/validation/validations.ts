@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-export class ValidationUser {
+export class Validation {
   emailIsValid (email: string): boolean {
     // eslint-disable-next-line max-len, no-useless-escape, prefer-regex-literals
     const regexp = new RegExp(/^(([^<>()\[\]\\.,:\s@"]+(\.[^<>()\[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)

@@ -1,9 +1,9 @@
 import { type UserEntity } from '../../entities/user/user-entity'
-import { ValidationUser } from './validation-user'
+import { Validation } from './validations'
 
 describe('Email Validation', () => {
   let user: UserEntity
-  let validateMock: ValidationUser
+  let validateMock: Validation
 
   beforeAll(() => {
     user = {
@@ -19,7 +19,7 @@ describe('Email Validation', () => {
       sessionToken: 'stringToken'
     }
 
-    validateMock = new ValidationUser()
+    validateMock = new Validation()
   })
 
   test('Should return true if email is valid', () => {

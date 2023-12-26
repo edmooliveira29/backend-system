@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { MongoConnection } from '../../helpers/mongo-helper'
+import { MongoConnection } from '../helpers/mongo-helper'
 import { SessionTokenRepository } from './session-token-repository'
 import dotenv from 'dotenv'
 dotenv.config()

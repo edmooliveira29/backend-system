@@ -1,5 +1,5 @@
-import { type IUserDataAccess } from '../../../usecases/user/port/user-data-access'
-import { MongoConnection } from '../../helpers/mongo-helper'
+import { type IUserDataAccess } from '../../usecases/user/port/user-data-access'
+import { MongoConnection } from '../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 
 export class UserRepositoryInfra implements IUserDataAccess {

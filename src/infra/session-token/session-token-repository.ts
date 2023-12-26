@@ -1,5 +1,5 @@
-import { type ISessionTokenDataAccess } from '../../../usecases/session-token/port/session-token-data-access'
-import { MongoConnection } from '../../helpers/mongo-helper'
+import { type ISessionTokenDataAccess } from '../../usecases/session-token/port/session-token-data-access'
+import { MongoConnection } from '../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 interface SessionTokenCreate {
   expiresIn: string

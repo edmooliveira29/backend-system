@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { MongoConnection } from '../../helpers/mongo-helper'
+import { MongoConnection } from '../helpers/mongo-helper'
 import { UserRepositoryInfra } from './user-repository'
 import dotenv from 'dotenv'
 dotenv.config()
