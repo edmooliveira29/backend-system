@@ -62,7 +62,7 @@ export class EmployeeRepositoryInfra implements IEmployeeDataAccess {
       employee = await this.findAllEmployees()
     }
     if (employee) {
-      return { message: 'Colaborador encontrado com sucesso', data: employee }
+      return { data: employee }
     } else {
       return { message: 'Colaborador não encontrado' }
     }

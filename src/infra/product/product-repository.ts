@@ -78,7 +78,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
   async getProduct (_id: string): Promise<any> {
     const product = await this.findAllProducts()
     if (product) {
-      return { message: 'Produto encontrado com sucesso', data: product }
+      return { data: product }
     } else {
       return { message: 'Produto não encontrado' }
     }

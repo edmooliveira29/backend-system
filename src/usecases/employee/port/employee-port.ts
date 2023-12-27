@@ -12,7 +12,7 @@ export interface EmployeeI {
   hiringDate: string
   wage: string
   zipCode: string
-  address: string
+  street: string
   houseNumber: string
   complement: string
   neighborhood: string

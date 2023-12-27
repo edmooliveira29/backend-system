@@ -82,7 +82,7 @@ export class UserRepositoryInfra implements IUserDataAccess {
       user = await this.findAllUsers()
     }
     if (user) {
-      return { message: 'Usuário encontrado com sucesso', data: user }
+      return {  data: user }
     } else {
       return { message: 'Usuário não encontrado' }
     }

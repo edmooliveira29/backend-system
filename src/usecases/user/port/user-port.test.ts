@@ -36,7 +36,7 @@ describe('User Port Interface', () => {
     userPortMock.editUser = jest.fn().mockResolvedValue('Usuário editado com sucesso')
     const user: any = {
       _id: '1234567890',
-      address: '123 Main Street',
+      street: '123 Main Street',
       birthday: '01/01/1990',
       city: 'Example City',
       complement: 'Apt 4B',

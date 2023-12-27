@@ -177,7 +177,7 @@ describe('UserUseCase', () => {
         _id: '123',
         name: 'Edited User',
         email: 'edited@example.com',
-        address: '123',
+        street: '123',
         birthday: '01/01/2000',
         city: 'City',
         complement: 'Complement',
@@ -200,7 +200,7 @@ describe('UserUseCase', () => {
         message: 'Usuário editado com sucesso',
         data: {
           _id: mockEditedUser._id,
-          address: mockEditedUser.address,
+          street: mockEditedUser.street,
           birthday: mockEditedUser.birthday,
           city: mockEditedUser.city,
           complement: mockEditedUser.complement,
@@ -234,7 +234,6 @@ describe('UserUseCase', () => {
       const result = await userUseCase.getUser('123')
 
       expect(result).toEqual({
-        message: 'Usuário encontrado com sucesso',
         ...mockUser
       })
     })

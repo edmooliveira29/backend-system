@@ -1,6 +1,6 @@
 export interface UserEdit {
   _id: string
-  address: string
+  street: string
   birthday: string
   city: string
   complement: string

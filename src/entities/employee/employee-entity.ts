@@ -13,7 +13,7 @@ interface EmployeeData {
   hiringDate: string
   wage: string
   zipCode: string
-  address: string
+  street: string
   houseNumber: string
   complement: string
   neighborhood: string
@@ -37,7 +37,7 @@ export class EmployeeEntity {
   hiringDate: string
   wage: string
   zipCode: string
-  address: string
+  street: string
   houseNumber: string
   complement: string
   neighborhood: string
@@ -60,7 +60,7 @@ export class EmployeeEntity {
     this.hiringDate = employee.hiringDate
     this.wage = employee.wage
     this.zipCode = employee.zipCode
-    this.address = employee.address
+    this.street = employee.street
     this.houseNumber = employee.houseNumber
     this.complement = employee.complement
     this.neighborhood = employee.neighborhood

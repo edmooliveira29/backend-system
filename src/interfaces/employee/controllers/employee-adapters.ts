@@ -27,7 +27,7 @@ export class EmployeeController {
         hiringDate: employeeHttpRequest.body.hiringDate,
         wage: employeeHttpRequest.body.wage,
         zipCode: employeeHttpRequest.body.zipCode,
-        address: employeeHttpRequest.body.address,
+        street: employeeHttpRequest.body.street,
         houseNumber: employeeHttpRequest.body.houseNumber,
         complement: employeeHttpRequest.body.complement,
         neighborhood: employeeHttpRequest.body.neighborhood,
@@ -36,7 +36,7 @@ export class EmployeeController {
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
       const fieldsRequired = ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email',
-        'office', 'hiringDate', 'wage', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry']
+        'office', 'hiringDate', 'wage', 'zipCode', 'street', 'houseNumber', 'neighborhood', 'stateOfTheCountry']
       for (const field of fieldsRequired) {
         const fieldExists = Object.prototype.hasOwnProperty.call(employeeData, field)
         const value = employeeData[`${field}`]
@@ -72,7 +72,7 @@ export class EmployeeController {
         hiringDate: employeeHttpRequest.body.hiringDate,
         wage: employeeHttpRequest.body.wage,
         zipCode: employeeHttpRequest.body.zipCode,
-        address: employeeHttpRequest.body.address,
+        street: employeeHttpRequest.body.street,
         houseNumber: employeeHttpRequest.body.houseNumber,
         complement: employeeHttpRequest.body.complement,
         neighborhood: employeeHttpRequest.body.neighborhood,
@@ -83,8 +83,8 @@ export class EmployeeController {
         createdBy: employeeHttpRequest.body.createdBy
       }
 
-      const fieldsRequired = ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email', 'city',
-        'office', 'hiringDate', 'wage', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry']
+      const fieldsRequired = ['name', 'gender', 'phoneNumber', 'email', 'city',
+        'office', 'hiringDate', 'wage', 'zipCode', 'street', 'houseNumber', 'neighborhood', 'stateOfTheCountry']
       for (const field of fieldsRequired) {
         if (!Object.prototype.hasOwnProperty.call(employeeHttpRequest.body, field)) {
           return badRequest(new MissingParamError(field))

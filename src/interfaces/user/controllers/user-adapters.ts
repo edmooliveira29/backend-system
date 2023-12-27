@@ -45,7 +45,7 @@ export class UserController {
     try {
       const userData = {
         _id: userHttpRequest.body._id,
-        address: userHttpRequest.body.address,
+        street: userHttpRequest.body.street,
         birthday: userHttpRequest.body.birthday,
         city: userHttpRequest.body.city,
         complement: userHttpRequest.body.complement,

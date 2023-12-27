@@ -104,7 +104,6 @@ describe('Mongodb User repository', () => {
     jest.spyOn(sut, 'findUserByEmailOrId').mockResolvedValue(userMock)
     const result = await sut.getUser(userMock._id)
     expect(result).toStrictEqual({
-      message: 'Usuário encontrado com sucesso',
       data: userMock
     })
   })

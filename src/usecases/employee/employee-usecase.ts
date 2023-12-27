@@ -30,8 +30,6 @@ export class EmployeeUseCase implements IEmployeeDataAccess {
   }
 
   async editEmployee (_id: string, employee: EmployeeI): Promise<any> {
-    console.log('employeeData')
-    console.log(employee)
     if (!this.validation.emailIsValid(employee.email)) {
       return { message: 'E-mail não é valido' }
     } else if (!this.validation.nameIsValid(employee.name)) {
@@ -53,7 +51,9 @@ export class EmployeeUseCase implements IEmployeeDataAccess {
       return { message: 'Colaborador não encontrado' }
     }
 
-    return { message: 'Colaborador encontrado com sucesso', ...employeeRepositoryInfra }
+    return {
+      data: { ...employeeRepositoryInfra }
+    }
   }
 
   async deleteEmployee (employeeId: string): Promise<any> {

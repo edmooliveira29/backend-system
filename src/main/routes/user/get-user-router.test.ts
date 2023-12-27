@@ -30,7 +30,7 @@ describe('Register Routes', () => {
       .get(`/v1/user?objectId=${idUser}`)
       .expect(200)
     const userResponse = response.body
-    expect(userResponse).toHaveProperty('message', 'Usuário encontrado com sucesso')
+    expect(userResponse).toHaveProperty('message')
   })
 
   test('Should return 404 if user is not retrieved successfully', async () => {

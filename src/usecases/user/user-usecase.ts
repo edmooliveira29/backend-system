@@ -109,7 +109,7 @@ export class UserUseCase implements IUserDataAccess {
         message: newPassword ? 'Senha editada com sucesso' : 'Usuário editado com sucesso',
         data: {
           _id: userResponse.data._id,
-          address: userResponse.data.address,
+          street: userResponse.data.street,
           birthday: userResponse.data.birthday,
           city: userResponse.data.city,
           complement: userResponse.data.complement,
@@ -137,7 +137,7 @@ export class UserUseCase implements IUserDataAccess {
       return { message: 'Usuário não encontrado' }
     }
 
-    return { message: 'Usuário encontrado com sucesso', ...userRepositoryInfra }
+    return { ...userRepositoryInfra }
   }
 
   async deleteUser (userId: string): Promise<any> {
