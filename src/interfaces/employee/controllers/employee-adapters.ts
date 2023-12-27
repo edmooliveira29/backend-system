@@ -31,7 +31,9 @@ export class EmployeeController {
         houseNumber: employeeHttpRequest.body.houseNumber,
         complement: employeeHttpRequest.body.complement,
         neighborhood: employeeHttpRequest.body.neighborhood,
-        stateOfTheCountry: employeeHttpRequest.body.stateOfTheCountry
+        stateOfTheCountry: employeeHttpRequest.body.stateOfTheCountry,
+        city: employeeHttpRequest.body.city,
+        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
       const fieldsRequired = ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email',
         'office', 'hiringDate', 'wage', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry']
@@ -81,7 +83,7 @@ export class EmployeeController {
         createdBy: employeeHttpRequest.body.createdBy
       }
 
-      const fieldsRequired = ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email',
+      const fieldsRequired = ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email', 'city',
         'office', 'hiringDate', 'wage', 'zipCode', 'address', 'houseNumber', 'neighborhood', 'stateOfTheCountry']
       for (const field of fieldsRequired) {
         if (!Object.prototype.hasOwnProperty.call(employeeHttpRequest.body, field)) {
@@ -107,7 +109,6 @@ export class EmployeeController {
       if (!employeeReponseUseCase.data) {
         return noContent(new NotFound(employeeReponseUseCase.message))
       }
-      delete employeeReponseUseCase.data.password
       return ok({ message: employeeReponseUseCase.message, ...employeeReponseUseCase })
     } catch (error: any) {
       console.error(error)

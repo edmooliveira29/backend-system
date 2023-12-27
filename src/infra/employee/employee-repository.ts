@@ -72,8 +72,6 @@ export class EmployeeRepositoryInfra implements IEmployeeDataAccess {
     const employeeCollection = MongoConnection.getCollection('employees')
     const objectId = new ObjectId(_id)
     delete updatedEmployeeData._id
-    delete updatedEmployeeData.newPassword
-    delete updatedEmployeeData.newPasswordConfirmation
     const employee = await employeeCollection.updateOne(
       { _id: objectId },
       { $set: updatedEmployeeData }
