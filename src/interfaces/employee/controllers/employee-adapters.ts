@@ -109,7 +109,7 @@ export class EmployeeController {
       if (!employeeReponseUseCase.data) {
         return noContent(new NotFound(employeeReponseUseCase.message))
       }
-      return ok({ message: employeeReponseUseCase.message, ...employeeReponseUseCase })
+      return ok({ message: employeeReponseUseCase.message, ...employeeReponseUseCase.data })
     } catch (error: any) {
       console.error(error)
       return internalError(new ServerError(error.message))

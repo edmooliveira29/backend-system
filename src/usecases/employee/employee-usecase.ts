@@ -50,7 +50,6 @@ export class EmployeeUseCase implements IEmployeeDataAccess {
     if (!employeeRepositoryInfra) {
       return { message: 'Colaborador não encontrado' }
     }
-
     return {
       data: { ...employeeRepositoryInfra }
     }
