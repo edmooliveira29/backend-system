@@ -57,13 +57,9 @@ export class CustomerRepositoryInfra implements ICustomerDataAccess {
     }
   }
 
-  async getCustomer (_id: string): Promise<any> {
-    let customer
-    if (_id) {
-      customer = await this.findCustomerByCpfCnpjOrId({ _id, email: '' })
-    } else {
-      customer = await this.findAllCustomers()
-    }
+  async getCustomer (): Promise<any> {
+    const customer = await this.findAllCustomers()
+
     if (customer) {
       return { data: customer }
     } else {

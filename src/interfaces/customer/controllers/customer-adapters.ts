@@ -1,13 +1,13 @@
 import { type CustomerData } from '../../../entities/customer/customer-entity'
-import { type ICustomerCreateUseCase } from '../../../usecases/customer/port/customer-port'
+import { type ICustomerUseCase } from '../../../usecases/customer/port/customer-port'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
 import { type CustomerHttpRequest, type CustomerHttpResponse } from '../ports'
 
 export class CustomerController {
-  public readonly customerUseCase: ICustomerCreateUseCase
+  public readonly customerUseCase: ICustomerUseCase
 
-  constructor (customerUseCase: ICustomerCreateUseCase) {
+  constructor (customerUseCase: ICustomerUseCase) {
     this.customerUseCase = customerUseCase
   }
 
@@ -105,9 +105,9 @@ export class CustomerController {
     }
   }
 
-  async getCustomer (objectId: string): Promise<CustomerHttpResponse> {
+  async getCustomer (): Promise<CustomerHttpResponse> {
     try {
-      const customerReponseUseCase = await this.customerUseCase.getCustomer(objectId)
+      const customerReponseUseCase = await this.customerUseCase.getCustomer()
 
       if (!customerReponseUseCase.data) {
         return noContent(new NotFound(customerReponseUseCase.message))

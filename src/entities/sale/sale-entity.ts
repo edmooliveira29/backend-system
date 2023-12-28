@@ -5,7 +5,7 @@ interface SaleData {
   dateOfSale: string
   formOfPayment: string[]
   products: any[]
-  saleTotalAmount: number
+  resumeOfSale: any
   description: string
   discount: string
   valueDiscount: string
@@ -21,7 +21,7 @@ export class SaleEntity {
   dateOfSale: string
   formOfPayment: string[]
   products: any[]
-  saleTotalAmount: number
+  resumeOfSale: any
   description: string
   discount: string
   valueDiscount: string
@@ -36,7 +36,7 @@ export class SaleEntity {
     this.dateOfSale = sale.dateOfSale
     this.formOfPayment = sale.formOfPayment
     this.products = sale.products
-    this.saleTotalAmount = sale.saleTotalAmount
+    this.resumeOfSale = sale.resumeOfSale
     this.description = sale.description
     this.discount = sale.discount
     this.valueDiscount = sale.valueDiscount

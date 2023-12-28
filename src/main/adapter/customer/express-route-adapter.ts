@@ -26,8 +26,7 @@ export const editCustomerAdapterRoute = (controller: CustomerController) => {
 
 export const getCustomerAdapterRoute = (controller: CustomerController) => {
   return async (request: Request, response: Response): Promise<void> => {
-    const objectId = request.query.objectId as string
-    const httpResponse: CustomerHttpResponse = await controller.getCustomer(objectId)
+    const httpResponse: CustomerHttpResponse = await controller.getCustomer()
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }

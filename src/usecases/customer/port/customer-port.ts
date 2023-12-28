@@ -1,8 +1,8 @@
 import { type CustomerData } from '../../../entities/customer/customer-entity'
 
-export interface ICustomerCreateUseCase {
+export interface ICustomerUseCase {
   createCustomer: (customer: CustomerData) => Promise<any>
   editCustomer: (_id: string, customer: CustomerData) => Promise<any>
-  getCustomer: (objectId: string) => Promise<any>
+  getCustomer: () => Promise<any>
   deleteCustomer: (_id: string) => Promise<any>
 }

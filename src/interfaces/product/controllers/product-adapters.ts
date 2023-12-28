@@ -1,12 +1,12 @@
 import { type ProductHttpRequest, type ProductHttpResponse } from '../ports'
-import { type IProductCreateUseCase } from '../../../usecases/product/port/product-port'
+import { type IProductUseCase } from '../../../usecases/product/port/product-port'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
 
 export class ProductController {
-  public readonly productUseCase: IProductCreateUseCase
+  public readonly productUseCase: IProductUseCase
 
-  constructor (productUseCase: IProductCreateUseCase) {
+  constructor (productUseCase: IProductUseCase) {
     this.productUseCase = productUseCase
   }
 
@@ -70,9 +70,9 @@ export class ProductController {
     }
   }
 
-  async getProduct (objectId: string): Promise<ProductHttpResponse> {
+  async getProduct (): Promise<ProductHttpResponse> {
     try {
-      const productReponseUseCase = await this.productUseCase.getProduct(objectId)
+      const productReponseUseCase = await this.productUseCase.getProduct()
       if (!productReponseUseCase.data) {
         return noContent(new NotFound(productReponseUseCase.message))
       }

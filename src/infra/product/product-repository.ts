@@ -75,7 +75,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     }
   }
 
-  async getProduct (_id: string): Promise<any> {
+  async getProduct (): Promise<any> {
     const product = await this.findAllProducts()
     if (product) {
       return { data: product }

@@ -1,11 +1,11 @@
 import { type ProductEntity } from '../../entities/product/product-entity'
 import { type IProductDataAccess } from './port/product-data-access'
-import { type ProductEdit, type IProductCreateUseCase } from './port/product-port'
+import { type ProductEdit, type IProductUseCase } from './port/product-port'
 
 export class ProductUseCase implements IProductDataAccess {
-  public readonly portRepository: IProductCreateUseCase
+  public readonly portRepository: IProductUseCase
 
-  constructor (IProductCreateUseCase: IProductCreateUseCase) {
+  constructor (IProductCreateUseCase: IProductUseCase) {
     this.portRepository = IProductCreateUseCase
   }
 
@@ -39,8 +39,8 @@ export class ProductUseCase implements IProductDataAccess {
     }
   }
 
-  async getProduct (productId: string): Promise<any> {
-    const productRepositoryInfra = await this.portRepository.getProduct(productId)
+  async getProduct (): Promise<any> {
+    const productRepositoryInfra = await this.portRepository.getProduct()
     if (!productRepositoryInfra) {
       return { message: 'Produto não encontrada' }
     }

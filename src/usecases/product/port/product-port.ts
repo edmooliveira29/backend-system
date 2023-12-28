@@ -7,7 +7,7 @@ export interface ProductEdit {
   quantityInStock: number
 }
 
-export interface IProductCreateUseCase {
+export interface IProductUseCase {
   createProduct: (product: {
     _id?: string
     name: string
@@ -19,6 +19,6 @@ export interface IProductCreateUseCase {
     createdBy: string
   }) => Promise<any>
   editProduct: (_id: string, product: ProductEdit) => Promise<any>
-  getProduct: (objectId: string) => Promise<any>
+  getProduct: () => Promise<any>
   deleteProduct: (_id: string) => Promise<any>
 }

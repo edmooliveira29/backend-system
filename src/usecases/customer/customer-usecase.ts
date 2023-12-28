@@ -1,13 +1,13 @@
 import { type CustomerData } from '../../entities/customer/customer-entity'
 import { type ICustomerDataAccess } from './port/customer-data-access'
-import { type ICustomerCreateUseCase } from './port/customer-port'
+import { type ICustomerUseCase } from './port/customer-port'
 import { Validation } from '../validation/validations'
 
 export class CustomerUseCase implements ICustomerDataAccess {
-  public readonly portRepository: ICustomerCreateUseCase
+  public readonly portRepository: ICustomerUseCase
   public readonly validation: Validation
 
-  constructor (ICustomerCreateUseCase: ICustomerCreateUseCase) {
+  constructor (ICustomerCreateUseCase: ICustomerUseCase) {
     this.portRepository = ICustomerCreateUseCase
     this.validation = new Validation()
   }
@@ -45,8 +45,8 @@ export class CustomerUseCase implements ICustomerDataAccess {
     }
   }
 
-  async getCustomer (customerId: string): Promise<any> {
-    const customerRepositoryInfra = await this.portRepository.getCustomer(customerId)
+  async getCustomer (): Promise<any> {
+    const customerRepositoryInfra = await this.portRepository.getCustomer()
     if (!customerRepositoryInfra) {
       return { message: 'Cliente não encontrado' }
     }
