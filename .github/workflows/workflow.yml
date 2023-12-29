@@ -22,4 +22,4 @@ jobs:
           mkdir -p ~/.ssh/
           echo -n "${{ secrets.ACCESS_GITHUB_INSTANCE }}" > ~/.ssh/google_compute_engine
           chmod 600 ~/.ssh/google_compute_engine  # Garanta as permissões corretas para a chave privada
-          gcloud compute ssh --project=${{ secrets.PROJECT_ID_GOOGLE }} --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} --ssh-key-file=~/.ssh/google_compute_engine --quiet --tunnel-through-iap --command "echo Hello world"
+          gcloud compute ssh ${{secrets.USER_INSTANCE_GOOGLE}}@${{ secrets.NAME_INSTANCE_GOOGLE }} --project=${{ secrets.PROJECT_ID_GOOGLE }} --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} --ssh-key-file=~/.ssh/google_compute_engine --quiet --tunnel-through-iap --command "echo Hello world"
