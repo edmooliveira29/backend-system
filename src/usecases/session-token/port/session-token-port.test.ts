@@ -1,3 +1,4 @@
+import { formatNowDate } from '../../../utils/data'
 import { type SessionTokenCreate } from './session-token-data-access'
 import { type ISessionTokenUseCase } from './session-token-port'
 describe('Session Token Port Interface', () => {
@@ -6,9 +7,9 @@ describe('Session Token Port Interface', () => {
 
   beforeAll(() => {
     session = {
-      expiresIn: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-      createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-      updatedAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+      expiresIn: formatNowDate(),
+      createdAt: formatNowDate(),
+      updatedAt: formatNowDate(),
       userId: 'anyId',
       token: 'stringToken'
     }
@@ -27,12 +28,12 @@ describe('Session Token Port Interface', () => {
   test('Should return the message session edited with success', async () => {
     sessionPortMock.editSessionToken = jest.fn().mockResolvedValue('Sessão editada com sucesso')
     const session = {
-      updateAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+      updateAt: formatNowDate(),
       history: [{ login: 'stringHistory' }],
       token: 'stringToken',
       userId: 'anyId',
-      createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-      expiresIn: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+      createdAt: formatNowDate(),
+      expiresIn: formatNowDate()
     }
     expect(await sessionPortMock.editSessionToken('anyId', session)).toEqual('Sessão editada com sucesso')
   })

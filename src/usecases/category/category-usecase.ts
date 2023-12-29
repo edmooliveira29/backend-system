@@ -1,4 +1,5 @@
 import { type CategoryEntity } from '../../entities/category/category-entity'
+import { formatNowDate } from '../../utils/data'
 import { type ICategoryDataAccess } from './port/category-data-access'
 import { type CategoryEdit, type ICategoryCreateUseCase } from './port/category-port'
 
@@ -18,7 +19,7 @@ export class CategoryUseCase implements ICategoryDataAccess {
         name: categoryResponse.data.name,
         type: categoryResponse.data.type,
         description: categoryResponse.data.description,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        createdAt: formatNowDate(),
         createdBy: categoryResponse.data.createdBy
       }
     }

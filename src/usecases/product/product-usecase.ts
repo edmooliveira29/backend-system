@@ -1,4 +1,5 @@
 import { type ProductEntity } from '../../entities/product/product-entity'
+import { formatNowDate } from '../../utils/data'
 import { type IProductDataAccess } from './port/product-data-access'
 import { type ProductEdit, type IProductUseCase } from './port/product-port'
 
@@ -20,7 +21,7 @@ export class ProductUseCase implements IProductDataAccess {
         category: productResponse.data.category,
         price: productResponse.data.price,
         quantityInStock: productResponse.data.quantityInStock,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        createdAt: formatNowDate(),
         createdBy: productResponse.data.createdBy
       }
     }

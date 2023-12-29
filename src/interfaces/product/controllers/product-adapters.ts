@@ -2,6 +2,7 @@ import { type ProductHttpRequest, type ProductHttpResponse } from '../ports'
 import { type IProductUseCase } from '../../../usecases/product/port/product-port'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
+import { formatNowDate } from '../../../utils/data'
 
 export class ProductController {
   public readonly productUseCase: IProductUseCase
@@ -19,7 +20,7 @@ export class ProductController {
         category: productHttpRequest.body.category,
         price: productHttpRequest.body.price,
         quantityInStock: productHttpRequest.body.quantityInStock,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        createdAt: formatNowDate()
       }
       const fieldsRequired = ['name', 'category', 'price', 'quantityInStock']
       for (const field of fieldsRequired) {
@@ -49,7 +50,7 @@ export class ProductController {
         category: productHttpRequest.body.category,
         price: productHttpRequest.body.price,
         quantityInStock: productHttpRequest.body.quantityInStock,
-        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        editAt: formatNowDate()
       }
 
       const fildsRequired = ['_id', 'name', 'category', 'price', 'quantityInStock']

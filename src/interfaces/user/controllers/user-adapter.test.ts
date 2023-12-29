@@ -1,4 +1,5 @@
 import { type IUserCreateUseCase } from '../../../usecases/user/port/user-port'
+import { formatNowDate } from '../../../utils/data'
 import { type UserHttpRequest } from '../ports/user-http-request'
 import { UserController } from './user-adapters'
 
@@ -22,7 +23,7 @@ describe('User Adapter', () => {
         email: 'email@email.com',
         password: 'password',
         sessionToken: 'stringToken',
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        createdAt: formatNowDate()
       }
     }
   })
@@ -36,7 +37,7 @@ describe('User Adapter', () => {
           _id: 'anyId',
           name: 'anyName',
           email: 'email@email.com',
-          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+          createdAt: formatNowDate()
         }
       }),
       editUser: jest.fn(),
@@ -53,7 +54,7 @@ describe('User Adapter', () => {
           _id: 'anyId',
           name: 'anyName',
           email: 'email@email.com',
-          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+          createdAt: formatNowDate()
         },
         message: 'Usuário criado com sucesso'
       }

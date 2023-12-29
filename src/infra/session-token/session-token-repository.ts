@@ -1,6 +1,7 @@
 import { type ISessionTokenDataAccess } from '../../usecases/session-token/port/session-token-data-access'
 import { MongoConnection } from '../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
+import { formatNowDate } from '../../utils/data'
 interface SessionTokenCreate {
   expiresIn: string
   userId: string
@@ -15,7 +16,7 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
     const userCollection = MongoConnection.getCollection('sessions')
     const exists = await this.existsSessionTokenUser(session.userId)
     if (!exists) {
-      session.createdAt = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+      session.createdAt = formatNowDate()
       session.history = [{ login: `Login in system at ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}` }]
       const sessionToken = await userCollection.insertOne(session)
       return { message: 'Token criado com sucesso', data: sessionToken }
@@ -27,7 +28,7 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
   async editSessionToken (existingSessionId: string, updatedSession: SessionTokenCreate): Promise<any> {
     const userCollection = MongoConnection.getCollection('sessions')
     const objectId = new ObjectId(existingSessionId)
-    updatedSession.updatedAt = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+    updatedSession.updatedAt = formatNowDate()
     const sessionToken = await userCollection.updateOne(
       { _id: objectId },
       {

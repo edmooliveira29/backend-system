@@ -1,4 +1,5 @@
 import { type IEmployeeCreateUseCase } from '../../../usecases/employee/port/employee-port'
+import { formatNowDate } from '../../../utils/data'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
 import { type EmployeeHttpRequest, type EmployeeHttpResponse } from '../ports'
@@ -33,7 +34,7 @@ export class EmployeeController {
         neighborhood: employeeHttpRequest.body.neighborhood,
         stateOfTheCountry: employeeHttpRequest.body.stateOfTheCountry,
         city: employeeHttpRequest.body.city,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        createdAt: formatNowDate()
       }
       const fieldsRequired = ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email',
         'office', 'hiringDate', 'wage', 'zipCode', 'street', 'houseNumber', 'neighborhood', 'stateOfTheCountry']
@@ -78,7 +79,7 @@ export class EmployeeController {
         neighborhood: employeeHttpRequest.body.neighborhood,
         city: employeeHttpRequest.body.city,
         stateOfTheCountry: employeeHttpRequest.body.stateOfTheCountry,
-        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        editAt: formatNowDate(),
         createdAt: employeeHttpRequest.body.createdAt,
         createdBy: employeeHttpRequest.body.createdBy
       }

@@ -2,6 +2,7 @@ import { type CategoryHttpRequest, type CategoryHttpResponse } from '../ports'
 import { type ICategoryCreateUseCase } from '../../../usecases/category/port/category-port'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
+import { formatNowDate } from '../../../utils/data'
 
 export class CategoryController {
   public readonly categoryUseCase: ICategoryCreateUseCase
@@ -17,7 +18,7 @@ export class CategoryController {
         type: categoryHttpRequest.body.type,
         name: categoryHttpRequest.body.name,
         description: categoryHttpRequest.body.description,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        createdAt: formatNowDate()
       }
       const fieldsRequired = ['type', 'name']
       for (const field of fieldsRequired) {
@@ -45,7 +46,7 @@ export class CategoryController {
         name: categoryHttpRequest.body.name,
         type: categoryHttpRequest.body.type,
         description: categoryHttpRequest.body.description,
-        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        editAt: formatNowDate()
       }
 
       const fildsRequired = ['_id', 'name', 'type']

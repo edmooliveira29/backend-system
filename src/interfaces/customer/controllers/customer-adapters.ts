@@ -1,5 +1,6 @@
 import { type CustomerData } from '../../../entities/customer/customer-entity'
 import { type ICustomerUseCase } from '../../../usecases/customer/port/customer-port'
+import { formatNowDate } from '../../../utils/data'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
 import { type CustomerHttpRequest, type CustomerHttpResponse } from '../ports'
@@ -35,7 +36,7 @@ export class CustomerController {
         stateOfTheCountry: customerHttpRequest.body.stateOfTheCountry,
         city: customerHttpRequest.body.city,
         typeCustomer: customerHttpRequest.body.typeCustomer,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        createdAt: formatNowDate()
       }
       const fieldsRequired = ['name', 'phoneNumber', 'email', 'city',
         'zipCode', 'street', 'houseNumber', 'neighborhood', 'stateOfTheCountry']
@@ -81,7 +82,7 @@ export class CustomerController {
         city: customerHttpRequest.body.city,
         stateOfTheCountry: customerHttpRequest.body.stateOfTheCountry,
         typeCustomer: customerHttpRequest.body.typeCustomer,
-        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        editAt: formatNowDate(),
         createdAt: customerHttpRequest.body.createdAt,
         createdBy: customerHttpRequest.body.createdBy
       }

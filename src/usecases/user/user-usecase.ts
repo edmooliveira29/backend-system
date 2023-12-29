@@ -3,6 +3,7 @@ import { type IUserDataAccess } from './port/user-data-access'
 import { type UserEdit, type IUserCreateUseCase } from './port/user-port'
 import { Validation } from '../validation/validations'
 import { type ISessionTokenUseCase } from '../session-token/session-token-interface'
+import { formatNowDate } from '../../utils/data'
 
 export class UserUseCase implements IUserDataAccess {
   public readonly portRepository: IUserCreateUseCase
@@ -33,7 +34,7 @@ export class UserUseCase implements IUserDataAccess {
           role: UserRepositoryInfra.data.role,
           email: UserRepositoryInfra.data.email,
           sessionToken: sessionToken.data.token,
-          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+          createdAt: formatNowDate(),
           profilePicture: UserRepositoryInfra.data.profilePicture,
           createWithGoogle: UserRepositoryInfra.data.createWithGoogle
         }
@@ -65,7 +66,7 @@ export class UserUseCase implements IUserDataAccess {
           name: userResponse.data.name,
           email: userResponse.data.email,
           role: userResponse.data.role,
-          createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+          createdAt: formatNowDate(),
           profilePicture: userResponse.data.profilePicture,
           createWithGoogle: userResponse.data.createWithGoogle,
           createdBy: userResponse.data.createdBy,
@@ -87,7 +88,7 @@ export class UserUseCase implements IUserDataAccess {
       validationPassword = this.validation.passwordIsValid(user.newPassword)
       user = {
         ...userFound.data,
-        lastChangedPassword: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        lastChangedPassword: formatNowDate(),
         password: await this.validation.hashPassword(user.newPassword)
       }
     } else {

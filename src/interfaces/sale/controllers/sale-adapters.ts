@@ -1,4 +1,5 @@
 import { type ISaleCreateUseCase } from '../../../usecases/sale/port/sale-port'
+import { formatNowDate } from '../../../utils/data'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
 import { type SaleHttpRequest, type SaleHttpResponse } from '../ports'
@@ -14,7 +15,7 @@ export class SaleController {
     try {
       const saleData: any = {
         ...saleHttpRequest.body,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        createdAt: formatNowDate()
       }
       const fieldsRequired = ['dateOfSale', 'customer', 'formOfPayment']
       for (const field of fieldsRequired) {
@@ -39,7 +40,7 @@ export class SaleController {
     try {
       const saleData = {
         ...saleHttpRequest.body,
-        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
+        editAt: formatNowDate()
       }
 
       const fieldsRequired = ['dateOfSale', 'customer', 'formOfPayment']

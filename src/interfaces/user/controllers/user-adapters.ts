@@ -2,6 +2,7 @@ import { type UserHttpRequest, type UserHttpResponse } from '../ports'
 import { type IUserCreateUseCase } from '../../../usecases/user/port/user-port'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
+import { formatNowDate } from '../../../utils/data'
 
 export class UserController {
   public readonly userUseCase: IUserCreateUseCase
@@ -18,7 +19,7 @@ export class UserController {
         email: userHttpRequest.body.email,
         password: userHttpRequest.body.password || `${Math.random().toFixed(5)}Aa*`,
         role: userHttpRequest.body.role,
-        createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        createdAt: formatNowDate(),
         profilePicture: userHttpRequest.body.profilePicture || null,
         createWithGoogle: userHttpRequest.body.createWithGoogle
       }
@@ -63,7 +64,7 @@ export class UserController {
         role: userHttpRequest.body.role,
         newPassword: userHttpRequest.body.newPassword,
         newPasswordConfirmation: userHttpRequest.body.newPasswordConfirmation,
-        editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        editAt: formatNowDate(),
         profilePicture: userHttpRequest.body.profilePicture
       }
 
