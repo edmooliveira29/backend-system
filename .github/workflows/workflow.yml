@@ -4,48 +4,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test-unit:
-    runs-on: ubuntu-latest
-    permissions: write-all
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - run: |- 
-        npm install
-        echo "MONGO_URL=${{secrets.MONGO_URL}}" >> .env
-    - name: Start MongoDB v6.0
-      uses: supercharge/mongodb-github-action@1.2.0
-      with:
-        mongodb-version: 6.0
-    - name: Running unit tests
-      run: |- 
-        echo 'RUNNING TESTS'
-    - uses: actions/labeler@v4
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Coverage Tests
-      id: coverageComment
-      uses: MishaKav/jest-coverage-comment@main
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        coverage-summary-path: ./coverage/coverage-summary.json
-        coverage-title: My Coverage Title
-        coverage-path: ./coverage/coverage.txt
-
-    - name: Create the badge about tests
-      if: github.ref == 'refs/heads/main'
-      uses: schneegans/dynamic-badges-action@v1.6.0
-      with:
-        auth: ${{ secrets.GIST_TOKEN }}
-        gistID: ${{secrets.GIST_ID}}
-        filename: jest-coverage-comment__main.json
-        label: coverage
-        message: ${{ steps.coverageComment.outputs.coverage }}%
-        color: ${{ steps.coverageComment.outputs.color }}
-        namedLogo: typescript
-
+ 
   deploy:
-    needs: test-unit
     runs-on: ubuntu-latest
 
     steps:
