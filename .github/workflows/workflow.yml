@@ -19,10 +19,6 @@ jobs:
   
       - name: SSH into Compute Engine
         run: |
-          gcloud compute ssh INSTANCE_NAME --zone ZONE --project PROJECT_ID --ssh-key-file /tmp/KEY_FILE --quiet --tunnel-through-iap --command "echo Hello world"
-        env:
-          INSTANCE_NAME: ${{ secrets.NAME_INSTANCE_GOOGLE }}
-          ZONE: ${{ secrets.ZONE_INSTANCE_GOOGLE }}
-          PROJECT_ID: ${{secrets.PROJECT_ID_GOOGLE}}
-          KEY_FILE: /tmp/google_compute_engine
+          gcloud compute ssh ${{ secrets.NAME_INSTANCE_GOOGLE }} --zone ${{ secrets.ZONE_INSTANCE_GOOGLE }} --project ${{secrets.PROJECT_ID_GOOGLE}} --ssh-key-file /tmp/google_compute_engine --quiet --tunnel-through-iap --command "echo Hello world"
+
 
