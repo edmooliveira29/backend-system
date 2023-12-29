@@ -52,7 +52,7 @@ jobs:
       - name: Running command
         run: |-
           mkdir -p ~/.ssh/
-          echo -n "${{secrets.ACCESS_GITHUB_INSTANCE}}" > ~/.ssh/id_rsa
+          printf "%s" "${{secrets.ACCESS_GITHUB_INSTANCE}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan "${{secrets.IP_INSTANCE_GOOGLE}}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
