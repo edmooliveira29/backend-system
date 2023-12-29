@@ -6,30 +6,23 @@ on:
 jobs:
 
   deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest      
     steps:
-    - uses: 'actions/checkout@v4'
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v2'
-      with:
-        credentials_json: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-        create_credentials_file: false
-        service_account: ${{ secrets. }}
-    - id: 'compute-ssh'
-      uses: 'google-github-actions/ssh-compute@v1'
-      with:
-        instance_name: '${{ secrets.NAME_INSTANCE_GOOGLE }}'
-        zone: '${{ secrets.ZONE_INSTANCE_GOOGLE }}'
-        ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
-        command: 'echo Hello world'
-    - id: 'test'
-      run: |-
-        echo '${{ steps.compute-ssh.outputs.stdout }}'
-        echo '${{ steps.compute-ssh.outputs.stderr }}'
-      env:
-        CLOUDSDK_CORE_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
-        CLOUDSDK_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
-        GCLOUD_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
-        GCP_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
-        GOOGLE_CLOUD_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+  
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}'
+          export_default_credentials: true
+  
+      - name: SSH into Compute Engine
+        run: |
+          gcloud compute ssh INSTANCE_NAME --zone ZONE --project PROJECT_ID --ssh-key-file /tmp/KEY_FILE --quiet --tunnel-through-iap --command "echo Hello world"
+        env:
+          INSTANCE_NAME: ${{ secrets.NAME_INSTANCE_GOOGLE }}
+          ZONE: ${{ secrets.ZONE_INSTANCE_GOOGLE }}
+          PROJECT_ID: ${{secrets.PROJECT_ID_GOOGLE}}
+          KEY_FILE: /tmp/google_compute_engine
+
