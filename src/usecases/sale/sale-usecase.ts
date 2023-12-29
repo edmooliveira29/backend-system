@@ -51,7 +51,6 @@ export class SaleUseCase implements ISaleDataAccess {
 
   async getLastSaleNumber (): Promise<any> {
     const lastSaleNumber = await this.portRepository.getLastSaleNumber()
-    console.log(lastSaleNumber)
     const newSaleNumber = lastSaleNumber + 1
     return newSaleNumber
   }
