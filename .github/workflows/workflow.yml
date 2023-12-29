@@ -23,6 +23,7 @@ jobs:
 
       - name: SSH into Instance and run script
         run: |-
+          ifconfig
           echo '/home/${{secrets.USER_INSTANCE_GOOGLE }}/run-deploy.sh'
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa system@${{secrets.IP_INSTANCE_GOOGLE}} '/home/${{secrets.USER_INSTANCE_GOOGLE }}/run-deploy.sh'
           
