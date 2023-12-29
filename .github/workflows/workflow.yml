@@ -19,7 +19,6 @@ jobs:
   
       - name: SSH into Compute Engine
         run: |
-          mkdir -p ~/.ssh/
-          echo -n "${{ secrets.ACCESS_GITHUB_INSTANCE }}" > ~/.ssh/google_compute_engine
-          chmod 600 ~/.ssh/google_compute_engine  # Garanta as permissões corretas para a chave privada
+          ssh-keygen -t rsa -f ~/.ssh/google_compute_engine
+          chmod 600 ~/.ssh/google_compute_engine
           gcloud compute ssh ${{secrets.USER_INSTANCE_GOOGLE}}@${{ secrets.NAME_INSTANCE_GOOGLE }} --project=${{ secrets.PROJECT_ID_GOOGLE }} --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} --ssh-key-file=~/.ssh/google_compute_engine --quiet --tunnel-through-iap --command "echo Hello world"
