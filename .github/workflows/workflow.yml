@@ -18,7 +18,13 @@ jobs:
     - id: 'compute-ssh'
       uses: 'google-github-actions/ssh-compute@v1'
       with:
-        instance_name: '${{secrets.NAME_INSTANCE_GOOGLE}}'
-        zone: '${{secrets.ZONE_INSTANCE_GOOGLE}}'
+        instance_name: '${{ secrets.NAME_INSTANCE_GOOGLE }}'
+        zone: '${{ secrets.ZONE_INSTANCE_GOOGLE }}'
         ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
         command: 'echo Hello world'
+      env:
+        CLOUDSDK_CORE_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
+        CLOUDSDK_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
+        GCLOUD_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
+        GCP_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
+        GOOGLE_CLOUD_PROJECT: ${{secrets.PROJECT_ID_GOOGLE}}
