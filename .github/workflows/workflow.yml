@@ -62,14 +62,14 @@ jobs:
       - name: Running command
         run: |-
           mkdir -p ~/.ssh/
-          echo "${{secrets.$ACCESS_GITHUB_INSTANCE}}" > ~/.ssh/id_rsa
+          echo ${{secrets.$ACCESS_GITHUB_INSTANCE}} > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan ${{secrets.IP_INSTANCE_GOOGLE}} >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: SSH into Instance and run script
         run: |-
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa system@${{secrets.IP_INSTANCE_GOOGLE}} "/home/${{secrets.USER_INSTANCE_GOOGLE }}/run-deploy.sh"
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa system@${{secrets.IP_INSTANCE_GOOGLE}} '/home/${{secrets.USER_INSTANCE_GOOGLE }}/run-deploy.sh'
           
       - name: Deleting user-profiles
         run: |- 
