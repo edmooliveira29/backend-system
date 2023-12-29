@@ -51,15 +51,15 @@ jobs:
     steps:
       - name: Running command
         run: |-
+          cd ~/.ssh
+          ls -la 
           mkdir -p ~/.ssh/
-          echo "DEBUG: Printing secret before printf"
           echo "${{secrets.ACCESS_GITHUB_INSTANCE}}"
           printf "%s" "${{secrets.ACCESS_GITHUB_INSTANCE}}" > ~/.ssh/id_rsa
-          echo "DEBUG: Printing content of id_rsa after printf"
-          cat ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan "${{secrets.IP_INSTANCE_GOOGLE}}" >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+        #  cat ~/.ssh/id_rsa
+        #  chmod 600 ~/.ssh/id_rsa
+        #  ssh-keyscan "${{secrets.IP_INSTANCE_GOOGLE}}" >> ~/.ssh/known_hosts
+        #  chmod 644 ~/.ssh/known_hosts
 
       - name: SSH into Instance and run script
         run: |-
