@@ -49,16 +49,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up gcloud
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
-
-      - name: Set project with default
-        run: |- 
-          gcloud config set project ${{ secrets.PROJECT_ID_GOOGLE }}
-
       - name: Running command
         run: |-
           mkdir -p ~/.ssh/
