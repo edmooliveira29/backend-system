@@ -17,7 +17,7 @@ export class ProductUseCase implements IProductDataAccess {
         _id: productResponse.data._id,
         name: productResponse.data.name,
         description: productResponse.data.description,
-        categoryId: productResponse.data.categoryId,
+        category: productResponse.data.category,
         price: productResponse.data.price,
         quantityInStock: productResponse.data.quantityInStock,
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),

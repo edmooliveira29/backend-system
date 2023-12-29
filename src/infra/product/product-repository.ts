@@ -7,7 +7,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     _id?: any
     name: string
     description?: string
-    categoryId: string
+    category: string
     price: string
     quantityInStock: number
     createdAt: string
@@ -47,22 +47,12 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     const productCollection = MongoConnection.getCollection('products')
     const result = await productCollection.find({}).toArray()
 
-    // Mapear os resultados e buscar detalhes da categoria
-    const productsWithCategoryDetails = await Promise.all(result.map(async (product) => {
-      const categoryId = new ObjectId(product.categoryId)
-      const categoryDetails = await this.getCategoryDetails(categoryId)
-      return {
-        ...product,
-        categoryId: categoryDetails
-      }
-    }))
-
-    return productsWithCategoryDetails
+    return result
   }
 
-  async getCategoryDetails (categoryId: ObjectId): Promise<any> {
+  async getCategoryDetails (category: ObjectId): Promise<any> {
     const categoryCollection = MongoConnection.getCollection('categories')
-    const categoryDetails = await categoryCollection.findOne({ _id: categoryId })
+    const categoryDetails = await categoryCollection.findOne({ _id: category })
     return categoryDetails
   }
 

@@ -54,8 +54,8 @@ export class CustomerUseCase implements ICustomerDataAccess {
     return { ...customerRepositoryInfra }
   }
 
-  async deleteCustomer (customerId: string): Promise<any> {
-    const customerRepositoryInfra = await this.portRepository.deleteCustomer(customerId)
+  async deleteCustomer (_id: string): Promise<any> {
+    const customerRepositoryInfra = await this.portRepository.deleteCustomer(_id)
     if (!customerRepositoryInfra) {
       return { message: 'Cliente não encontrado' }
     }

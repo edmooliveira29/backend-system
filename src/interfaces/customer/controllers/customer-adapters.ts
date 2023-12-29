@@ -119,9 +119,9 @@ export class CustomerController {
     }
   }
 
-  async deleteCustomer (objectId: string): Promise<CustomerHttpResponse> {
+  async deleteCustomer (_id: string): Promise<CustomerHttpResponse> {
     try {
-      const customerReponseUseCase = await this.customerUseCase.deleteCustomer(objectId)
+      const customerReponseUseCase = await this.customerUseCase.deleteCustomer(_id)
       return ok({ message: customerReponseUseCase.message, data: customerReponseUseCase.data })
     } catch (error: any) {
       console.error(error)

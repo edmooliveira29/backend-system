@@ -87,8 +87,8 @@ export class CustomerRepositoryInfra implements ICustomerDataAccess {
   async deleteCustomer (_id: string): Promise<any> {
     const customerCollection = MongoConnection.getCollection('customers')
     const objectId = new ObjectId(_id)
-    const customer = await customerCollection.deleteOne({ _id: objectId })
-    if (customer) {
+    const customerResponse = await customerCollection.deleteOne({ _id: objectId })
+    if (customerResponse) {
       return { message: 'Cliente deletado com sucesso', data: await customerCollection.find({}).toArray() }
     } else {
       return { message: 'Cliente não encontrado' }

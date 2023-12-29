@@ -16,7 +16,7 @@ export class SaleController {
         ...saleHttpRequest.body,
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
-      const fieldsRequired = ['dateOfSale', 'customerId', 'formOfPayment']
+      const fieldsRequired = ['dateOfSale', 'customer', 'formOfPayment']
       for (const field of fieldsRequired) {
         const fieldExists = Object.prototype.hasOwnProperty.call(saleData, field)
         const value = saleData[`${field}`]
@@ -42,7 +42,7 @@ export class SaleController {
         editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
 
-      const fieldsRequired = ['dateOfSale', 'customerId', 'formOfPayment']
+      const fieldsRequired = ['dateOfSale', 'customer', 'formOfPayment']
       for (const field of fieldsRequired) {
         if (!Object.prototype.hasOwnProperty.call(saleHttpRequest.body, field)) {
           return badRequest(new MissingParamError(field))

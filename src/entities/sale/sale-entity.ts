@@ -1,7 +1,7 @@
 interface SaleData {
   _id?: any
   saleNumber: number
-  customerId: string
+  customer: string
   dateOfSale: string
   formOfPayment: string[]
   products: any[]
@@ -17,7 +17,7 @@ interface SaleData {
 export class SaleEntity {
   _id?: any
   saleNumber: number
-  customerId: string
+  customer: string
   dateOfSale: string
   formOfPayment: string[]
   products: any[]
@@ -32,7 +32,7 @@ export class SaleEntity {
   constructor (sale: SaleData) {
     this._id = sale._id
     this.saleNumber = sale.saleNumber
-    this.customerId = sale.customerId
+    this.customer = sale.customer
     this.dateOfSale = sale.dateOfSale
     this.formOfPayment = sale.formOfPayment
     this.products = sale.products

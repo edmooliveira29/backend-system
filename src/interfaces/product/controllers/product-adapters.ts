@@ -16,12 +16,12 @@ export class ProductController {
         _id: productHttpRequest.body._id,
         name: productHttpRequest.body.name,
         description: productHttpRequest.body.description,
-        categoryId: productHttpRequest.body.categoryId,
+        category: productHttpRequest.body.category,
         price: productHttpRequest.body.price,
         quantityInStock: productHttpRequest.body.quantityInStock,
         createdAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
-      const fieldsRequired = ['name', 'categoryId', 'price', 'quantityInStock']
+      const fieldsRequired = ['name', 'category', 'price', 'quantityInStock']
       for (const field of fieldsRequired) {
         const fieldExists = Object.prototype.hasOwnProperty.call(productData, field)
         const value = productData[`${field}`]
@@ -46,13 +46,13 @@ export class ProductController {
         _id: productHttpRequest.body._id,
         name: productHttpRequest.body.name,
         description: productHttpRequest.body.description,
-        categoryId: productHttpRequest.body.categoryId,
+        category: productHttpRequest.body.category,
         price: productHttpRequest.body.price,
         quantityInStock: productHttpRequest.body.quantityInStock,
         editAt: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
       }
 
-      const fildsRequired = ['_id', 'name', 'categoryId', 'price', 'quantityInStock']
+      const fildsRequired = ['_id', 'name', 'category', 'price', 'quantityInStock']
       for (const field of fildsRequired) {
         if (!Object.prototype.hasOwnProperty.call(productHttpRequest.body, field)) {
           return badRequest(new MissingParamError(field))

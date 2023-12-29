@@ -28,6 +28,7 @@ export const getSaleAdapterRoute = (controller: SaleController) => {
   return async (request: Request, response: Response): Promise<void> => {
     const objectId = request.query.objectId as string
     const httpResponse: SaleHttpResponse = await controller.getSale(objectId)
+    console.log(httpResponse.body)
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }

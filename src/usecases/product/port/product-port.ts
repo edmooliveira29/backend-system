@@ -2,7 +2,7 @@ export interface ProductEdit {
   _id: string
   name: string
   description?: string
-  categoryId: string
+  category: string
   price: string
   quantityInStock: number
 }
@@ -12,7 +12,7 @@ export interface IProductUseCase {
     _id?: string
     name: string
     description?: string
-    categoryId: string
+    category: string
     price: string
     quantityInStock: number
     createdAt: string
