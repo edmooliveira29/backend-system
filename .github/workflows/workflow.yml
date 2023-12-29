@@ -55,8 +55,8 @@ jobs:
           ls -la 
           mkdir -p ~/.ssh/
           echo "${{secrets.ACCESS_GITHUB_INSTANCE}}"
-          printf "%s" "${{secrets.ACCESS_GITHUB_INSTANCE}}" > ~/.ssh/id_rsa
-        #  cat ~/.ssh/id_rsa
+          echo -e "${{secrets.ACCESS_GITHUB_INSTANCE}}" > ~/.ssh/id_rsa
+          cat ~/.ssh/id_rsa
         #  chmod 600 ~/.ssh/id_rsa
         #  ssh-keyscan "${{secrets.IP_INSTANCE_GOOGLE}}" >> ~/.ssh/known_hosts
         #  chmod 644 ~/.ssh/known_hosts
