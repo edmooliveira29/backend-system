@@ -4,24 +4,20 @@ on:
     branches: [ main ]
 
 jobs:
- 
+
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Running command
-        run: |-
-          mkdir -p ~/.ssh/
-          cd ~/.ssh
-          mkdir -p ~/.ssh/
-          echo -e "${{secrets.ACCESS_GITHUB_INSTANCE}}" > ~/.ssh/id_rsa
-          ifconfig
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        credentials_json: '${{ secrets.CLIENT_SECRET_GOOGLE }}'
 
-      - name: SSH into Instance and run script
-        run: |-
-          echo '/home/${{secrets.USER_INSTANCE_GOOGLE }}/run-deploy.sh'
-          ssh system@${{secrets.IP_INSTANCE_GOOGLE}} '/home/${{secrets.USER_INSTANCE_GOOGLE }}/run-deploy.sh'
-          
-      - name: Deleting user-profiles
-        run: |- 
-          for i in $(gcloud compute os-login ssh-keys list | grep -v FINGERPRINT); do echo $i; gcloud compute os-login ssh-keys remove --key $i; done
+    - id: 'compute-ssh'
+      uses: 'google-github-actions/ssh-compute@v1'
+      with:
+        instance_name: '${{secrets.NAME_INSTANCE_GOOGLE}}'
+        zone: '${{secrets.ZONE_INSTANCE_GOOGLE}}'
+        ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
+        command: 'echo Hello world'
