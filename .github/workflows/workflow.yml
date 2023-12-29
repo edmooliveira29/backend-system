@@ -13,6 +13,7 @@ jobs:
       uses: 'google-github-actions/auth@v2'
       with:
         credentials_json: '${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}'
+        create_credentials_file: false
 
     - id: 'compute-ssh'
       uses: 'google-github-actions/ssh-compute@v1'
