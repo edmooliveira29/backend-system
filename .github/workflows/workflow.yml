@@ -21,4 +21,4 @@ jobs:
         run: |
           ssh-keygen -t rsa -f ~/.ssh/google_compute_engine
           chmod 600 ~/.ssh/google_compute_engine
-          gcloud compute ssh ${{secrets.USER_INSTANCE_GOOGLE}}@${{ secrets.NAME_INSTANCE_GOOGLE }} --project=${{ secrets.PROJECT_ID_GOOGLE }} --zone=${{ secrets.ZONE_INSTANCE_GOOGLE }} --ssh-key-file=~/.ssh/google_compute_engine --quiet --tunnel-through-iap --command "echo Hello world"
+          gcloud compute ssh system@system --project=api-8702109450667741338-992005 --zone=us-east1-d --ssh-key-file=~/.ssh/id_rsa --quiet --tunnel-through-iap --command "
