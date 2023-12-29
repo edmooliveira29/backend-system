@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Running command
         run: |-
+          mkdir -p ~/.ssh/
           cd ~/.ssh
           ls -la 
           mkdir -p ~/.ssh/
-          echo "${{secrets.ACCESS_GITHUB_INSTANCE}}"
           echo -e "${{secrets.ACCESS_GITHUB_INSTANCE}}" > ~/.ssh/id_rsa
           cat ~/.ssh/id_rsa
         #  chmod 600 ~/.ssh/id_rsa
