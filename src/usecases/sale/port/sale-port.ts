@@ -1,9 +1,10 @@
 import { type SaleEntity } from '../../../entities/sale/sale-entity'
 
-export interface ISaleCreateUseCase {
+export interface ISaleUseCase {
+  [x: string]: any
   getLastSaleNumber: () => Promise<number>
   createSale: (sale: SaleEntity) => Promise<any>
   editSale: (_id: string, sale: SaleEntity) => Promise<any>
-  getSale: (objectId: string) => Promise<any>
+  getSale: () => Promise<any>
   deleteSale: (_id: string) => Promise<any>
 }

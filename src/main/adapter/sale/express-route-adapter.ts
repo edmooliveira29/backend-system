@@ -26,8 +26,7 @@ export const editSaleAdapterRoute = (controller: SaleController) => {
 
 export const getSaleAdapterRoute = (controller: SaleController) => {
   return async (request: Request, response: Response): Promise<void> => {
-    const objectId = request.query.objectId as string
-    const httpResponse: SaleHttpResponse = await controller.getSale(objectId)
+    const httpResponse: SaleHttpResponse = await controller.getSale()
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }

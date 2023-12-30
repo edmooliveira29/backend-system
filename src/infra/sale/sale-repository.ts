@@ -46,13 +46,9 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
     }
   }
 
-  async getSale (_id: string): Promise<any> {
-    let sale
-    if (_id) {
-      sale = await this.findSaleById({ _id })
-    } else {
-      sale = await this.findAllSales()
-    }
+  async getSale (): Promise<any> {
+    const sale = await this.findAllSales()
+
     if (sale) {
       return { data: sale }
     } else {
@@ -102,5 +98,13 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
     } else {
       return 0
     }
+  }
+
+  async getQuantityOfSales (): Promise<any> {
+    const saleCollection = MongoConnection.getCollection('sales')
+    const result = saleCollection
+      .find({})
+      .bufferedCount()
+    return result
   }
 }

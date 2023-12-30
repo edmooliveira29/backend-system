@@ -40,8 +40,8 @@ export class ProductUseCase implements IProductDataAccess {
     }
   }
 
-  async getProduct (): Promise<any> {
-    const productRepositoryInfra = await this.portRepository.getProduct()
+  async getProducts (): Promise<any> {
+    const productRepositoryInfra = await this.portRepository.getProducts()
     if (!productRepositoryInfra) {
       return { message: 'Produto não encontrada' }
     }

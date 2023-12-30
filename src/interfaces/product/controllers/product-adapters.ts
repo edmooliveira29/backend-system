@@ -71,9 +71,9 @@ export class ProductController {
     }
   }
 
-  async getProduct (): Promise<ProductHttpResponse> {
+  async getProducts (): Promise<ProductHttpResponse> {
     try {
-      const productReponseUseCase = await this.productUseCase.getProduct()
+      const productReponseUseCase = await this.productUseCase.getProducts()
       if (!productReponseUseCase.data) {
         return noContent(new NotFound(productReponseUseCase.message))
       }

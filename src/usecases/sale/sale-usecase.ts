@@ -1,10 +1,10 @@
 import { type SaleEntity } from '../../entities/sale/sale-entity'
 import { type ISaleDataAccess } from './port/sale-data-access'
-import { type ISaleCreateUseCase } from './port/sale-port'
+import { type ISaleUseCase } from './port/sale-port'
 
 export class SaleUseCase implements ISaleDataAccess {
-  public readonly portRepository: ISaleCreateUseCase
-  constructor (ISaleCreateUseCase: ISaleCreateUseCase) {
+  public readonly portRepository: ISaleUseCase
+  constructor (ISaleCreateUseCase: ISaleUseCase) {
     this.portRepository = ISaleCreateUseCase
   }
 
@@ -30,8 +30,8 @@ export class SaleUseCase implements ISaleDataAccess {
     }
   }
 
-  async getSale (saleId: string): Promise<any> {
-    const saleRepositoryInfra = await this.portRepository.getSale(saleId)
+  async getSale (): Promise<any> {
+    const saleRepositoryInfra = await this.portRepository.getSale()
     if (!saleRepositoryInfra) {
       return { message: 'Venda não encontrada' }
     }
@@ -53,5 +53,15 @@ export class SaleUseCase implements ISaleDataAccess {
     const lastSaleNumber = await this.portRepository.getLastSaleNumber()
     const newSaleNumber = lastSaleNumber + 1
     return newSaleNumber
+  }
+
+  async getQuantityOfSales (): Promise<any> {
+    const quantityOfSales = await this.portRepository.getQuantityOfSales()
+    return quantityOfSales
+  }
+
+  async getSalesIntheLast6Months (): Promise<any> {
+    const quantityOfSales = await this.portRepository.getQuantityOfSales()
+    return quantityOfSales
   }
 }

@@ -1,13 +1,13 @@
-import { type ISaleCreateUseCase } from '../../../usecases/sale/port/sale-port'
+import { type ISaleUseCase } from '../../../usecases/sale/port/sale-port'
 import { formatNowDate } from '../../../utils/data'
 import { badRequest, internalError, noContent, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, NotFound, ServerError } from '../errors'
 import { type SaleHttpRequest, type SaleHttpResponse } from '../ports'
 
 export class SaleController {
-  public readonly saleUseCase: ISaleCreateUseCase
+  public readonly saleUseCase: ISaleUseCase
 
-  constructor (saleUseCase: ISaleCreateUseCase) {
+  constructor (saleUseCase: ISaleUseCase) {
     this.saleUseCase = saleUseCase
   }
 
@@ -61,9 +61,9 @@ export class SaleController {
     }
   }
 
-  async getSale (objectId: string): Promise<SaleHttpResponse> {
+  async getSale (): Promise<SaleHttpResponse> {
     try {
-      const saleReponseUseCase = await this.saleUseCase.getSale(objectId)
+      const saleReponseUseCase = await this.saleUseCase.getSale()
 
       if (!saleReponseUseCase.data) {
         return noContent(new NotFound(saleReponseUseCase.message))

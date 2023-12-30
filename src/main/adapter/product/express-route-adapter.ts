@@ -26,7 +26,7 @@ export const editProductAdapterRoute = (controller: ProductController) => {
 
 export const getProductAdapterRoute = (controller: ProductController) => {
   return async (request: Request, response: Response): Promise<void> => {
-    const httpResponse: ProductHttpResponse = await controller.getProduct()
+    const httpResponse: ProductHttpResponse = await controller.getProducts()
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }
