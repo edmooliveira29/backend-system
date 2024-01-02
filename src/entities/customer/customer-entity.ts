@@ -21,6 +21,6 @@ export interface CustomerData {
   stateOfTheCountry: string
   city: string
   createdAt: string
-  createdBy?: any
+  createdByTheCompany?: any
   editAt?: string
 }

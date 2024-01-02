@@ -9,7 +9,7 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     name: string
     description?: string
     createdAt: string
-    createdBy: any
+    createdByTheCompany: any
   }): Promise<any> {
     const categoryCollection = MongoConnection.getCollection('categories')
     const exists = await this.exists(category)

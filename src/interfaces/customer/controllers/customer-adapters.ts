@@ -84,7 +84,7 @@ export class CustomerController {
         typeCustomer: customerHttpRequest.body.typeCustomer,
         editAt: formatNowDate(),
         createdAt: customerHttpRequest.body.createdAt,
-        createdBy: customerHttpRequest.body.createdBy
+        createdByTheCompany: customerHttpRequest.body.createdByTheCompany
       }
 
       const fieldsRequired = ['name', 'phoneNumber', 'email', 'city',

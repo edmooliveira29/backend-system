@@ -12,7 +12,7 @@ export interface ICategoryCreateUseCase {
     description?: string
     name: string
     createdAt: string
-    createdBy: string
+    createdByTheCompany: string
   }) => Promise<any>
   editCategory: (_id: string, category: CategoryEdit) => Promise<any>
   getCategory: (objectId: string) => Promise<any>

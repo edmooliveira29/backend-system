@@ -6,7 +6,7 @@ interface ProductData {
   price: string
   quantityInStock: number
   createdAt: string
-  createdBy: any
+  createdByTheCompany: any
 }
 export class ProductEntity {
   _id?: any
@@ -16,7 +16,7 @@ export class ProductEntity {
   price: string
   quantityInStock: number
   createdAt: string
-  createdBy: any
+  createdByTheCompany: any
   constructor (category: ProductData) {
     this._id = category._id
     this.name = category.name
@@ -25,7 +25,7 @@ export class ProductEntity {
     this.quantityInStock = category.quantityInStock
     this.description = category.description
     this.createdAt = category.createdAt
-    this.createdBy = category.createdBy
+    this.createdByTheCompany = category.createdByTheCompany
     Object.freeze(this)
   }
 }

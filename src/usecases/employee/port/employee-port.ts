@@ -19,7 +19,7 @@ export interface EmployeeI {
   stateOfTheCountry: string
   city: string
   createdAt: string
-  createdBy: string
+  createdByTheCompany: string
 }
 export interface IEmployeeCreateUseCase {
   createEmployee: (user: EmployeeI) => Promise<any>

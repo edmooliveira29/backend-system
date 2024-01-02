@@ -20,7 +20,7 @@ interface EmployeeData {
   stateOfTheCountry: string
   city: string
   createdAt: string
-  createdBy: any
+  createdByTheCompany: any
 }
 export class EmployeeEntity {
   _id?: any
@@ -44,7 +44,7 @@ export class EmployeeEntity {
   stateOfTheCountry: string
   city: string
   createdAt: string
-  createdBy: any
+  createdByTheCompany: any
   constructor (employee: EmployeeData) {
     this._id = employee._id
     this.name = employee.name
@@ -67,7 +67,7 @@ export class EmployeeEntity {
     this.stateOfTheCountry = employee.stateOfTheCountry
     this.city = employee.city
     this.createdAt = employee.createdAt
-    this.createdBy = employee.createdBy
+    this.createdByTheCompany = employee.createdByTheCompany
     Object.freeze(this)
   }
 }

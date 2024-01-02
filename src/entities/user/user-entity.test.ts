@@ -10,7 +10,7 @@ describe('User Entity', () => {
       createdAt: new Date('01-01-01').toLocaleString('pt-BR'),
       role: 'admin',
       createWithGoogle: false,
-      createdBy: 'userId',
+      createdByTheCompany: 'userId',
       profilePicture: 'profilePicture'
     }
 

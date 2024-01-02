@@ -60,7 +60,7 @@ export class UserUseCase implements IUserDataAccess {
       })
       user = {
         ...user,
-        createdBy: companyResponse.data._id
+        createdByTheCompany: companyResponse.data._id
       }
       const userResponse = await this.portRepository.createUser(user)
       return {

@@ -22,7 +22,7 @@ export class ProductUseCase implements IProductDataAccess {
         price: productResponse.data.price,
         quantityInStock: productResponse.data.quantityInStock,
         createdAt: formatNowDate(),
-        createdBy: productResponse.data.createdBy
+        createdByTheCompany: productResponse.data.createdByTheCompany
       }
     }
   }
