@@ -1,5 +1,4 @@
 import { type CategoryEntity } from '../../entities/category/category-entity'
-import { formatNowDate } from '../../utils/data'
 import { type ICategoryDataAccess } from './port/category-data-access'
 import { type CategoryEdit, type ICategoryCreateUseCase } from './port/category-port'
 
@@ -15,25 +14,17 @@ export class CategoryUseCase implements ICategoryDataAccess {
     return {
       message: 'Categoria criada com sucesso',
       data: {
-        _id: categoryResponse.data._id,
-        name: categoryResponse.data.name,
-        type: categoryResponse.data.type,
-        description: categoryResponse.data.description,
-        createdAt: formatNowDate(),
-        createdBy: categoryResponse.data.createdBy
+        ...categoryResponse.data
       }
     }
   }
 
   async editCategory (_id: string, category: CategoryEdit): Promise<any> {
-    const categoryResponse = (await this.portRepository.editCategory(_id, category))
+    const categoryResponse = await this.portRepository.editCategory(_id, category)
     return {
       message: 'Categoria editado com sucesso',
       data: {
-        _id: categoryResponse.data._id,
-        type: categoryResponse.data.type,
-        name: categoryResponse.data.name,
-        description: categoryResponse.data.description
+        ...categoryResponse.data
       }
     }
   }
