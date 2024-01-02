@@ -10,9 +10,9 @@ export class ReportController {
     this.reportUseCase = reportUseCase
   }
 
-  async getReport (sessionToken: string): Promise<ReportHttpResponse> {
+  async getReport (companyId: string): Promise<ReportHttpResponse> {
     try {
-      const reportReponseUseCase = await this.reportUseCase.getReport()
+      const reportReponseUseCase = await this.reportUseCase.getReport(companyId)
 
       if (!reportReponseUseCase.data) {
         return noContent(new NotFound(reportReponseUseCase.message))

@@ -1,3 +1,3 @@
 export interface IReportDataAccess {
-  getReport: () => Promise<string>
+  getReport: (companyId: string) => Promise<string>
 }

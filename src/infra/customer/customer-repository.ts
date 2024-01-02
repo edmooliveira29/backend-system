@@ -24,27 +24,16 @@ export class CustomerRepositoryInfra implements ICustomerDataAccess {
     const customerCollection = MongoConnection.getCollection('customers')
     let result: any | null
     if (customer.cpf) {
-      result = await customerCollection.findOne({ cpf: customer.cpf })
+      result = await customerCollection.findOne({ cpf: customer.cpf, createdByTheCompanyId: customer.createdByTheCompanyId })
     } else if (customer.cnpj) {
-      result = await customerCollection.findOne({ cnpj: customer.cnpj })
-    } else {
-      const objectId = new ObjectId(customer._id)
-      result = await customerCollection.findOne({ _id: objectId })
-    }
-
-    if (result != null) {
-      const objectId = new ObjectId(result._id)
-      await customerCollection.updateOne(
-        { _id: objectId },
-        { $set: result }
-      )
+      result = await customerCollection.findOne({ cnpj: customer.cnpj, createdByTheCompanyId: customer.createdByTheCompanyId })
     }
     return result
   }
 
-  async findAllCustomers (): Promise<any> {
+  async findAllCustomers (companyId: string): Promise<any> {
     const customerCollection = MongoConnection.getCollection('customers')
-    const result = await customerCollection.find({}).toArray()
+    const result = await customerCollection.find({ createdByTheCompanyId: companyId }).toArray()
     return result
   }
 
@@ -57,8 +46,8 @@ export class CustomerRepositoryInfra implements ICustomerDataAccess {
     }
   }
 
-  async getCustomer (): Promise<any> {
-    const customer = await this.findAllCustomers()
+  async getCustomer (companyId: string): Promise<any> {
+    const customer = await this.findAllCustomers(companyId)
 
     if (customer) {
       return { data: customer }
@@ -89,7 +78,7 @@ export class CustomerRepositoryInfra implements ICustomerDataAccess {
     const objectId = new ObjectId(_id)
     const customerResponse = await customerCollection.deleteOne({ _id: objectId })
     if (customerResponse) {
-      return { message: 'Cliente deletado com sucesso', data: await customerCollection.find({}).toArray() }
+      return { message: 'Cliente deletado com sucesso' }
     } else {
       return { message: 'Cliente não encontrado' }
     }

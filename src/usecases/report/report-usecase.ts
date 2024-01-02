@@ -16,9 +16,9 @@ export class ReportUseCase implements IReportDataAccess {
     this.productUseCase = IProductCreateUseCase
   }
 
-  async getReport (): Promise<any> {
+  async getReport (companyId: string): Promise<any> {
     const { data: sales } = await this.salesUseCase.getSale()
-    const customers = await this.customerUseCase.getCustomer()
+    const customers = await this.customerUseCase.getCustomer(companyId)
     let totalOfSales = 0
     const products = quantityOfTheProductsSold(sales.data)
     for (const sale of sales.data) {

@@ -45,8 +45,8 @@ export class CustomerUseCase implements ICustomerDataAccess {
     }
   }
 
-  async getCustomer (): Promise<any> {
-    const customerRepositoryInfra = await this.portRepository.getCustomer()
+  async getCustomer (companyId: string): Promise<any> {
+    const customerRepositoryInfra = await this.portRepository.getCustomer(companyId)
     if (!customerRepositoryInfra) {
       return { message: 'Cliente não encontrado' }
     }

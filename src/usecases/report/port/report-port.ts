@@ -1,3 +1,3 @@
 export interface IReportUseCase {
-  getReport: () => Promise<any>
+  getReport: (companyId: string) => Promise<any>
 }

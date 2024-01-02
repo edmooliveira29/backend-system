@@ -15,27 +15,7 @@ export class CustomerController {
   async create (customerHttpRequest: CustomerHttpRequest): Promise<CustomerHttpResponse> {
     try {
       const customerData: any = {
-        _id: customerHttpRequest.body._id,
-        name: customerHttpRequest.body.name,
-        cpf: customerHttpRequest.body.cpf,
-        cnpj: customerHttpRequest.body.cnpj,
-        legalResponsible: customerHttpRequest.body.legalResponsible,
-        fantasyName: customerHttpRequest.body.fantasyName,
-        stateRegistration: customerHttpRequest.body.stateRegistration,
-        birthday: customerHttpRequest.body.birthday,
-        gender: customerHttpRequest.body.gender,
-        nickname: customerHttpRequest.body.nickname,
-        phoneNumber: customerHttpRequest.body.phoneNumber,
-        email: customerHttpRequest.body.email,
-        additionalInformation: customerHttpRequest.body.additionalInformation,
-        zipCode: customerHttpRequest.body.zipCode,
-        street: customerHttpRequest.body.street,
-        houseNumber: customerHttpRequest.body.houseNumber,
-        complement: customerHttpRequest.body.complement,
-        neighborhood: customerHttpRequest.body.neighborhood,
-        stateOfTheCountry: customerHttpRequest.body.stateOfTheCountry,
-        city: customerHttpRequest.body.city,
-        typeCustomer: customerHttpRequest.body.typeCustomer,
+        ...customerHttpRequest.body,
         createdAt: formatNowDate()
       }
       const fieldsRequired = ['name', 'phoneNumber', 'email', 'city',
@@ -61,30 +41,8 @@ export class CustomerController {
   async edit (customerHttpRequest: CustomerHttpRequest): Promise<CustomerHttpResponse> {
     try {
       const customerData: CustomerData = {
-        _id: customerHttpRequest.body._id,
-        name: customerHttpRequest.body.name,
-        cpf: customerHttpRequest.body.cpf,
-        cnpj: customerHttpRequest.body.cnpj,
-        legalResponsible: customerHttpRequest.body.legalResponsible,
-        fantasyName: customerHttpRequest.body.fantasyName,
-        stateRegistration: customerHttpRequest.body.stateRegistration,
-        birthday: customerHttpRequest.body.birthday,
-        gender: customerHttpRequest.body.gender,
-        nickname: customerHttpRequest.body.nickname,
-        phoneNumber: customerHttpRequest.body.phoneNumber,
-        email: customerHttpRequest.body.email,
-        additionalInformation: customerHttpRequest.body.additionalInformation,
-        zipCode: customerHttpRequest.body.zipCode,
-        street: customerHttpRequest.body.street,
-        houseNumber: customerHttpRequest.body.houseNumber,
-        complement: customerHttpRequest.body.complement,
-        neighborhood: customerHttpRequest.body.neighborhood,
-        city: customerHttpRequest.body.city,
-        stateOfTheCountry: customerHttpRequest.body.stateOfTheCountry,
-        typeCustomer: customerHttpRequest.body.typeCustomer,
-        editAt: formatNowDate(),
-        createdAt: customerHttpRequest.body.createdAt,
-        createdByTheCompanyId: customerHttpRequest.body.createdByTheCompanyId
+        ...customerHttpRequest.body,
+        editAt: formatNowDate()
       }
 
       const fieldsRequired = ['name', 'phoneNumber', 'email', 'city',
@@ -106,9 +64,9 @@ export class CustomerController {
     }
   }
 
-  async getCustomer (): Promise<CustomerHttpResponse> {
+  async getCustomer (companyId: string): Promise<CustomerHttpResponse> {
     try {
-      const customerReponseUseCase = await this.customerUseCase.getCustomer()
+      const customerReponseUseCase = await this.customerUseCase.getCustomer(companyId)
 
       if (!customerReponseUseCase.data) {
         return noContent(new NotFound(customerReponseUseCase.message))

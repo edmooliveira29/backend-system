@@ -29,8 +29,8 @@ export class CategoryUseCase implements ICategoryDataAccess {
     }
   }
 
-  async getCategory (category: string): Promise<any> {
-    const categoryRepositoryInfra = await this.portRepository.getCategory(category)
+  async getCategory (companyId: string): Promise<any> {
+    const categoryRepositoryInfra = await this.portRepository.getCategory(companyId)
     if (!categoryRepositoryInfra) {
       return { message: 'Categoria não encontrada' }
     }
