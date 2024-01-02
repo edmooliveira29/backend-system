@@ -10,7 +10,7 @@ describe('Session Token Port Interface', () => {
       expiresIn: formatNowDate(),
       createdAt: formatNowDate(),
       updatedAt: formatNowDate(),
-      userId: 'anyId',
+      createdByTheCompany: 'anyId',
       token: 'stringToken'
     }
 
@@ -31,7 +31,7 @@ describe('Session Token Port Interface', () => {
       updateAt: formatNowDate(),
       history: [{ login: 'stringHistory' }],
       token: 'stringToken',
-      userId: 'anyId',
+      createdByTheCompany: 'anyId',
       createdAt: formatNowDate(),
       expiresIn: formatNowDate()
     }

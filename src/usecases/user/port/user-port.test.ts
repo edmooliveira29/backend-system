@@ -15,7 +15,7 @@ describe('User Port Interface', () => {
       profilePicture: 'profilePicture',
       role: 'user',
       sessionToken: 'stringToken',
-      createdcreatedByTheCompanyBy: 'userId'
+      createdByTheCompany: 'userId'
     }
 
     userPortMock = {

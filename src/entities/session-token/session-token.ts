@@ -1,7 +1,7 @@
 interface sessionTokenData {
   _id: string
   expiresIn: string
-  userId: string
+  createdByTheCompany: string
   createdAt: string
   token: string
   updatedAt: string
@@ -9,7 +9,7 @@ interface sessionTokenData {
 export class SessionTokenEntity {
   _id?: string
   expiresIn: string
-  userId: string
+  createdByTheCompany: string
   createdAt?: string
   token: string
   updatedAt?: string
@@ -17,7 +17,7 @@ export class SessionTokenEntity {
     this._id = user._id
     this.token = user.token
     this.expiresIn = user.expiresIn
-    this.userId = user.userId
+    this.createdByTheCompany = user.createdByTheCompany
     this.createdAt = user.createdAt
     this.updatedAt = user.updatedAt
     Object.freeze(this)

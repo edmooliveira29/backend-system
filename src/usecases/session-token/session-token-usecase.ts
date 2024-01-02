@@ -2,6 +2,7 @@ import { SessionToken } from '../validation/session-token'
 import { type ISessionTokenUseCase } from './port/session-token-port'
 import { type SessionTokenCreate, type ISessionTokenDataAccess } from './port/session-token-data-access'
 import { type SessionTokenEntity } from '../../entities/session-token/session-token'
+import { formatNowDate } from '../../utils/data'
 
 export class SessionTokenUseCase implements ISessionTokenDataAccess {
   public readonly portRepository: ISessionTokenUseCase
@@ -12,10 +13,11 @@ export class SessionTokenUseCase implements ISessionTokenDataAccess {
 
   async createSessionToken (user: any, remember: boolean): Promise<any> {
     const sessionToken = this.sessionToken.create(user, remember)
+    console.log(user)
     const session: SessionTokenEntity = {
-      expiresIn: new Date(sessionToken.expirationTime * 1000).toLocaleString('pt-BR'),
+      expiresIn: formatNowDate(),
       token: sessionToken.token,
-      userId: user.data._id
+      createdByTheCompany: user.data.createdByTheCompany
     }
     const userResponse = await this.portRepository.createSessionToken(session)
     if (!userResponse.data) {

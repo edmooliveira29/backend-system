@@ -55,13 +55,6 @@ export class UserUseCase implements IUserDataAccess {
     } else if (!this.validation.nameIsValid(user.name)) {
       return { message: 'Nome não é valido' }
     } else {
-      const companyResponse = await this.companyUseCase.createCompany({
-        name: user.name, email: user.email, createdAt: formatNowDate(), createWithGoogle: user.createWithGoogle
-      })
-      user = {
-        ...user,
-        createdByTheCompany: companyResponse.data._id
-      }
       const userResponse = await this.portRepository.createUser(user)
       return {
         message: 'Usuário criado com sucesso',
@@ -128,8 +121,8 @@ export class UserUseCase implements IUserDataAccess {
     }
   }
 
-  async getUser (userId: string): Promise<any> {
-    const userRepositoryInfra = await this.portRepository.getUser(userId)
+  async getUser (_id: string): Promise<any> {
+    const userRepositoryInfra = await this.portRepository.getUser(_id)
     if (!userRepositoryInfra) {
       return { message: 'Usuário não encontrado' }
     }
@@ -137,8 +130,8 @@ export class UserUseCase implements IUserDataAccess {
     return { ...userRepositoryInfra }
   }
 
-  async deleteUser (userId: string): Promise<any> {
-    const userRepositoryInfra = await this.portRepository.deleteUser(userId)
+  async deleteUser (_id: string): Promise<any> {
+    const userRepositoryInfra = await this.portRepository.deleteUser(_id)
     if (!userRepositoryInfra) {
       return { message: 'Usuário não encontrado' }
     }

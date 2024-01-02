@@ -28,7 +28,6 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
 
   async findCategoryByName (category: any): Promise<any> {
     const categoryCollection = MongoConnection.getCollection('categories')
-
     const nameOfCategory = category.name
     const result = await categoryCollection.findOne({ name: nameOfCategory })
     if (result != null) {

@@ -14,10 +14,7 @@ export class CategoryController {
   async create (categoryHttpRequest: CategoryHttpRequest): Promise<CategoryHttpResponse> {
     try {
       const categoryData: any = {
-        _id: categoryHttpRequest.body._id,
-        type: categoryHttpRequest.body.type,
-        name: categoryHttpRequest.body.name,
-        description: categoryHttpRequest.body.description,
+        ...categoryHttpRequest.body,
         createdAt: formatNowDate()
       }
       const fieldsRequired = ['type', 'name']
@@ -42,10 +39,7 @@ export class CategoryController {
   async edit (categoryHttpRequest: CategoryHttpRequest): Promise<CategoryHttpResponse> {
     try {
       const categoryData = {
-        _id: categoryHttpRequest.body._id,
-        name: categoryHttpRequest.body.name,
-        type: categoryHttpRequest.body.type,
-        description: categoryHttpRequest.body.description,
+        ...categoryHttpRequest.body,
         editAt: formatNowDate()
       }
 

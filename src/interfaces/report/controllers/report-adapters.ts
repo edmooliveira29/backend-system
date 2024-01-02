@@ -10,7 +10,7 @@ export class ReportController {
     this.reportUseCase = reportUseCase
   }
 
-  async getReport (): Promise<ReportHttpResponse> {
+  async getReport (sessionToken: string): Promise<ReportHttpResponse> {
     try {
       const reportReponseUseCase = await this.reportUseCase.getReport()
 
