@@ -16,7 +16,7 @@ export interface IProductUseCase {
     price: string
     quantityInStock: number
     createdAt: string
-    createdByTheCompany: string
+    createdByTheCompanyId: string
   }) => Promise<any>
   editProduct: (_id: string, product: ProductEdit) => Promise<any>
   getProducts: () => Promise<any>

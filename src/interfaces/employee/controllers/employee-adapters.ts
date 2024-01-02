@@ -81,7 +81,7 @@ export class EmployeeController {
         stateOfTheCountry: employeeHttpRequest.body.stateOfTheCountry,
         editAt: formatNowDate(),
         createdAt: employeeHttpRequest.body.createdAt,
-        createdByTheCompany: employeeHttpRequest.body.createdByTheCompany
+        createdByTheCompanyId: employeeHttpRequest.body.createdByTheCompanyId
       }
 
       const fieldsRequired = ['name', 'gender', 'phoneNumber', 'email', 'city',

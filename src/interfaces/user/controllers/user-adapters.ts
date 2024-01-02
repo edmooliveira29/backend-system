@@ -20,7 +20,7 @@ export class UserController {
         password: userHttpRequest.body.password || `${Math.random().toFixed(5)}Aa*`,
         role: userHttpRequest.body.role,
         createdAt: formatNowDate(),
-        createdByTheCompany: userHttpRequest.body.createdByTheCompany,
+        createdByTheCompanyId: userHttpRequest.body.createdByTheCompanyId,
         profilePicture: userHttpRequest.body.profilePicture || null,
         createWithGoogle: userHttpRequest.body.createWithGoogle
       }
@@ -78,7 +78,7 @@ export class UserController {
         role: userHttpRequest.body.role,
         remember: userHttpRequest.body.remember,
         loginWithGoogle: userHttpRequest.body.loginWithGoogle || false,
-        createdByTheCompany: userHttpRequest.body.createdByTheCompany
+        createdByTheCompanyId: userHttpRequest.body.createdByTheCompanyId
       }
       const userReponseUseCase = await this.userUseCase.login(userData)
 

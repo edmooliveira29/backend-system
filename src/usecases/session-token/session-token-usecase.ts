@@ -17,7 +17,7 @@ export class SessionTokenUseCase implements ISessionTokenDataAccess {
     const session: SessionTokenEntity = {
       expiresIn: formatNowDate(),
       token: sessionToken.token,
-      createdByTheCompany: user.data.createdByTheCompany
+      createdByTheCompanyId: user.data.createdByTheCompanyId
     }
     const userResponse = await this.portRepository.createSessionToken(session)
     if (!userResponse.data) {

@@ -7,7 +7,7 @@ describe('User Port Interface', () => {
   beforeAll(() => {
     sessionData = {
       expiresIn: new Date(1).toLocaleString('pt-BR'),
-      createdByTheCompany: 'user',
+      createdByTheCompanyId: 'user',
       createdAt: new Date(-1).toLocaleString('pt-BR'),
       token: 'stringToken',
       updatedAt: 'null'

@@ -9,7 +9,7 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     name: string
     description?: string
     createdAt: string
-    createdByTheCompany: any
+    createdByTheCompanyId: any
   }): Promise<any> {
     const categoryCollection = MongoConnection.getCollection('categories')
     const exists = await this.exists(category)
@@ -40,9 +40,10 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     return result
   }
 
-  async findAllCategories (): Promise<any> {
+  async findAllCategories (companyId: string): Promise<any> {
     const categoryCollection = MongoConnection.getCollection('categories')
-    const result = await categoryCollection.find({}).toArray()
+    console.log(companyId)
+    const result = await categoryCollection.find({ createdByTheCompanyId: companyId }).toArray()
     return result
   }
 
@@ -55,13 +56,9 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     }
   }
 
-  async getCategory (_id: string): Promise<any> {
-    let category
-    if (_id) {
-      category = await this.findCategoryByName({ _id, email: '' })
-    } else {
-      category = await this.findAllCategories()
-    }
+  async getCategory (companyId: string): Promise<any> {
+    const category = await this.findAllCategories(companyId)
+
     if (category) {
       return { message: 'Categoria encontrada com sucesso', data: category }
     } else {

@@ -43,7 +43,6 @@ export class CompanyController {
   async getCompany (objectId: string): Promise<CompanyHttpResponse> {
     try {
       const companyReponseUseCase = await this.companyUseCase.getCompany(objectId)
-      console.log(companyReponseUseCase)
       return ok({ message: companyReponseUseCase.message, data: companyReponseUseCase.data })
     } catch (error: any) {
       console.error(error)

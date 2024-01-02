@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb'
 import { formatNowDate } from '../../utils/data'
 interface SessionTokenCreate {
   expiresIn: string
-  createdByTheCompany: string
+  createdByTheCompanyId: string
   createdAt?: string
   token: string
   updatedAt?: string
@@ -14,7 +14,7 @@ interface SessionTokenCreate {
 export class SessionTokenRepository implements ISessionTokenDataAccess {
   async createSessionToken (session: SessionTokenCreate): Promise<any> {
     const userCollection = MongoConnection.getCollection('sessions')
-    const exists = await this.existsSessionTokenUser(session.createdByTheCompany)
+    const exists = await this.existsSessionTokenUser(session.createdByTheCompanyId)
     if (!exists) {
       session.createdAt = formatNowDate()
       session.history = [{ login: `Login in system at ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}` }]
@@ -43,9 +43,9 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
     return { message: 'Token editado com sucesso', data: sessionToken }
   }
 
-  async findSessionTokenBycreatedByTheCompany (createdByTheCompany: any): Promise<any> {
+  async findSessionTokenBycreatedByTheCompany (createdByTheCompanyId: any): Promise<any> {
     const userCollection = MongoConnection.getCollection('sessions')
-    const result = await userCollection.findOne({ createdByTheCompany })
+    const result = await userCollection.findOne({ createdByTheCompanyId })
     if (result == null) {
       return false
     } else {
@@ -53,8 +53,8 @@ export class SessionTokenRepository implements ISessionTokenDataAccess {
     }
   }
 
-  async existsSessionTokenUser (createdByTheCompany: any): Promise<any> {
-    const result = await this.findSessionTokenBycreatedByTheCompany(createdByTheCompany)
+  async existsSessionTokenUser (createdByTheCompanyId: any): Promise<any> {
+    const result = await this.findSessionTokenBycreatedByTheCompany(createdByTheCompanyId)
     if (result) {
       return result
     } else {

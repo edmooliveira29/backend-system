@@ -12,7 +12,7 @@ interface SaleData {
   typeOfDiscount: false
   informationAboutTheSale: string
   createdAt: string
-  createdByTheCompany: any
+  createdByTheCompanyId: any
 }
 export class SaleEntity {
   _id?: any
@@ -28,7 +28,7 @@ export class SaleEntity {
   typeOfDiscount: false
   informationAboutTheSale: string
   createdAt: string
-  createdByTheCompany: any
+  createdByTheCompanyId: any
   constructor (sale: SaleData) {
     this._id = sale._id
     this.saleNumber = sale.saleNumber
@@ -43,7 +43,7 @@ export class SaleEntity {
     this.typeOfDiscount = sale.typeOfDiscount
     this.informationAboutTheSale = sale.informationAboutTheSale
     this.createdAt = sale.createdAt
-    this.createdByTheCompany = sale.createdByTheCompany
+    this.createdByTheCompanyId = sale.createdByTheCompanyId
     Object.freeze(this)
   }
 }

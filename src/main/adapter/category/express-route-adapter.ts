@@ -26,9 +26,8 @@ export const editCategoryAdapterRoute = (controller: CategoryController) => {
 
 export const getCategoryAdapterRoute = (controller: CategoryController) => {
   return async (request: Request, response: Response): Promise<void> => {
-    const createdByTheCompany = request.query
-    console.log(createdByTheCompany)
-    const httpResponse: CategoryHttpResponse = await controller.getCategory('')
+    const { companyId } = request.query
+    const httpResponse: CategoryHttpResponse = await controller.getCategory(companyId as string)
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }

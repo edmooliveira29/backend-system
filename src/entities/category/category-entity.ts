@@ -4,7 +4,7 @@ interface CategoryData {
   name: string
   description?: string
   createdAt: string
-  createdByTheCompany: any
+  createdByTheCompanyId: any
 }
 export class CategoryEntity {
   _id?: any
@@ -12,14 +12,14 @@ export class CategoryEntity {
   description?: string
   name: string
   createdAt: string
-  createdByTheCompany: any
+  createdByTheCompanyId: any
   constructor (category: CategoryData) {
     this._id = category._id
     this.name = category.name
     this.type = category.type
     this.description = category.description
     this.createdAt = category.createdAt
-    this.createdByTheCompany = category.createdByTheCompany
+    this.createdByTheCompanyId = category.createdByTheCompanyId
     Object.freeze(this)
   }
 }

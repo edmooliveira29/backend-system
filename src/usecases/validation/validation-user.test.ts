@@ -14,7 +14,7 @@ describe('Email Validation', () => {
       createdAt: new Date('01-01-01').toLocaleString('pt-BR'),
       role: 'admin',
       profilePicture: 'profilePicture',
-      createdByTheCompany: 'userId',
+      createdByTheCompanyId: 'userId',
       createWithGoogle: false,
       sessionToken: 'stringToken'
     }

@@ -6,7 +6,7 @@ interface UserData {
   role: string
   createdAt: string
   createWithGoogle: boolean
-  createdByTheCompany: any
+  createdByTheCompanyId: any
   profilePicture: string
   sessionToken?: string
 }
@@ -20,7 +20,7 @@ export class UserEntity {
   createdAt: string
   createWithGoogle: boolean
   profilePicture: string
-  createdByTheCompany: any
+  createdByTheCompanyId: any
   constructor (user: UserData) {
     this._id = user._id
     this.email = user.email
@@ -30,7 +30,7 @@ export class UserEntity {
     this.role = user.role
     this.createdAt = user.createdAt
     this.createWithGoogle = user.createWithGoogle
-    this.createdByTheCompany = user.createdByTheCompany
+    this.createdByTheCompanyId = user.createdByTheCompanyId
     this.profilePicture = user.profilePicture
     Object.freeze(this)
   }

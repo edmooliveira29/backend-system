@@ -11,7 +11,7 @@ export class UserRepositoryInfra implements IUserDataAccess {
     role: string
     createdAt: string
     createWithGoogle: boolean
-    createdByTheCompany: any
+    createdByTheCompanyId: any
   }): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
     const exists = await this.exists(user)

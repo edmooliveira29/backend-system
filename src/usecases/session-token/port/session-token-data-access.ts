@@ -2,7 +2,7 @@ import { type SessionTokenEntity } from '../../../entities/session-token/session
 
 export interface SessionTokenCreate {
   expiresIn: string
-  createdByTheCompany: string
+  createdByTheCompanyId: string
   createdAt: string
   token: string
   updatedAt?: string

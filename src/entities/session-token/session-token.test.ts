@@ -5,7 +5,7 @@ describe('Session Token Entity', () => {
     const sessionToken = {
       _id: 'anyid',
       expiresIn: new Date(1).toLocaleString('pt-BR'),
-      createdByTheCompany: 'user',
+      createdByTheCompanyId: 'user',
       createdAt: new Date(-1).toLocaleString('pt-BR'),
       token: 'stringToken',
       updatedAt: 'null'

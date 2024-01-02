@@ -21,7 +21,7 @@ describe('Mongodb Session repository', () => {
     const sut = new SessionTokenRepository()
     const sessionAdded = await sut.createSessionToken({
       expiresIn: 'string',
-      createdByTheCompany: 'anyId',
+      createdByTheCompanyId: 'anyId',
       createdAt: new Date().toLocaleString(),
       token: 'stringToken',
       updatedAt: new Date().toLocaleString(),
@@ -35,7 +35,7 @@ describe('Mongodb Session repository', () => {
     const session = {
       _id: 'anyId',
       expiresIn: 'string',
-      createdByTheCompany: 'anyId',
+      createdByTheCompanyId: 'anyId',
       createdAt: new Date().toLocaleString(),
       token: 'stringToken',
       updatedAt: new Date().toLocaleString(),

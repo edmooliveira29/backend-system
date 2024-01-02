@@ -28,6 +28,7 @@ export class CompanyRepositoryInfra implements ICompanyDataAccess {
   }
 
   async getCompany (_id: string): Promise<any> {
+    console.log(_id)
     const company = await this.findCompanyById({ _id })
 
     if (company) {

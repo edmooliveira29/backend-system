@@ -27,7 +27,7 @@ describe('Mongodb User repository', () => {
       createdAt: new Date('01-01-01').toLocaleString('pt-BR'),
       role: '',
       createWithGoogle: false,
-      createdByTheCompany: undefined
+      createdByTheCompanyId: undefined
     })
     expect(userAdded).toBeTruthy()
   })
@@ -42,7 +42,7 @@ describe('Mongodb User repository', () => {
       createdAt: new Date('01-01-01').toLocaleString('pt-BR'),
       role: '',
       createWithGoogle: false,
-      createdByTheCompany: undefined
+      createdByTheCompanyId: undefined
     }
     await sut.createUser(userMock)
     expect(async () => await sut.createUser(userMock)).rejects.toStrictEqual(new Error('Já existe um usuário com este e-mail'))
@@ -58,7 +58,7 @@ describe('Mongodb User repository', () => {
       createdAt: new Date('01-01-01').toLocaleString('pt-BR'),
       role: '',
       createWithGoogle: false,
-      createdByTheCompany: undefined
+      createdByTheCompanyId: undefined
     }
     await sut.createUser(userMock)
 

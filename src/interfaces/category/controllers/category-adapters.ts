@@ -61,9 +61,9 @@ export class CategoryController {
     }
   }
 
-  async getCategory (objectId: string): Promise<CategoryHttpResponse> {
+  async getCategory (companyId: string): Promise<CategoryHttpResponse> {
     try {
-      const categoryReponseUseCase = await this.categoryUseCase.getCategory(objectId)
+      const categoryReponseUseCase = await this.categoryUseCase.getCategory(companyId)
 
       if (!categoryReponseUseCase.data) {
         return noContent(new NotFound(categoryReponseUseCase.message))

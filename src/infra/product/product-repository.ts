@@ -11,7 +11,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     price: string
     quantityInStock: number
     createdAt: string
-    createdByTheCompany: any
+    createdByTheCompanyId: any
   }): Promise<any> {
     const productCollection = MongoConnection.getCollection('products')
     const exists = await this.exists(product)
