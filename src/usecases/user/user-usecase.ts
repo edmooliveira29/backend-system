@@ -4,39 +4,36 @@ import { type UserEdit, type IUserCreateUseCase } from './port/user-port'
 import { Validation } from '../validation/validations'
 import { type ISessionTokenUseCase } from '../session-token/session-token-interface'
 import { formatNowDate } from '../../utils/data'
+import { type ICompanyUseCase } from '../company/port/company-port'
 
 export class UserUseCase implements IUserDataAccess {
   public readonly portRepository: IUserCreateUseCase
   public readonly validation: Validation
   public readonly sessionToken: ISessionTokenUseCase
+  public readonly companyUseCase: ICompanyUseCase
 
-  constructor (IUserCreateUseCase: IUserCreateUseCase, ISessionTokenUseCase: ISessionTokenUseCase) {
+  constructor (IUserCreateUseCase: IUserCreateUseCase, ISessionTokenUseCase: ISessionTokenUseCase, ICompanyUseCase: ICompanyUseCase) {
     this.portRepository = IUserCreateUseCase
-    this.validation = new Validation()
     this.sessionToken = ISessionTokenUseCase
+    this.companyUseCase = ICompanyUseCase
+    this.validation = new Validation()
   }
 
   async login (user: { email: string, password: string, remember: boolean, loginWithGoogle?: boolean }): Promise<any> {
-    const UserRepositoryInfra = await this.portRepository.login(user)
-    if (!UserRepositoryInfra.data) {
+    const userRepositoryInfra = await this.portRepository.login(user)
+    if (!userRepositoryInfra.data) {
       return { message: 'Usuário não encontrado' }
     }
     const validationPassword: any = !user.loginWithGoogle
-      ? await this.validation.comparePassword(user.password, UserRepositoryInfra.data.password)
+      ? await this.validation.comparePassword(user.password, userRepositoryInfra.data.password)
       : { passwordIsValid: true }
-    const sessionToken = await this.sessionToken.createSessionToken(UserRepositoryInfra, user.remember)
+    const sessionToken = await this.sessionToken.createSessionToken(userRepositoryInfra, user.remember)
     if (validationPassword.passwordIsValid) {
       return {
         message: 'Usuário autenticado com sucesso',
         data: {
-          _id: UserRepositoryInfra.data._id,
-          name: UserRepositoryInfra.data.name,
-          role: UserRepositoryInfra.data.role,
-          email: UserRepositoryInfra.data.email,
-          sessionToken: sessionToken.data.token,
-          createdAt: formatNowDate(),
-          profilePicture: UserRepositoryInfra.data.profilePicture,
-          createWithGoogle: UserRepositoryInfra.data.createWithGoogle
+          ...userRepositoryInfra.data,
+          sessionToken: sessionToken.data.token
         }
       }
     } else {
@@ -58,19 +55,18 @@ export class UserUseCase implements IUserDataAccess {
     } else if (!this.validation.nameIsValid(user.name)) {
       return { message: 'Nome não é valido' }
     } else {
+      const companyResponse = await this.companyUseCase.createCompany({
+        name: user.name, email: user.email, createdAt: formatNowDate(), createWithGoogle: user.createWithGoogle
+      })
+      user = {
+        ...user,
+        createdBy: companyResponse.data._id
+      }
       const userResponse = await this.portRepository.createUser(user)
       return {
         message: 'Usuário criado com sucesso',
         data: {
-          _id: userResponse.data._id,
-          name: userResponse.data.name,
-          email: userResponse.data.email,
-          role: userResponse.data.role,
-          createdAt: formatNowDate(),
-          profilePicture: userResponse.data.profilePicture,
-          createWithGoogle: userResponse.data.createWithGoogle,
-          createdBy: userResponse.data.createdBy,
-          sessionToken: userResponse.data.sessionToken
+          ...userResponse.data
         }
       }
     }

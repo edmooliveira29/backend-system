@@ -17,7 +17,6 @@ export class ReportController {
       if (!reportReponseUseCase.data) {
         return noContent(new NotFound(reportReponseUseCase.message))
       }
-      console.log(reportReponseUseCase.data)
       return ok({ message: reportReponseUseCase.message, ...reportReponseUseCase })
     } catch (error: any) {
       console.error(error)

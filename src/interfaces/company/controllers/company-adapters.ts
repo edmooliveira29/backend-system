@@ -1,13 +1,13 @@
 import { type CompanyHttpRequest, type CompanyHttpResponse } from '../ports'
-import { type ICompanyCreateUseCase } from '../../../usecases/company/port/company-port'
+import { type ICompanyUseCase } from '../../../usecases/company/port/company-port'
 import { badRequest, internalError, ok } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError, ServerError } from '../errors'
 import { formatNowDate } from '../../../utils/data'
 
 export class CompanyController {
-  public readonly companyUseCase: ICompanyCreateUseCase
+  public readonly companyUseCase: ICompanyUseCase
 
-  constructor (companyUseCase: ICompanyCreateUseCase) {
+  constructor (companyUseCase: ICompanyUseCase) {
     this.companyUseCase = companyUseCase
   }
 

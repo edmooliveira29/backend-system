@@ -1,11 +1,11 @@
 import { type CompanyEntity } from '../../entities/company/company-entity'
 import { type ICompanyDataAccess } from './port/company-data-access'
-import { type ICompanyCreateUseCase } from './port/company-port'
+import { type ICompanyUseCase } from './port/company-port'
 
 export class CompanyUseCase implements ICompanyDataAccess {
-  public readonly portRepository: ICompanyCreateUseCase
+  public readonly portRepository: ICompanyUseCase
 
-  constructor (ICompanyCreateUseCase: ICompanyCreateUseCase) {
+  constructor (ICompanyCreateUseCase: ICompanyUseCase) {
     this.portRepository = ICompanyCreateUseCase
   }
 

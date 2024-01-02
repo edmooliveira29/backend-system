@@ -20,6 +20,7 @@ export class UserController {
         password: userHttpRequest.body.password || `${Math.random().toFixed(5)}Aa*`,
         role: userHttpRequest.body.role,
         createdAt: formatNowDate(),
+        createdBy: userHttpRequest.body.createdBy,
         profilePicture: userHttpRequest.body.profilePicture || null,
         createWithGoogle: userHttpRequest.body.createWithGoogle
       }
@@ -45,27 +46,8 @@ export class UserController {
   async edit (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
     try {
       const userData = {
-        _id: userHttpRequest.body._id,
-        street: userHttpRequest.body.street,
-        birthday: userHttpRequest.body.birthday,
-        city: userHttpRequest.body.city,
-        complement: userHttpRequest.body.complement,
-        cpf: userHttpRequest.body.cpf,
-        email: userHttpRequest.body.email,
-        gender: userHttpRequest.body.gender,
-        houseNumber: userHttpRequest.body.houseNumber,
-        name: userHttpRequest.body.name,
-        neighborhood: userHttpRequest.body.neighborhood,
-        nickname: userHttpRequest.body.nickname,
-        phoneNumber: userHttpRequest.body.phoneNumber,
-        stateOfTheCountry: userHttpRequest.body.stateOfTheCountry,
-        zipCode: userHttpRequest.body.zipCode,
-        password: userHttpRequest.body.password,
-        role: userHttpRequest.body.role,
-        newPassword: userHttpRequest.body.newPassword,
-        newPasswordConfirmation: userHttpRequest.body.newPasswordConfirmation,
-        editAt: formatNowDate(),
-        profilePicture: userHttpRequest.body.profilePicture
+        ...userHttpRequest.body,
+        editAt: formatNowDate()
       }
 
       const fildsRequired = userData.newPassword
