@@ -27,22 +27,21 @@ export class CompanyRepositoryInfra implements ICompanyDataAccess {
     }
   }
 
-  async findCompanyByEmailOrId (company: any): Promise<any> {
-    const companyCollection = MongoConnection.getCollection('companys')
-    let result: any | null
-    if (company.email.includes('@')) {
-      result = await companyCollection.findOne({ email: company.email })
+  async getCompany (_id: string): Promise<any> {
+    const company = await this.findCompanyById({ _id })
+
+    if (company) {
+      return { data: company }
     } else {
-      const objectId = new ObjectId(company._id)
-      result = await companyCollection.findOne({ _id: objectId })
+      return { message: 'Empresa não encontrada' }
     }
-    if (result != null) {
-      const objectId = new ObjectId(result._id)
-      await companyCollection.updateOne(
-        { _id: objectId },
-        { $set: result }
-      )
-    }
+  }
+
+  async findCompanyById (company: any): Promise<any> {
+    const companyCollection = MongoConnection.getCollection('companys')
+    const objectId = new ObjectId(company._id)
+    const result = await companyCollection.findOne({ _id: objectId })
+
     return result
   }
 
@@ -53,7 +52,7 @@ export class CompanyRepositoryInfra implements ICompanyDataAccess {
   }
 
   async exists (company: any): Promise<boolean> {
-    const result = await this.findCompanyByEmailOrId(company)
+    const result = await this.findCompanyById(company)
     if (result != null) {
       return true
     } else {

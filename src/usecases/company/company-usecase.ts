@@ -19,6 +19,20 @@ export class CompanyUseCase implements ICompanyDataAccess {
     }
   }
 
+  async getCompany (companyId: string): Promise<any> {
+    const companyRepositoryInfra = await this.portRepository.getCompany(companyId)
+    if (!companyRepositoryInfra) {
+      return { message: 'Empresa não encontrada' }
+    }
+
+    return {
+      message: 'Empresa encontrada com sucesso',
+      data: {
+        ...companyRepositoryInfra.data
+      }
+    }
+  }
+
   async deleteCompany (companyId: string): Promise<any> {
     const companyRepositoryInfra = await this.portRepository.deleteCompany(companyId)
     if (!companyRepositoryInfra) {

@@ -40,6 +40,7 @@ export class UserRepositoryInfra implements IUserDataAccess {
       const objectId = new ObjectId(user._id)
       result = await userCollection.findOne({ _id: objectId })
     }
+
     if (result != null) {
       const objectId = new ObjectId(result._id)
       await userCollection.updateOne(

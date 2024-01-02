@@ -13,3 +13,11 @@ export const createCompanyAdapterRoute = (controller: CompanyController) => {
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }
+
+export const getCompanyAdapterRoute = (controller: CompanyController) => {
+  return async (request: Request, response: Response): Promise<void> => {
+    const objectId = request.query.objectId as string
+    const httpResponse: CompanyHttpResponse = await controller.getCompany(objectId)
+    response.status(httpResponse.statusCode).json(httpResponse.body)
+  }
+}
