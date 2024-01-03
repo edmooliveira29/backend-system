@@ -27,14 +27,14 @@ export class UserRepositoryInfra implements IUserDataAccess {
         }
       }
     } else {
-      throw new Error('Já existe um usuário com este e-mail')
+      throw new Error('Nome de usuário não permitido. Tente outro nome de usuário')
     }
   }
 
-  async findUserByEmailOrId (user: any): Promise<any> {
+  async findUserByUsernameOrId (user: any): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
-    if (user.email) {
-      const result = await userCollection.findOne({ email: user.email })
+    if (user.username) {
+      const result = await userCollection.findOne({ username: user.username })
       return result
     } else {
       const objectId = new ObjectId(user._id)
@@ -50,7 +50,7 @@ export class UserRepositoryInfra implements IUserDataAccess {
   }
 
   async exists (user: any): Promise<boolean> {
-    const result = await this.findUserByEmailOrId(user)
+    const result = await this.findUserByUsernameOrId(user)
     if (result != null) {
       return true
     } else {
@@ -58,8 +58,8 @@ export class UserRepositoryInfra implements IUserDataAccess {
     }
   }
 
-  async login (user: { email: string, password: string }): Promise<any> {
-    const userFound = await this.findUserByEmailOrId(user)
+  async login (user: { username: string, password: string }): Promise<any> {
+    const userFound = await this.findUserByUsernameOrId(user)
     if (userFound) {
       return { message: 'Usuário autenticado com sucesso', data: userFound }
     } else {
@@ -68,7 +68,7 @@ export class UserRepositoryInfra implements IUserDataAccess {
   }
 
   async getUser (objectId: any): Promise<any> {
-    const userInfra = await this.findUserByEmailOrId({ _id: new ObjectId(objectId) })
+    const userInfra = await this.findUserByUsernameOrId({ _id: new ObjectId(objectId) })
     if (userInfra) {
       return { data: userInfra }
     } else {

@@ -21,3 +21,13 @@ export const getCompanyAdapterRoute = (controller: CompanyController) => {
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }
+
+export const editCompanyAdapterRoute = (controller: CompanyController) => {
+  return async (request: Request, response: Response): Promise<void> => {
+    const httpRequest: CompanyHttpRequest = {
+      body: request.body
+    }
+    const httpResponse: CompanyHttpResponse = await controller.editCompany(httpRequest)
+    response.status(httpResponse.statusCode).json(httpResponse.body)
+  }
+}

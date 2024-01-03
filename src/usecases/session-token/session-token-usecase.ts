@@ -13,7 +13,6 @@ export class SessionTokenUseCase implements ISessionTokenDataAccess {
 
   async createSessionToken (user: any, remember: boolean): Promise<any> {
     const sessionToken = this.sessionToken.create(user, remember)
-    console.log(user)
     const session: SessionTokenEntity = {
       expiresIn: formatNowDate(),
       token: sessionToken.token,

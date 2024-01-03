@@ -38,7 +38,6 @@ export const getUserAdapterRoute = (controller: UserController) => {
   return async (request: Request, response: Response): Promise<void> => {
     if (request.query.objectId === undefined) {
       const { companyId } = request.query
-      console.log(request.query)
       const httpResponse: UserHttpResponse = await controller.getAllUser(companyId as string)
       response.status(httpResponse.statusCode).json(httpResponse.body)
     } else {

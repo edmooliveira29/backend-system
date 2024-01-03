@@ -42,7 +42,6 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
 
   async findAllCategories (companyId: string): Promise<any> {
     const categoryCollection = MongoConnection.getCollection('categories')
-    console.log(companyId)
     const result = await categoryCollection.find({ createdByTheCompanyId: companyId }).toArray()
     return result
   }

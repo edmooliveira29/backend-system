@@ -44,7 +44,6 @@ export class ProductRepositoryInfra implements IProductDataAccess {
   }
 
   async findAllProducts (companyId: string): Promise<any> {
-    console.log(companyId)
     const productCollection = MongoConnection.getCollection('products')
     const result = await productCollection.find({ createdByTheCompanyId: companyId }).toArray()
 

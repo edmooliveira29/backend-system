@@ -1,6 +1,7 @@
 interface UserData {
   _id?: any
   email: string
+  username: string
   name: string
   password: string
   role: string

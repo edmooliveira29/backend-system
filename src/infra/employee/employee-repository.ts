@@ -55,7 +55,6 @@ export class EmployeeRepositoryInfra implements IEmployeeDataAccess {
   }
 
   async getEmployee (companyId: string): Promise<any> {
-    console.log(companyId)
     const employee = await this.findAllEmployees(companyId)
     if (employee) {
       return { data: employee }

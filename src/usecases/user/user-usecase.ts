@@ -19,7 +19,7 @@ export class UserUseCase implements IUserDataAccess {
     this.validation = new Validation()
   }
 
-  async login (user: { email: string, password: string, remember: boolean, loginWithGoogle?: boolean }): Promise<any> {
+  async login (user: { username: string, password: string, remember: boolean, loginWithGoogle?: boolean }): Promise<any> {
     const userRepositoryInfra = await this.portRepository.login(user)
     if (!userRepositoryInfra.data) {
       return { message: 'Usuário não encontrado' }

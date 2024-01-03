@@ -61,6 +61,19 @@ export class CompanyRepositoryInfra implements ICompanyDataAccess {
     }
   }
 
+  async editCompany (_id: string, updatedCompany: any): Promise<any> {
+    const companyCollection = MongoConnection.getCollection('companys')
+    const objectId = new ObjectId(_id)
+    delete updatedCompany._id
+    const companyUpdated = await companyCollection.updateOne({ _id: objectId }, { $set: updatedCompany })
+    if (companyUpdated) {
+      updatedCompany._id = _id
+      return { message: 'Empresa editada com sucesso', data: updatedCompany }
+    } else {
+      return { message: 'Empresa não encontrado' }
+    }
+  }
+
   async deleteCompany (_id: string): Promise<any> {
     const companyCollection = MongoConnection.getCollection('companys')
     const objectId = new ObjectId(_id)

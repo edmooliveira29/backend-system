@@ -4,4 +4,5 @@ export interface ICompanyDataAccess {
   createCompany: (company: CompanyEntity) => Promise<string>
   deleteCompany: (_id: string) => Promise<string>
   getCompany: (_id: string) => Promise<any>
+  editCompany: (_id: string, company: CompanyEntity) => Promise<any>
 }

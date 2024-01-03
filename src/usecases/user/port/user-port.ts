@@ -33,7 +33,7 @@ export interface IUserCreateUseCase {
     profilePicture: string
     createdByTheCompanyId: string
   }) => Promise<any>
-  login: (user: { email: string, password: string, remember: boolean }, sessionToken?: string) => Promise<any>
+  login: (user: { username: string, password: string, remember: boolean }, sessionToken?: string) => Promise<any>
   editUser: (_id: string, user: UserEdit) => Promise<any>
   getUser: (objectId: string) => Promise<any>
   getAllUser: (companyId: string) => Promise<any>

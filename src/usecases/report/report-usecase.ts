@@ -70,7 +70,6 @@ const calcularMediaEVendas = (salesData: any): any => {
   const organizedData: any = {}
 
   filteredSales.forEach((item: any) => {
-    console.log(item.monthYear)
     const month = item.monthYear.substring(0, 7)
     if (!organizedData[month]) {
       organizedData[month] = { total: 0, count: 0 }
