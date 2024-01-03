@@ -19,6 +19,7 @@ describe('User Port Interface', () => {
     }
 
     userPortMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn().mockResolvedValue('Usuário criado com sucesso'),
       login: jest.fn(),

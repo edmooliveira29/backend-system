@@ -9,7 +9,8 @@ describe('UserUseCase', () => {
       getUser: jest.fn(),
       createUser: jest.fn(),
       editUser: jest.fn(),
-      deleteUser: jest.fn()
+      deleteUser: jest.fn(),
+      getAllUser: jest.fn()
     }
 
     const mockSessionTokenUseCase = {
@@ -23,7 +24,13 @@ describe('UserUseCase', () => {
       nameIsValid: jest.fn()
     }
 
-    userUseCase = new UserUseCase(mockUserCreateUseCase, mockSessionTokenUseCase)
+    const mockCompanyUseCase = {
+      createCompany: jest.fn(),
+      deleteCompany: jest.fn(),
+      getCompany: jest.fn()
+    }
+
+    userUseCase = new UserUseCase(mockUserCreateUseCase, mockSessionTokenUseCase, mockCompanyUseCase)
   })
 
   describe('login', () => {

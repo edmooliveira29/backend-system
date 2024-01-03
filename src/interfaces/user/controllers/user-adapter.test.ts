@@ -13,7 +13,8 @@ describe('User Adapter', () => {
       createUser: jest.fn(),
       editUser: jest.fn(),
       login: jest.fn(),
-      deleteUser: jest.fn()
+      deleteUser: jest.fn(),
+      getAllUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
     userHttpRequestMock = {
@@ -30,6 +31,7 @@ describe('User Adapter', () => {
 
   test('Should return status 200 if successfuly', async () => {
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn().mockResolvedValue({
         message: 'Usuário criado com sucesso',
@@ -64,6 +66,7 @@ describe('User Adapter', () => {
   test('Should return statusCode 400 id email is invalid', async () => {
     userHttpRequestMock.body.email = 'emailexample.com'
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn().mockResolvedValue('E-mail não é valido'),
       editUser: jest.fn(),
@@ -95,6 +98,7 @@ describe('User Adapter', () => {
 
   test('Should return error if internal error without message ', async () => {
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn().mockImplementationOnce(() => {
         throw new Error('Internal error')
@@ -111,6 +115,7 @@ describe('User Adapter', () => {
 
   test('Should return status 500 if internal error occurrer when get user', async () => {
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn().mockImplementationOnce(() => { throw new Error('Internal error') }),
       createUser: jest.fn(),
       editUser: jest.fn(),
@@ -123,6 +128,7 @@ describe('User Adapter', () => {
 
   test('Should return error if internal error without message', async () => {
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn().mockImplementationOnce(() => {
         throw new Error('Internal error')
@@ -138,6 +144,7 @@ describe('User Adapter', () => {
 
   test('Should return error if any error happen', async () => {
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn(),
       login: jest.fn().mockImplementationOnce(() => {
@@ -152,6 +159,7 @@ describe('User Adapter', () => {
 
   test('Should return error if not found user', async () => {
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn(),
       editUser: jest.fn(),
@@ -164,6 +172,7 @@ describe('User Adapter', () => {
 
   test('Should return status 200 if Usuário autenticado com sucesso.', async () => {
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn(),
       editUser: jest.fn(),
@@ -183,6 +192,7 @@ describe('User Adapter', () => {
 
   test('Should return status 400 if password is invalid.', async () => {
     IUserCreateUseCaseMock = {
+      getAllUser: jest.fn(),
       getUser: jest.fn(),
       createUser: jest.fn(),
       editUser: jest.fn(),
