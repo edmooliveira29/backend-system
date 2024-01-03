@@ -36,5 +36,6 @@ export interface IUserCreateUseCase {
   login: (user: { email: string, password: string, remember: boolean }, sessionToken?: string) => Promise<any>
   editUser: (_id: string, user: UserEdit) => Promise<any>
   getUser: (objectId: string) => Promise<any>
+  getAllUser: (companyId: string) => Promise<any>
   deleteUser: (_id: string) => Promise<any>
 }

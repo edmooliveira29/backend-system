@@ -36,12 +36,18 @@ export const loginUserAdapterRoute = (controller: UserController) => {
 
 export const getUserAdapterRoute = (controller: UserController) => {
   return async (request: Request, response: Response): Promise<void> => {
-    const objectId = request.query.objectId as string
-    const httpResponse: UserHttpResponse = await controller.getUser(objectId)
-    response.status(httpResponse.statusCode).json(httpResponse.body)
+    if (request.query.objectId === undefined) {
+      const { companyId } = request.query
+      console.log(request.query)
+      const httpResponse: UserHttpResponse = await controller.getAllUser(companyId as string)
+      response.status(httpResponse.statusCode).json(httpResponse.body)
+    } else {
+      const { objectId } = request.query
+      const httpResponse: UserHttpResponse = await controller.getUser(objectId as string)
+      response.status(httpResponse.statusCode).json(httpResponse.body)
+    }
   }
 }
-
 export const deleteUserAdapterRoute = (controller: UserController) => {
   return async (request: Request, response: Response): Promise<void> => {
     const objectId = request.params.id

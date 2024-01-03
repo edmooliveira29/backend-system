@@ -45,8 +45,8 @@ export class EmployeeUseCase implements IEmployeeDataAccess {
     }
   }
 
-  async getEmployee (employeeId: string): Promise<any> {
-    const employeeRepositoryInfra = await this.portRepository.getEmployee(employeeId)
+  async getEmployee (companyId: string): Promise<any> {
+    const employeeRepositoryInfra = await this.portRepository.getEmployee(companyId)
     if (!employeeRepositoryInfra) {
       return { message: 'Colaborador não encontrado' }
     }

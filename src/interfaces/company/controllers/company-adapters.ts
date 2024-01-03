@@ -14,11 +14,8 @@ export class CompanyController {
   async create (companyHttpRequest: CompanyHttpRequest): Promise<CompanyHttpResponse> {
     try {
       const companyData: any = {
-        _id: companyHttpRequest.body._id,
-        email: companyHttpRequest.body.email,
-        name: companyHttpRequest.body.name,
-        createdAt: formatNowDate(),
-        createWithGoogle: companyHttpRequest.body.createWithGoogle
+        ...companyHttpRequest.body,
+        createdAt: formatNowDate()
       }
 
       const fieldsRequired = ['name']

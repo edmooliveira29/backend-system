@@ -9,7 +9,7 @@ export class SaleUseCase implements ISaleDataAccess {
   }
 
   async createSale (sale: SaleEntity): Promise<any> {
-    sale.saleNumber = await this.getLastSaleNumber()
+    sale.saleNumber = await this.getLastSaleNumber(sale.createdByTheCompanyId)
     const saleResponse = await this.portRepository.createSale(sale)
 
     return {
@@ -30,8 +30,8 @@ export class SaleUseCase implements ISaleDataAccess {
     }
   }
 
-  async getSale (): Promise<any> {
-    const saleRepositoryInfra = await this.portRepository.getSale()
+  async getSale (companyId: string): Promise<any> {
+    const saleRepositoryInfra = await this.portRepository.getSale(companyId)
     if (!saleRepositoryInfra) {
       return { message: 'Venda não encontrada' }
     }
@@ -49,19 +49,19 @@ export class SaleUseCase implements ISaleDataAccess {
     return { message: 'Venda deletada com sucesso', data: saleRepositoryInfra.data }
   }
 
-  async getLastSaleNumber (): Promise<any> {
-    const lastSaleNumber = await this.portRepository.getLastSaleNumber()
+  async getLastSaleNumber (companyId: string): Promise<any> {
+    const lastSaleNumber = await this.portRepository.getLastSaleNumber(companyId)
     const newSaleNumber = lastSaleNumber + 1
     return newSaleNumber
   }
 
-  async getQuantityOfSales (): Promise<any> {
-    const quantityOfSales = await this.portRepository.getQuantityOfSales()
+  async getQuantityOfSales (companyId: string): Promise<any> {
+    const quantityOfSales = await this.portRepository.getQuantityOfSales(companyId)
     return quantityOfSales
   }
 
-  async getSalesIntheLast6Months (): Promise<any> {
-    const quantityOfSales = await this.portRepository.getQuantityOfSales()
+  async getSalesIntheLast6Months (companyId: string): Promise<any> {
+    const quantityOfSales = await this.portRepository.getQuantityOfSales(companyId)
     return quantityOfSales
   }
 }

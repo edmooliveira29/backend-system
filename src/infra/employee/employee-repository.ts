@@ -24,7 +24,7 @@ export class EmployeeRepositoryInfra implements IEmployeeDataAccess {
     const employeeCollection = MongoConnection.getCollection('employees')
     let result: any | null
     if (employee.email.includes('@')) {
-      result = await employeeCollection.findOne({ email: employee.email })
+      result = await employeeCollection.findOne({ email: employee.email, createdByTheCompanyId: employee.createdByTheCompanyId })
     } else {
       const objectId = new ObjectId(employee._id)
       result = await employeeCollection.findOne({ _id: objectId })
@@ -39,9 +39,9 @@ export class EmployeeRepositoryInfra implements IEmployeeDataAccess {
     return result
   }
 
-  async findAllEmployees (): Promise<any> {
+  async findAllEmployees (companyId: string): Promise<any> {
     const employeeCollection = MongoConnection.getCollection('employees')
-    const result = await employeeCollection.find({}).toArray()
+    const result = await employeeCollection.find({ createdByTheCompanyId: companyId }).toArray()
     return result
   }
 
@@ -54,13 +54,9 @@ export class EmployeeRepositoryInfra implements IEmployeeDataAccess {
     }
   }
 
-  async getEmployee (_id: string): Promise<any> {
-    let employee
-    if (_id) {
-      employee = await this.findEmployeeByEmailOrId({ _id, email: '' })
-    } else {
-      employee = await this.findAllEmployees()
-    }
+  async getEmployee (companyId: string): Promise<any> {
+    console.log(companyId)
+    const employee = await this.findAllEmployees(companyId)
     if (employee) {
       return { data: employee }
     } else {

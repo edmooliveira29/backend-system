@@ -121,8 +121,8 @@ export class UserUseCase implements IUserDataAccess {
     }
   }
 
-  async getUser (_id: string): Promise<any> {
-    const userRepositoryInfra = await this.portRepository.getUser(_id)
+  async getUser (objectId: string): Promise<any> {
+    const userRepositoryInfra = await this.portRepository.getUser(objectId)
     if (!userRepositoryInfra) {
       return { message: 'Usuário não encontrado' }
     }
@@ -130,8 +130,17 @@ export class UserUseCase implements IUserDataAccess {
     return { ...userRepositoryInfra }
   }
 
-  async deleteUser (_id: string): Promise<any> {
-    const userRepositoryInfra = await this.portRepository.deleteUser(_id)
+  async getAllUser (companyId: string): Promise<any> {
+    const userRepositoryInfra = await this.portRepository.getAllUser(companyId)
+    if (!userRepositoryInfra) {
+      return { message: 'Usuário não encontrado' }
+    }
+
+    return { ...userRepositoryInfra }
+  }
+
+  async deleteUser (userId: string): Promise<any> {
+    const userRepositoryInfra = await this.portRepository.deleteUser(userId)
     if (!userRepositoryInfra) {
       return { message: 'Usuário não encontrado' }
     }

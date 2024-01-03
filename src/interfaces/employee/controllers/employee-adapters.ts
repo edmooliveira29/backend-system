@@ -103,9 +103,9 @@ export class EmployeeController {
     }
   }
 
-  async getEmployee (objectId: string): Promise<EmployeeHttpResponse> {
+  async getEmployee (companyId: string): Promise<EmployeeHttpResponse> {
     try {
-      const employeeReponseUseCase = await this.employeeUseCase.getEmployee(objectId)
+      const employeeReponseUseCase = await this.employeeUseCase.getEmployee(companyId)
 
       if (!employeeReponseUseCase.data) {
         return noContent(new NotFound(employeeReponseUseCase.message))

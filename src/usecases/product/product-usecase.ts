@@ -40,12 +40,12 @@ export class ProductUseCase implements IProductDataAccess {
     }
   }
 
-  async getProducts (): Promise<any> {
-    const productRepositoryInfra = await this.portRepository.getProducts()
+  async getProducts (companyId: string): Promise<any> {
+    const productRepositoryInfra = await this.portRepository.getProducts(companyId)
     if (!productRepositoryInfra) {
       return { message: 'Produto não encontrada' }
     }
-    return { message: 'Produto encontrada com sucesso', ...productRepositoryInfra }
+    return { message: 'Produto encontrado com sucesso', ...productRepositoryInfra }
   }
 
   async deleteProduct (productId: string): Promise<any> {

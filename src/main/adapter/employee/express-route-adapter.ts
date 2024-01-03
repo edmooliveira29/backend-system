@@ -26,8 +26,8 @@ export const editEmployeeAdapterRoute = (controller: EmployeeController) => {
 
 export const getEmployeeAdapterRoute = (controller: EmployeeController) => {
   return async (request: Request, response: Response): Promise<void> => {
-    const objectId = request.query.objectId as string
-    const httpResponse: EmployeeHttpResponse = await controller.getEmployee(objectId)
+    const { companyId } = request.query
+    const httpResponse: EmployeeHttpResponse = await controller.getEmployee(companyId as string)
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }

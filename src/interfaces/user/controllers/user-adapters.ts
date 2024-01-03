@@ -14,15 +14,8 @@ export class UserController {
   async create (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
     try {
       const userData: any = {
-        _id: userHttpRequest.body._id,
-        name: userHttpRequest.body.name,
-        email: userHttpRequest.body.email,
-        password: userHttpRequest.body.password || `${Math.random().toFixed(5)}Aa*`,
-        role: userHttpRequest.body.role,
-        createdAt: formatNowDate(),
-        createdByTheCompanyId: userHttpRequest.body.createdByTheCompanyId,
-        profilePicture: userHttpRequest.body.profilePicture || null,
-        createWithGoogle: userHttpRequest.body.createWithGoogle
+        ...userHttpRequest.body,
+        createdAt: formatNowDate()
       }
       const fieldsRequired = ['name', 'password', 'email']
       for (const field of fieldsRequired) {
@@ -73,12 +66,8 @@ export class UserController {
   async login (userHttpRequest: UserHttpRequest): Promise<UserHttpResponse> {
     try {
       const userData = {
-        email: userHttpRequest.body.email,
-        password: userHttpRequest.body.password,
-        role: userHttpRequest.body.role,
-        remember: userHttpRequest.body.remember,
-        loginWithGoogle: userHttpRequest.body.loginWithGoogle || false,
-        createdByTheCompanyId: userHttpRequest.body.createdByTheCompanyId
+        ...userHttpRequest.body,
+        loginWithGoogle: userHttpRequest.body.loginWithGoogle || false
       }
       const userReponseUseCase = await this.userUseCase.login(userData)
 
@@ -91,6 +80,21 @@ export class UserController {
       }
       delete userReponseUseCase.data.password
       return ok({ message: userReponseUseCase.message, data: userReponseUseCase.data })
+    } catch (error: any) {
+      console.error(error)
+      return internalError(new ServerError(error.message))
+    }
+  }
+
+  async getAllUser (companyId: string): Promise<UserHttpResponse> {
+    try {
+      const userReponseUseCase = await this.userUseCase.getAllUser(companyId)
+
+      if (!userReponseUseCase.data) {
+        return noContent(new NotFound(userReponseUseCase.message))
+      }
+      delete userReponseUseCase.data.password
+      return ok({ message: userReponseUseCase.message, ...userReponseUseCase })
     } catch (error: any) {
       console.error(error)
       return internalError(new ServerError(error.message))

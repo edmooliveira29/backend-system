@@ -61,9 +61,9 @@ export class SaleController {
     }
   }
 
-  async getSale (): Promise<SaleHttpResponse> {
+  async getSale (companyId: string): Promise<SaleHttpResponse> {
     try {
-      const saleReponseUseCase = await this.saleUseCase.getSale()
+      const saleReponseUseCase = await this.saleUseCase.getSale(companyId)
 
       if (!saleReponseUseCase.data) {
         return noContent(new NotFound(saleReponseUseCase.message))

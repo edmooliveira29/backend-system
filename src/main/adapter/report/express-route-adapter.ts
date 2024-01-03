@@ -6,7 +6,6 @@ import { type ReportHttpResponse } from '../../../interfaces/report/ports/report
 export const getReportAdapterRoute = (controller: ReportController) => {
   return async (request: Request, response: Response): Promise<void> => {
     const { companyId } = request.query
-
     const httpResponse: ReportHttpResponse = await controller.getReport(companyId as string)
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }

@@ -14,12 +14,7 @@ export class ProductController {
   async create (productHttpRequest: ProductHttpRequest): Promise<ProductHttpResponse> {
     try {
       const productData: any = {
-        _id: productHttpRequest.body._id,
-        name: productHttpRequest.body.name,
-        description: productHttpRequest.body.description,
-        category: productHttpRequest.body.category,
-        price: productHttpRequest.body.price,
-        quantityInStock: productHttpRequest.body.quantityInStock,
+        ...productHttpRequest.body,
         createdAt: formatNowDate()
       }
       const fieldsRequired = ['name', 'category', 'price', 'quantityInStock']
@@ -44,12 +39,7 @@ export class ProductController {
   async edit (productHttpRequest: ProductHttpRequest): Promise<ProductHttpResponse> {
     try {
       const productData = {
-        _id: productHttpRequest.body._id,
-        name: productHttpRequest.body.name,
-        description: productHttpRequest.body.description,
-        category: productHttpRequest.body.category,
-        price: productHttpRequest.body.price,
-        quantityInStock: productHttpRequest.body.quantityInStock,
+        ...productHttpRequest.body,
         editAt: formatNowDate()
       }
 
@@ -71,9 +61,9 @@ export class ProductController {
     }
   }
 
-  async getProducts (): Promise<ProductHttpResponse> {
+  async getProducts (companyId: string): Promise<ProductHttpResponse> {
     try {
-      const productReponseUseCase = await this.productUseCase.getProducts()
+      const productReponseUseCase = await this.productUseCase.getProducts(companyId)
       if (!productReponseUseCase.data) {
         return noContent(new NotFound(productReponseUseCase.message))
       }

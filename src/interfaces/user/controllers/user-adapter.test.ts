@@ -118,7 +118,7 @@ describe('User Adapter', () => {
       deleteUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
-    expect(await sut.getUser('')).toStrictEqual({ body: { message: 'Erro do servidor: Internal error.' }, statusCode: 500 })
+    expect(await sut.getAllUser('')).toStrictEqual({ body: { message: 'Erro do servidor: Internal error.' }, statusCode: 500 })
   })
 
   test('Should return error if internal error without message', async () => {

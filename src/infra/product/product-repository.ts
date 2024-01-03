@@ -32,7 +32,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     const productCollection = MongoConnection.getCollection('products')
 
     const nameOfProduct = product.name
-    const result = await productCollection.findOne({ name: nameOfProduct })
+    const result = await productCollection.findOne({ name: nameOfProduct, createdByTheCompanyId: product.createdByTheCompanyId })
     if (result != null) {
       const objectId = new ObjectId(result._id)
       await productCollection.updateOne(
@@ -43,9 +43,10 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     return result
   }
 
-  async findAllProducts (): Promise<any> {
+  async findAllProducts (companyId: string): Promise<any> {
+    console.log(companyId)
     const productCollection = MongoConnection.getCollection('products')
-    const result = await productCollection.find({}).toArray()
+    const result = await productCollection.find({ createdByTheCompanyId: companyId }).toArray()
 
     return result
   }
@@ -65,8 +66,8 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     }
   }
 
-  async getProducts (): Promise<any> {
-    const product = await this.findAllProducts()
+  async getProducts (companyId: string): Promise<any> {
+    const product = await this.findAllProducts(companyId)
     if (product) {
       return { data: product }
     } else {

@@ -33,27 +33,19 @@ export class UserRepositoryInfra implements IUserDataAccess {
 
   async findUserByEmailOrId (user: any): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
-    let result: any | null
-    if (user.email.includes('@')) {
-      result = await userCollection.findOne({ email: user.email })
+    if (user.email) {
+      const result = await userCollection.findOne({ email: user.email })
+      return result
     } else {
       const objectId = new ObjectId(user._id)
-      result = await userCollection.findOne({ _id: objectId })
+      const result = await userCollection.findOne({ _id: objectId })
+      return result
     }
-
-    if (result != null) {
-      const objectId = new ObjectId(result._id)
-      await userCollection.updateOne(
-        { _id: objectId },
-        { $set: result }
-      )
-    }
-    return result
   }
 
-  async findAllUsers (): Promise<any> {
+  async findAllUsers (companyId: string): Promise<any> {
     const userCollection = MongoConnection.getCollection('users')
-    const result = await userCollection.find({}).toArray()
+    const result = await userCollection.find({ createdByTheCompanyId: companyId }).toArray()
     return result
   }
 
@@ -75,17 +67,22 @@ export class UserRepositoryInfra implements IUserDataAccess {
     }
   }
 
-  async getUser (_id: string): Promise<any> {
-    let user
-    if (_id) {
-      user = await this.findUserByEmailOrId({ _id, email: '' })
-    } else {
-      user = await this.findAllUsers()
-    }
-    if (user) {
-      return { data: user }
+  async getUser (objectId: any): Promise<any> {
+    const userInfra = await this.findUserByEmailOrId({ _id: new ObjectId(objectId) })
+    if (userInfra) {
+      return { data: userInfra }
     } else {
       return { message: 'Usuário não encontrado' }
+    }
+  }
+
+  async getAllUser (companyId: string): Promise<any> {
+    const category = await this.findAllUsers(companyId)
+
+    if (category) {
+      return { message: 'Usuários encontrada com sucesso', data: category }
+    } else {
+      return { message: 'Usuários não encontrado' }
     }
   }
 

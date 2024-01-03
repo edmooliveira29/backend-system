@@ -17,7 +17,7 @@ export class ReportUseCase implements IReportDataAccess {
   }
 
   async getReport (companyId: string): Promise<any> {
-    const { data: sales } = await this.salesUseCase.getSale()
+    const { data: sales } = await this.salesUseCase.getSale(companyId)
     const customers = await this.customerUseCase.getCustomer(companyId)
     let totalOfSales = 0
     const products = quantityOfTheProductsSold(sales.data)
@@ -70,6 +70,7 @@ const calcularMediaEVendas = (salesData: any): any => {
   const organizedData: any = {}
 
   filteredSales.forEach((item: any) => {
+    console.log(item.monthYear)
     const month = item.monthYear.substring(0, 7)
     if (!organizedData[month]) {
       organizedData[month] = { total: 0, count: 0 }
@@ -84,7 +85,6 @@ const calcularMediaEVendas = (salesData: any): any => {
     monthsName: []
   }
   const sortedMonths = Object.keys(organizedData).sort() // Ordenar os meses
-
   for (const month of sortedMonths) {
     const average = organizedData[month].total / organizedData[month].count
     const quantity = organizedData[month].count

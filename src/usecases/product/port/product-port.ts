@@ -19,6 +19,6 @@ export interface IProductUseCase {
     createdByTheCompanyId: string
   }) => Promise<any>
   editProduct: (_id: string, product: ProductEdit) => Promise<any>
-  getProducts: () => Promise<any>
+  getProducts: (companyId: string) => Promise<any>
   deleteProduct: (_id: string) => Promise<any>
 }

@@ -31,9 +31,9 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
     return result
   }
 
-  async findAllSales (): Promise<any> {
+  async findAllSales (companyId: string): Promise<any> {
     const saleCollection = MongoConnection.getCollection('sales')
-    const result = await saleCollection.find({}).toArray()
+    const result = await saleCollection.find({ createdByTheCompanyId: companyId }).toArray()
     return result
   }
 
@@ -46,8 +46,8 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
     }
   }
 
-  async getSale (): Promise<any> {
-    const sale = await this.findAllSales()
+  async getSale (companyId: string): Promise<any> {
+    const sale = await this.findAllSales(companyId)
 
     if (sale) {
       return { data: sale }
@@ -84,11 +84,11 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
     }
   }
 
-  async getLastSaleNumber (): Promise<number> {
+  async getLastSaleNumber (companyId: string): Promise<number> {
     const saleCollection = MongoConnection.getCollection('sales')
 
     const result = await saleCollection
-      .find({})
+      .find({ createdByTheCompanyId: companyId })
       .sort({ saleNumber: -1 })
       .limit(1)
       .toArray()
