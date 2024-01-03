@@ -42,11 +42,11 @@ export class UserUseCase implements IUserDataAccess {
   }
 
   async createUser (user: UserEntity): Promise<any> {
-    const validationPassword: any = this.validation.passwordIsValid(user.password)
+    const validationPassword: any = !user.createWithGoogle ? this.validation.passwordIsValid(user.password) : { passwordIsValid: true }
     user = {
       ...user,
       sessionToken: (await this.sessionToken.createSessionToken({ data: user }, false)).data.token,
-      password: await this.validation.hashPassword(user.password)
+      password: !user.createWithGoogle ? await this.validation.hashPassword(user.password) : user.password
     }
     if (!validationPassword.passwordIsValid) {
       return { message: validationPassword.message }
@@ -68,9 +68,14 @@ export class UserUseCase implements IUserDataAccess {
   async editUser (_id: string, user: UserEdit): Promise<any> {
     let validationPassword: any = { passwordIsValid: true }
     const userFound = await this.getUser(_id)
-    validationPassword = user.newPassword ? await this.validation.comparePassword(user.password, userFound.data.password) : validationPassword
-    if (!validationPassword.passwordIsValid && user.newPassword) {
-      return { message: 'Senha atual esta incorreta' }
+    console.log(user)
+    if (!user.createWithGoogle) {
+      validationPassword = user.newPassword ? await this.validation.comparePassword(user.password, userFound.data.password) : validationPassword
+      if (!validationPassword.passwordIsValid && user.newPassword) {
+        return { message: 'Senha atual esta incorreta' }
+      }
+    } else {
+      validationPassword = { passwordIsValid: true }
     }
     const newPassword = user.newPassword
     if (user.newPassword) {

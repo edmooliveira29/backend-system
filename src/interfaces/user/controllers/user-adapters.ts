@@ -17,7 +17,7 @@ export class UserController {
         ...userHttpRequest.body,
         createdAt: formatNowDate()
       }
-      const fieldsRequired = ['name', 'password', 'email']
+      const fieldsRequired = ['name', 'email']
       for (const field of fieldsRequired) {
         const fieldExists = Object.prototype.hasOwnProperty.call(userData, field)
         const value = userData[`${field}`]

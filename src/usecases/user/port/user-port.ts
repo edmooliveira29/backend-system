@@ -1,4 +1,5 @@
 export interface UserEdit {
+  createWithGoogle: any
   _id: string
   street: string
   birthday: string
