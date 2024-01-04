@@ -8,6 +8,7 @@
     "prepare": "husky install",
     "build": "rimraf build && tsc",
     "start": "NODE_ENV=deployment sudo systemctl restart mongod && nodemon ./src/main/server.ts",
+    "start-test": "NODE_ENV=deployment && nodemon ./src/main/server.ts",
     "start-production": "git pull && pm2 stop api-backend && npm run build && sudo systemctl restart mongod && pm2 start ./build/main/server.js --name=api-backend --watch",
     "update-packages": "npx npm-check-updates --color --interactive &&  npm cache clean --force && rm -Rf node_modules/ && npm install && npx npm-check"
   },
