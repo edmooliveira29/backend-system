@@ -14,26 +14,7 @@ export class EmployeeController {
   async create (employeeHttpRequest: EmployeeHttpRequest): Promise<EmployeeHttpResponse> {
     try {
       const employeeData: any = {
-        _id: employeeHttpRequest.body._id,
-        name: employeeHttpRequest.body.name,
-        cpf: employeeHttpRequest.body.cpf,
-        birthday: employeeHttpRequest.body.birthday,
-        gender: employeeHttpRequest.body.gender,
-        nickname: employeeHttpRequest.body.nickname,
-        phoneNumber: employeeHttpRequest.body.phoneNumber,
-        email: employeeHttpRequest.body.email,
-        additionalInformation: employeeHttpRequest.body.additionalInformation,
-        office: employeeHttpRequest.body.office,
-        department: employeeHttpRequest.body.department,
-        hiringDate: employeeHttpRequest.body.hiringDate,
-        wage: employeeHttpRequest.body.wage,
-        zipCode: employeeHttpRequest.body.zipCode,
-        street: employeeHttpRequest.body.street,
-        houseNumber: employeeHttpRequest.body.houseNumber,
-        complement: employeeHttpRequest.body.complement,
-        neighborhood: employeeHttpRequest.body.neighborhood,
-        stateOfTheCountry: employeeHttpRequest.body.stateOfTheCountry,
-        city: employeeHttpRequest.body.city,
+        ...employeeHttpRequest.body,
         createdAt: formatNowDate()
       }
       const fieldsRequired = ['name', 'cpf', 'birthday', 'gender', 'phoneNumber', 'email',
@@ -58,30 +39,9 @@ export class EmployeeController {
 
   async edit (employeeHttpRequest: EmployeeHttpRequest): Promise<EmployeeHttpResponse> {
     try {
-      const employeeData = {
-        _id: employeeHttpRequest.body._id,
-        name: employeeHttpRequest.body.name,
-        cpf: employeeHttpRequest.body.cpf,
-        birthday: employeeHttpRequest.body.birthday,
-        gender: employeeHttpRequest.body.gender,
-        nickname: employeeHttpRequest.body.nickname,
-        phoneNumber: employeeHttpRequest.body.phoneNumber,
-        email: employeeHttpRequest.body.email,
-        additionalInformation: employeeHttpRequest.body.additionalInformation,
-        office: employeeHttpRequest.body.office,
-        department: employeeHttpRequest.body.department,
-        hiringDate: employeeHttpRequest.body.hiringDate,
-        wage: employeeHttpRequest.body.wage,
-        zipCode: employeeHttpRequest.body.zipCode,
-        street: employeeHttpRequest.body.street,
-        houseNumber: employeeHttpRequest.body.houseNumber,
-        complement: employeeHttpRequest.body.complement,
-        neighborhood: employeeHttpRequest.body.neighborhood,
-        city: employeeHttpRequest.body.city,
-        stateOfTheCountry: employeeHttpRequest.body.stateOfTheCountry,
-        editAt: formatNowDate(),
-        createdAt: employeeHttpRequest.body.createdAt,
-        createdByTheCompanyId: employeeHttpRequest.body.createdByTheCompanyId
+      const employeeData: any = {
+        ...employeeHttpRequest.body,
+        editAt: formatNowDate()
       }
 
       const fieldsRequired = ['name', 'gender', 'phoneNumber', 'email', 'city',
