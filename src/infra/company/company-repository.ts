@@ -70,7 +70,7 @@ export class CompanyRepositoryInfra implements ICompanyDataAccess {
       updatedCompany._id = _id
       return { message: 'Empresa editada com sucesso', data: updatedCompany }
     } else {
-      return { message: 'Empresa não encontrado' }
+      return { message: 'Empresa não encontrada' }
     }
   }
 
