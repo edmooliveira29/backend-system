@@ -68,7 +68,6 @@ export class UserUseCase implements IUserDataAccess {
   async editUser (_id: string, user: UserEdit): Promise<any> {
     let validationPassword: any = { passwordIsValid: true }
     const userFound = await this.getUser(_id)
-    console.log(user)
     if (!user.createWithGoogle) {
       validationPassword = user.newPassword ? await this.validation.comparePassword(user.password, userFound.data.password) : validationPassword
       if (!validationPassword.passwordIsValid && user.newPassword) {

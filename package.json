@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "scripts": {
     "test:unit": "jest --coverage --detectOpenHandles",
-    "test:unit:dev": "jest --watchAll --coverage",
     "lint": "eslint 'src/**/*.ts' --fix && echo 'Linting complete with success!'",
     "prepare": "husky install",
     "build": "rimraf build && tsc",
