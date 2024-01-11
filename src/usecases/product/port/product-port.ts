@@ -1,16 +1,18 @@
 export interface ProductEdit {
-  _id: string
+  _id?: string
   name: string
   description?: string
   category: string
   price: string
   quantityInStock: number
+  type: string
 }
 
 export interface IProductUseCase {
   createProduct: (product: {
     _id?: string
     name: string
+    type: string
     description?: string
     category: string
     price: string

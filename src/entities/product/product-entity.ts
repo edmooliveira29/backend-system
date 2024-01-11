@@ -1,6 +1,7 @@
 interface ProductData {
   _id?: any
   name: string
+  type: string
   description?: string
   category: string
   price: string
@@ -11,6 +12,7 @@ interface ProductData {
 export class ProductEntity {
   _id?: any
   name: string
+  type: string
   description?: string
   category: string
   price: string
@@ -19,6 +21,7 @@ export class ProductEntity {
   createdByTheCompanyId: any
   constructor (category: ProductData) {
     this._id = category._id
+    this.type = category.type
     this.name = category.name
     this.category = category.category
     this.price = category.price

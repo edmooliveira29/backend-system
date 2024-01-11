@@ -1,5 +1,4 @@
 import { type ProductEntity } from '../../entities/product/product-entity'
-import { formatNowDate } from '../../utils/data'
 import { type IProductDataAccess } from './port/product-data-access'
 import { type ProductEdit, type IProductUseCase } from './port/product-port'
 
@@ -15,14 +14,7 @@ export class ProductUseCase implements IProductDataAccess {
     return {
       message: 'Produto criado com sucesso',
       data: {
-        _id: productResponse.data._id,
-        name: productResponse.data.name,
-        description: productResponse.data.description,
-        category: productResponse.data.category,
-        price: productResponse.data.price,
-        quantityInStock: productResponse.data.quantityInStock,
-        createdAt: formatNowDate(),
-        createdByTheCompanyId: productResponse.data.createdByTheCompanyId
+        ...productResponse.data
       }
     }
   }
@@ -32,10 +24,7 @@ export class ProductUseCase implements IProductDataAccess {
     return {
       message: 'Produto editado com sucesso',
       data: {
-        _id: productResponse.data._id,
-        type: productResponse.data.type,
-        name: productResponse.data.name,
-        description: productResponse.data.description
+        ...productResponse.data
       }
     }
   }
@@ -53,6 +42,6 @@ export class ProductUseCase implements IProductDataAccess {
     if (!productRepositoryInfra) {
       return { message: 'Produto não encontrado' }
     }
-    return { message: 'Produto deletada com sucesso', data: productRepositoryInfra.data }
+    return { message: 'Produto deletado com sucesso', data: productRepositoryInfra.data }
   }
 }

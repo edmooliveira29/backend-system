@@ -31,7 +31,6 @@ describe('CustomerUseCase', () => {
       stateRegistration: 'someStateRegistration',
       additionalInformation: 'someAdditionalInformation',
       zipCode: 'someZipCode',
-
       street: 'someStreet',
       houseNumber: 'someHouseNumber',
       complement: 'someComplement',
@@ -91,7 +90,7 @@ describe('CustomerUseCase', () => {
         message: 'Cliente editado com sucesso',
         data: { ...customerData }
       }
- 
+
       mockRepository.editCustomer.mockResolvedValueOnce({ data: customerData })
 
       const result = await customerUseCase.editCustomer(customerId, customerData)

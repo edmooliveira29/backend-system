@@ -97,7 +97,7 @@ export class ProductRepositoryInfra implements IProductDataAccess {
     const product = await productCollection.deleteOne({ _id: objectId })
 
     if (product) {
-      return { message: 'Produto deletada com sucesso', data: await productCollection.find({}).toArray() }
+      return { message: 'Produto deletado com sucesso', data: await productCollection.find({}).toArray() }
     } else {
       return { message: 'Produto não encontrada' }
     }

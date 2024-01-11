@@ -38,12 +38,12 @@ export class ReportUseCase implements IReportDataAccess {
   }
 }
 
-const quantityOfTheProductsSold = (dados: any): any => {
+const quantityOfTheProductsSold = (data: any): any => {
   const productsSold: any = {}
-  dados.forEach((venda: any) => {
-    venda.products.forEach((produto: any, index: number) => {
-      const nameOfProduct = produto[`productId-${index}`].name
-      const quantitySold = parseInt(produto[`quantity-${index}`])
+  data.forEach((sale: any) => {
+    sale.products.forEach((product: any, index: number) => {
+      const nameOfProduct = product[`productId-${index}`].name
+      const quantitySold = parseInt(product[`quantity-${index}`])
       if (productsSold[nameOfProduct]) {
         productsSold[nameOfProduct] += quantitySold
       } else {
