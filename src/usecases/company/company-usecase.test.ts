@@ -35,7 +35,6 @@ describe('CompanyUseCase', () => {
       mockRepository.createCompany.mockResolvedValueOnce({ data: companyEntity })
 
       const result = await companyUseCase.createCompany(companyEntity)
-      console.log(result)
       expect(mockRepository.createCompany).toHaveBeenCalledWith(companyEntity)
       expect(result).toEqual(expectedResponse)
     })
