@@ -1,8 +1,8 @@
-import { UserEntity } from './user-entity'
+import { type UserData, UserEntity } from './user-entity'
 
 describe('User Entity', () => {
   test('Should return entity of the user', () => {
-    const user = {
+    const user: UserData = {
       _id: 'anyid',
       email: 'user@email.com',
       name: 'user',
@@ -11,7 +11,9 @@ describe('User Entity', () => {
       role: 'admin',
       createWithGoogle: false,
       createdByTheCompanyId: 'createdByTheCompanyId',
-      profilePicture: 'profilePicture'
+      profilePicture: 'profilePicture',
+      sessionToken: 'sessionToken',
+      username: 'username'
     }
 
     const userEntity = new UserEntity(user)

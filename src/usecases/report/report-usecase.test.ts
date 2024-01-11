@@ -1,7 +1,5 @@
-// report-use-case.test.ts
 import { ReportUseCase } from './report-usecase'
 
-// Mock dependencies
 const mockSaleUseCase = {
   getSale: jest.fn()
 }
@@ -11,7 +9,6 @@ const mockCustomerUseCase = {
 }
 
 const mockProductUseCase = {
-  // Add any required mock methods here
 }
 
 describe('ReportUseCase', () => {
