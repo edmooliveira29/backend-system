@@ -18,10 +18,7 @@ export class SessionTokenUseCase implements ISessionTokenDataAccess {
       token: sessionToken.token,
       createdByTheCompanyId: user.data.createdByTheCompanyId
     }
-    const userResponse = await this.portRepository.createSessionToken(session)
-    if (!userResponse.data) {
-      return { message: 'Usuário não encontrado' }
-    }
+    await this.portRepository.createSessionToken(session)
 
     return {
       message: 'Sessão criada com sucesso',

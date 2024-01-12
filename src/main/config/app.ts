@@ -4,5 +4,5 @@ import setupRoutes from './routes'
 
 const app = express()
 setupMiddleware(app)
-setupRoutes(app)
+void setupRoutes(app)
 export default app

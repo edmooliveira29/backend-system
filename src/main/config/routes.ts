@@ -2,14 +2,19 @@
 import { type Express, Router, type Response } from 'express'
 import { readdirSync } from 'fs'
 
-export default (app: Express): void => {
+export default async (app: Express): Promise<void> => {
   const router = Router()
   app.use('/v1', router)
-  readdirSync(`${process.cwd()}/src/main/routes/`).map(async fileName => {
+
+  const importPromises = readdirSync(`${process.cwd()}/src/main/routes/`).map(async fileName => {
     if (!fileName.includes('.test.')) {
-      (await import(`../routes/${fileName}/${fileName}-router`)).default(router)
+      const module = await import(`../routes/${fileName}/${fileName}-router`)
+      return module.default(router)
     }
   })
+
+  await Promise.all(importPromises)
+
   app.post('/test', (req, res) => {
     res.json(req.body)
   })
