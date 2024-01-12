@@ -60,9 +60,7 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
 
     if (category) {
       return { message: 'Categoria encontrada com sucesso', data: category }
-    } else {
-      return { message: 'Categoria não encontrado' }
-    }
+    } 
   }
 
   async editCategory (_id: string, updatedCategoryData: any): Promise<any> {
@@ -77,8 +75,6 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
     if (category) {
       updatedCategoryData._id = _id
       return { data: updatedCategoryData }
-    } else {
-      return { message: 'Categoria não encontrada' }
     }
   }
 
@@ -89,8 +85,6 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
 
     if (category) {
       return { message: 'Categoria deletada com sucesso', data: await categoryCollection.find({}).toArray() }
-    } else {
-      return { message: 'Categoria não encontrada' }
     }
   }
 }

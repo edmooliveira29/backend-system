@@ -83,7 +83,7 @@ const calcularMediaEVendas = (salesData: any): any => {
     quantity: [],
     monthsName: []
   }
-  const sortedMonths = Object.keys(organizedData).sort() 
+  const sortedMonths = Object.keys(organizedData).sort()
   for (const month of sortedMonths) {
     const average = organizedData[month].total / organizedData[month].count
     const quantity = organizedData[month].count

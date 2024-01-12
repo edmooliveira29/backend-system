@@ -42,18 +42,18 @@ describe('Email Validation', () => {
 
   test('Should return false if password more then 8 caractheres', () => {
     user.password = 'passwor'
-    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ isValid: false, message: 'A senha deve conter pelo menos 8 caracteres' })
+    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ passwordIsValid: false, message: 'A senha deve conter pelo menos 8 caracteres' })
   })
 
   test('Should return false if password is not includes numerics digits', () => {
     user.password = 'Password'
-    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ isValid: false, message: 'A senha deve conter pelo menos 1 dígito' })
+    expect(validateMock.passwordIsValid(user.password)).toStrictEqual({ passwordIsValid: false, message: 'A senha deve conter pelo menos 1 dígito' })
   })
 
   test('Should return false if password is not includes uppercase letter', () => {
     user.password = 'password1'
     expect(validateMock.passwordIsValid(user.password)).toStrictEqual({
-      isValid: false,
+      passwordIsValid: false,
       message: 'A senha deve conter pelo menos uma letra maiúscula'
     })
   })
@@ -61,7 +61,7 @@ describe('Email Validation', () => {
   test('Should return false if password is not includes lowercase letter', () => {
     user.password = 'PASSWORD1*'
     expect(validateMock.passwordIsValid(user.password)).toStrictEqual({
-      isValid: false,
+      passwordIsValid: false,
       message: 'A senha deve conter pelo menos uma letra minúscula'
     })
   })
@@ -69,16 +69,16 @@ describe('Email Validation', () => {
   test('Should return false if password is not includes special characters', () => {
     user.password = 'Password1'
     expect(validateMock.passwordIsValid(user.password))
-      .toStrictEqual({ isValid: false, message: 'A senha deve conter pelo menos um caracter especial' })
+      .toStrictEqual({ passwordIsValid: false, message: 'A senha deve conter pelo menos um caracter especial' })
   })
 
-  test('Should return true if password is invalid', () => {
-    expect(validateMock.comparePassword('PASSWORD', 'Password'))
-      .toStrictEqual({ data: { message: 'Senha inválida. Tente novamente', passwordValid: false } })
+  test('Should return true if password is invalid', async () => {
+    expect(await validateMock.comparePassword('PASSWORD', await validateMock.hashPassword('Password')))
+      .toStrictEqual({ message: 'Senha inválida. Tente novamente', passwordIsValid: false })
   })
 
-  test('Should return true if password is valid', () => {
-    expect(validateMock.comparePassword('password', 'password'))
-      .toStrictEqual({ passwordValid: true })
+  test('Should return true if password is equal', async () => {
+    expect(await validateMock.comparePassword('password', await validateMock.hashPassword('password')))
+      .toStrictEqual({ passwordIsValid: true })
   })
 })

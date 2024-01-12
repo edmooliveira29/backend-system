@@ -4,6 +4,7 @@ export const MongoConnection = {
   client: null as unknown as MongoClient,
 
   async connect (uri: string): Promise<void> {
+    console.log(uri)
     this.client = await MongoClient.connect(uri)
     const username = process.env.MONGO_URL_USERNAME
     const password = process.env.MONGO_URL_PASSWORD

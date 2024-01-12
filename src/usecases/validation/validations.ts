@@ -55,7 +55,9 @@ export class Validation {
   }
 
   async comparePassword (passwordRequest: string, passwordRepository: string): Promise<object> {
-    const result = bcrypt.compareSync(passwordRequest, passwordRepository)
+    const result = await bcrypt.compare(passwordRequest, passwordRepository).then(function (result) {
+      return result
+    })
     if (result) {
       return { passwordIsValid: true }
     } else {

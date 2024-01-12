@@ -35,7 +35,6 @@ describe('CategoryUseCase', () => {
       mockRepository.createCategory.mockResolvedValueOnce({ data: { ...categoryEntity } })
 
       const result = await categoryUseCase.createCategory(categoryEntity)
-      console.log(result)
       expect(mockRepository.createCategory).toHaveBeenCalledWith(categoryEntity)
       expect(result).toEqual(expectedResponse)
     })
@@ -75,7 +74,6 @@ describe('CategoryUseCase', () => {
       mockRepository.getCategory.mockResolvedValueOnce({ ...expectedResponse })
 
       const result = await categoryUseCase.getCategory(companyId)
-      console.log(result)
       expect(mockRepository.getCategory).toHaveBeenCalledWith(companyId)
       expect(result).toEqual(expectedResponse)
     })

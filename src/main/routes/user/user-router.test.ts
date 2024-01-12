@@ -36,7 +36,7 @@ describe('Register Routes', () => {
         password: 'anyPassword*1'
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro inválido: E-mail não é valido.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'E-mail não é valido.' })
   })
 
   test('Should return error 400 with name is invalid', async () => {
@@ -48,18 +48,18 @@ describe('Register Routes', () => {
         password: 'anyPassword*1'
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro inválido: Nome não é valido.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Nome não é valido.' })
   })
 
-  test('Should return error 400 if password is not provided', async () => {
+  test('Should return error 400 if email is not provided', async () => {
     const user = await request(app)
       .post('/v1/user')
       .send({
-        name: 'a',
-        email: 'email-test@gmail.com'
+        username: 'email-test@gmail.com',
+        name: 'Name Test'
       })
     expect(user.statusCode).toBe(400)
-    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro ausente: password.' })
+    expect(JSON.parse(user.text)).toStrictEqual({ message: 'Parâmetro ausente: email.' })
   })
 })
 

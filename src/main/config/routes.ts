@@ -10,6 +10,9 @@ export default (app: Express): void => {
       (await import(`../routes/${fileName}/${fileName}-router`)).default(router)
     }
   })
+  app.post('/test', (req, res) => {
+    res.json(req.body)
+  })
 
   app.use((req: any, res: Response) => {
     res.status(403).json({ error: 'Route not allowed' })

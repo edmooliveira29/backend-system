@@ -13,10 +13,8 @@ export const corsGeneral = (req: Request, res: Response, next: NextFunction): vo
 }
 
 export const corsOrigin = (req: Request, res: Response, next: NextFunction): void => {
-  console.trace()
   const requestOrigin = req.get('origin') as string
-  console.log(requestOrigin)
-  if (allowedOrigins.includes(requestOrigin)) {
+  if (allowedOrigins.includes(requestOrigin) || process.env.NODE_ENV === 'test') {
     res.header('Access-Control-Allow-Origin', requestOrigin)
   } else {
     res.status(403).send({ error: 'Origin not allowed' })

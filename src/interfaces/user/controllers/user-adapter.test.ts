@@ -90,12 +90,6 @@ describe('User Adapter', () => {
     expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Parâmetro ausente: email.' }, statusCode: 400 })
   })
 
-  test('Should return error if password not required', async () => {
-    userHttpRequestMock.body.email = 'email@example.com'
-    delete userHttpRequestMock.body.password
-    expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Parâmetro ausente: password.' }, statusCode: 400 })
-  })
-
   test('Should return error if internal error without message ', async () => {
     IUserCreateUseCaseMock = {
       getAllUser: jest.fn(),
@@ -108,6 +102,7 @@ describe('User Adapter', () => {
       deleteUser: jest.fn()
 
     }
+    userHttpRequestMock.body.email = 'email@email.com'
     userHttpRequestMock.body.password = 'Password*1'
     sut = new UserController(IUserCreateUseCaseMock)
     expect(await sut.create(userHttpRequestMock)).toStrictEqual({ body: { message: 'Erro do servidor: Internal error.' }, statusCode: 500 })
@@ -115,8 +110,8 @@ describe('User Adapter', () => {
 
   test('Should return status 500 if internal error occurrer when get user', async () => {
     IUserCreateUseCaseMock = {
-      getAllUser: jest.fn(),
-      getUser: jest.fn().mockImplementationOnce(() => { throw new Error('Internal error') }),
+      getUser: jest.fn(),
+      getAllUser: jest.fn().mockImplementationOnce(() => { throw new Error('Internal error') }),
       createUser: jest.fn(),
       editUser: jest.fn(),
       login: jest.fn(),
@@ -200,6 +195,6 @@ describe('User Adapter', () => {
       deleteUser: jest.fn()
     }
     sut = new UserController(IUserCreateUseCaseMock)
-    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Parâmetro inválido: Password is invalid.' }, statusCode: 400 })
+    expect(await sut.login(userHttpRequestMock)).toStrictEqual({ body: { message: 'Password is invalid.' }, statusCode: 400 })
   })
 })

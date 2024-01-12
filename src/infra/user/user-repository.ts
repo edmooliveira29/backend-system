@@ -16,9 +16,6 @@ export class UserRepositoryInfra implements IUserDataAccess {
     const userCollection = MongoConnection.getCollection('users')
     const exists = await this.exists(user)
     if ((!exists)) {
-      user = {
-        ...user
-      }
       const userInserted = await userCollection.insertOne(user)
       return {
         data: {
