@@ -12,3 +12,5 @@ steps:
       chmod 600 ~/root/.ssh/id_rsa.pub && \
       set -x && \
       ssh -i ~/root/.ssh/id_rsa system@34.139.250.184 "cd ~/Documents/backend-system/ && npm run start-production"
+
+      

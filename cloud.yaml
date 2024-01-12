@@ -1,0 +1,22 @@
+steps:
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://github.com/seu-usuario/seu-repositorio.git', '.']
+
+  - name: 'gcr.io/cloud-builders/npm'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        npm install --legacy-peer-deps
+        npm run lint
+        npm install --legacy-peer-deps
+        npm run test:unit
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/seu-projeto/seu-imagem', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/seu-projeto/seu-imagem']
+
+images:
+  - 'gcr.io/seu-projeto/seu-imagem'
