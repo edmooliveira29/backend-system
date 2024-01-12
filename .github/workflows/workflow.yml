@@ -57,11 +57,12 @@ jobs:
     - id: 'compute-ssh'
       uses: 'google-github-actions/ssh-compute@v1'
       with:
-        instance_name: 'example-instance'
-        zone: '{{{ secrets.ZONE_INSTANCE_GOOGLE }}}'
+        instance_name: '{{ secrets.INSTANCE_NAME_GOOGLE }}'
+        zone: '{{ secrets.ZONE_INSTANCE_GOOGLE }}'
         ssh_private_key: '${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}'
         command: 'echo Hello world'
         credentials_json: '${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}'
+        export_default_credentials: true
 
     # Example of using the output
     - id: 'test'
