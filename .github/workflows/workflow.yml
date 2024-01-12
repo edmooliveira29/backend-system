@@ -54,15 +54,15 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.3.0
         with:
           service_account_key: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          project_id: ${{ secrets.PROJECT_ID_GOOGLE }}
           export_default_credentials: true
 
       - name: 'Submit Cloud Build'
         run: |
           gcloud builds submit --config cloudbuild.yaml .
         env:
-          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          _SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID_GOOGLE }}
+          _SERVICE_ACCOUNT: ${{ secrets.ACCOUNT_KEY_JSON_GOOGLE }}
           _SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_GOOGLE }}
-          _INSTANCE_NAME: ${{ secrets.INSTANCE_NAME_GOOGLE }}
+          _INSTANCE_NAME: ${{ secrets.NAME_INSTANCE_GOOGLE }}
           _ZONE: ${{ secrets.ZONE_INSTANCE_GOOGLE }}
