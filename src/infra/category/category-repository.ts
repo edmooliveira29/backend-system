@@ -60,7 +60,7 @@ export class CategoryRepositoryInfra implements ICategoryDataAccess {
 
     if (category) {
       return { message: 'Categoria encontrada com sucesso', data: category }
-    } 
+    }
   }
 
   async editCategory (_id: string, updatedCategoryData: any): Promise<any> {

@@ -4,12 +4,51 @@ on:
     branches: [ main ]
 
 jobs:
+  run-lint:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Setup Backend
+          uses: actions/checkout@v4
+        - name: Run lint
+          run: |
+            npm install --legacy-peer-deps
+            npm run lint
+  run-tests:
+    runs-on: ubuntu-latest
+    needs: run-lint
+    steps:
+      - name: Setup backend
+        uses: actions/checkout@v4
+      - name: Install packages in backend
+        run: |
+          npm install --legacy-peer-deps
 
+      - name: Setup mongo to backend
+        uses: DigiPie/mongo-action@v2.0.1
+        with:
+          image_version: latest
+          port: 27017
+      - name: Install dependencies in backend
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget gnupg
+          wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-mongosh
+          echo "${{ secrets.ENV_BACKEND }}" > .env
+          npm install --legacy-peer-deps
+
+      - name: Running tests
+        run: |
+          npm run test:unit
+      
   deploy:
     runs-on: ubuntu-latest      
+    needs: run-tests
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
   
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
