@@ -36,18 +36,17 @@ describe('Register Routes', () => {
     await MongoConnection.disconnect()
   })
 
-  test('Should return 200 if employee to be created with success', async () => {
+  it('Should return 200 if employee to be created with success', async () => {
     await request(app)
       .post('/v1/employee')
       .send(employeeRequest)
       .expect(200)
   })
 
-  test('Should return 200 if employee to be edited with success', async () => {
+  it('Should return 200 if employee to be edited with success', async () => {
     const employee = await request(app)
       .post('/v1/employee')
       .send(employeeRequest)
-    console.log(employee.body.data)
     await request(app)
       .put(`/v1/employee/${employee.body.data._id}`)
       .send(employeeRequest)
@@ -55,7 +54,7 @@ describe('Register Routes', () => {
     expect(employee.statusCode).toBe(200)
   })
 
-  test('Should return 200 with get all employees with success', async () => {
+  it('Should return 200 with get all employees with success', async () => {
     await request(app)
       .post('/v1/employee')
       .send(employeeRequest)
@@ -65,7 +64,7 @@ describe('Register Routes', () => {
     expect(employee.body.data.length).toBe(1)
   })
 
-  test('Should return 200 with delete employee with success', async () => {
+  it('Should return 200 with delete employee with success', async () => {
     await request(app)
       .post('/v1/employee')
       .send(employeeRequest)
@@ -85,7 +84,7 @@ describe('Register Routes', () => {
     expect(customerAfterDelete.body.data.length).toBe(0)
   })
 
-  test('Shoul return error 500 if employee exists', async () => {
+  it('Shoul return error 500 if employee exists', async () => {
     await request(app)
       .post('/v1/employee')
       .send(employeeRequest)
@@ -98,7 +97,7 @@ describe('Register Routes', () => {
     expect(employee.body.message).toBe('Erro do servidor: Já existe um colaborador com este e-mail.')
   })
 
-  test('Should return 400 with not provided name', async () => {
+  it('Should return 400 with not provided name', async () => {
     delete employeeRequest.name
     const employee = await request(app)
       .post('/v1/employee')

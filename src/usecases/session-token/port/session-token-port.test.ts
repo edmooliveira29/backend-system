@@ -21,11 +21,11 @@ describe('Session Token Port Interface', () => {
     }
   })
 
-  test('Should return the message session created with success', async () => {
+  it('Should return the message session created with success', async () => {
     expect(await sessionPortMock.createSessionToken(session)).toEqual('Sessão criada com sucesso')
   })
 
-  test('Should return the message session edited with success', async () => {
+  it('Should return the message session edited with success', async () => {
     sessionPortMock.editSessionToken = jest.fn().mockResolvedValue('Sessão editada com sucesso')
     const session = {
       updateAt: formatNowDate(),

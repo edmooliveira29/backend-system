@@ -78,11 +78,11 @@ export class UserUseCase implements IUserDataAccess {
     }
     const newPassword = user.newPassword
     if (user.newPassword) {
-      validationPassword = this.validation.passwordIsValid(user.newPassword)
+      validationPassword = this.validation.passwordIsValid(user.newPassword as string)
       user = {
         ...userFound.data,
         lastChangedPassword: formatNowDate(),
-        password: await this.validation.hashPassword(user.newPassword)
+        password: await this.validation.hashPassword(user.newPassword as string)
       }
     } else {
       user = {

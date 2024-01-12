@@ -17,7 +17,7 @@ describe('Mongodb Session repository', () => {
     await MongoConnection.clearCollection('sessions')
   })
 
-  test('Should created a new session', async () => {
+  it('Should created a new session', async () => {
     const sut = new SessionTokenRepository()
     const sessionAdded = await sut.createSessionToken({
       expiresIn: 'string',
@@ -30,7 +30,7 @@ describe('Mongodb Session repository', () => {
     expect(sessionAdded).toBeTruthy()
   })
 
-  test('Return true with session exist', async () => {
+  it('Return true with session exist', async () => {
     const sut = new SessionTokenRepository()
     const session = {
       _id: 'anyId',

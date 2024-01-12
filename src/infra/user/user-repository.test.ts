@@ -17,7 +17,7 @@ describe('Mongodb User repository', () => {
     await MongoConnection.clearCollection('users')
   })
 
-  test('Should created a new user', async () => {
+  it('Should created a new user', async () => {
     const sut = new UserRepositoryInfra()
     const userAdded = await sut.createUser({
       name: 'anyName',
@@ -31,7 +31,7 @@ describe('Mongodb User repository', () => {
     expect(userAdded).toBeTruthy()
   })
 
-  test('Return true with user exist', async () => {
+  it('Return true with user exist', async () => {
     const sut = new UserRepositoryInfra()
     const userMock = {
       _id: '64f9304f0f87f700a28984b5',
@@ -49,7 +49,7 @@ describe('Mongodb User repository', () => {
     expect(await sut.exists({ username: 'email@email.com', _id: userMock._id })).toBeTruthy()
   })
 
-  test('Return true with authentication with sucessfuly', async () => {
+  it('Return true with authentication with sucessfuly', async () => {
     const sut = new UserRepositoryInfra()
     const userMock = {
       _id: 'anyId',
@@ -66,16 +66,16 @@ describe('Mongodb User repository', () => {
       })
   })
 
-  test('Return message if Usuário não encontrado to authentication', async () => {
+  it('Return message if Usuário não encontrado to authentication', async () => {
     const sut = new UserRepositoryInfra()
     expect(await sut.login({ username: 'emailnotcreated@email.com', password: 'Password1*' })).toStrictEqual({ message: 'Usuário não encontrado' })
   })
 
-  test('Return message if user not found to getUser', async () => {
+  it('Return message if user not found to getUser', async () => {
     const sut = new UserRepositoryInfra()
     expect(await sut.getUser('64f9304f0f87f700a28984b5')).toStrictEqual({ message: 'Usuário não encontrado' })
   })
-  test('Return true with authentication with successfully', async () => {
+  it('Return true with authentication with successfully', async () => {
     const sut = new UserRepositoryInfra()
     const userMock = {
       _id: '64f9304f0f87f700a28984b5',

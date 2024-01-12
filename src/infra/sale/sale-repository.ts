@@ -15,35 +15,10 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
     }
   }
 
-  async findSaleById (sale: any): Promise<any> {
-    const saleCollection = MongoConnection.getCollection('sales')
-
-    const objectId = new ObjectId(sale._id)
-    const result = await saleCollection.findOne({ _id: objectId })
-
-    if (result != null) {
-      const objectId = new ObjectId(result._id)
-      await saleCollection.updateOne(
-        { _id: objectId },
-        { $set: result }
-      )
-    }
-    return result
-  }
-
   async findAllSales (companyId: string): Promise<any> {
     const saleCollection = MongoConnection.getCollection('sales')
     const result = await saleCollection.find({ createdByTheCompanyId: companyId }).toArray()
     return result
-  }
-
-  async exists (sale: any): Promise<boolean> {
-    const result = await this.findSaleById(sale)
-    if (result != null) {
-      return true
-    } else {
-      return false
-    }
   }
 
   async getSale (companyId: string): Promise<any> {
@@ -51,8 +26,6 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
 
     if (sale) {
       return { data: sale }
-    } else {
-      return { message: 'Venda não encontrado' }
     }
   }
 
@@ -68,8 +41,6 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
     if (sale) {
       updatedSaleData._id = _id
       return { data: updatedSaleData }
-    } else {
-      return { message: 'Colaborador não encontrado' }
     }
   }
 
@@ -78,9 +49,7 @@ export class SaleRepositoryInfra implements ISaleDataAccess {
     const objectId = new ObjectId(_id)
     const sale = await saleCollection.deleteOne({ _id: objectId })
     if (sale) {
-      return { message: 'Colaborador deletado com sucesso', data: await saleCollection.find({}).toArray() }
-    } else {
-      return { message: 'Colaborador não encontrado' }
+      return { message: 'Venda deletada com sucesso', data: await saleCollection.find({}).toArray() }
     }
   }
 

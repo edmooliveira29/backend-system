@@ -16,7 +16,7 @@ describe('Register Routes', () => {
     await MongoConnection.clearCollection('categories')
   })
 
-  test('Should return 200 if category to be created with success', async () => {
+  it('Should return 200 if category to be created with success', async () => {
     await request(app)
       .post('/v1/category')
       .send({
@@ -28,7 +28,7 @@ describe('Register Routes', () => {
       .expect(200)
   })
 
-  test('Should return 200 if category to be edited with success', async () => {
+  it('Should return 200 if category to be edited with success', async () => {
     const category = await request(app)
       .post('/v1/category')
       .send({
@@ -37,7 +37,7 @@ describe('Register Routes', () => {
         description: 'anyDescription'
       })
     await request(app)
-      .put(`/v1/category${category.body.data._id}`)
+      .put(`/v1/category/${category.body.data._id}`)
       .send({
         name: 'Name Test Edited',
         type: 'anyType',
@@ -47,7 +47,7 @@ describe('Register Routes', () => {
     expect(category.statusCode).toBe(200)
   })
 
-  test('Should return 200 with get all categories with success', async () => {
+  it('Should return 200 with get all categories with success', async () => {
     await request(app)
       .post('/v1/category')
       .send({
@@ -61,7 +61,7 @@ describe('Register Routes', () => {
     expect(category.body.data.length).toBe(1)
   })
 
-  test('Should return 200 with delete category with success', async () => {
+  it('Should return 200 with delete category with success', async () => {
     await request(app)
       .post('/v1/category')
       .send({
@@ -85,7 +85,7 @@ describe('Register Routes', () => {
     expect(categoryAfterDelete.body.data.length).toBe(0)
   })
 
-  test('Shoul return error 500 if category exists', async () => {
+  it('Shoul return error 500 if category exists', async () => {
     await request(app)
       .post('/v1/category')
       .send({
@@ -106,7 +106,7 @@ describe('Register Routes', () => {
     expect(category.body.message).toBe('Erro do servidor: Já existe uma categoria com este nome.')
   })
 
-  test('Should return 400 with not provided name', async () => {
+  it('Should return 400 with not provided name', async () => {
     const category = await request(app)
       .post('/v1/category')
       .send({

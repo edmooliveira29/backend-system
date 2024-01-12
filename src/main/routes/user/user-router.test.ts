@@ -16,7 +16,7 @@ describe('Register Routes', () => {
     await MongoConnection.clearCollection('users')
   })
 
-  test('Should return 200 if user to be created with success', async () => {
+  it('Should return 200 if user to be created with success', async () => {
     await request(app)
       .post('/v1/user')
       .send({
@@ -27,7 +27,7 @@ describe('Register Routes', () => {
       .expect(200)
   })
 
-  test('Should return error 400 with email is invalid', async () => {
+  it('Should return error 400 with email is invalid', async () => {
     const user = await request(app)
       .post('/v1/user')
       .send({
@@ -39,7 +39,7 @@ describe('Register Routes', () => {
     expect(JSON.parse(user.text)).toStrictEqual({ message: 'E-mail não é valido.' })
   })
 
-  test('Should return error 400 with name is invalid', async () => {
+  it('Should return error 400 with name is invalid', async () => {
     const user = await request(app)
       .post('/v1/user')
       .send({
@@ -51,7 +51,7 @@ describe('Register Routes', () => {
     expect(JSON.parse(user.text)).toStrictEqual({ message: 'Nome não é valido.' })
   })
 
-  test('Should return error 400 if email is not provided', async () => {
+  it('Should return error 400 if email is not provided', async () => {
     const user = await request(app)
       .post('/v1/user')
       .send({

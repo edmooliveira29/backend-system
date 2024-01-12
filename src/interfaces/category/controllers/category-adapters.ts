@@ -43,7 +43,7 @@ export class CategoryController {
         editAt: formatNowDate()
       }
 
-      const fildsRequired = ['_id', 'name', 'type']
+      const fildsRequired = ['name', 'type']
       for (const field of fildsRequired) {
         if (!Object.prototype.hasOwnProperty.call(categoryHttpRequest.body, field)) {
           return badRequest(new MissingParamError(field))

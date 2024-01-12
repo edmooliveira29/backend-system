@@ -16,7 +16,7 @@ describe('Register Routes', () => {
     await MongoConnection.clearCollection('companies')
   })
 
-  test('Should return 200 if company to be created with success', async () => {
+  it('Should return 200 if company to be created with success', async () => {
     await request(app)
       .post('/v1/company')
       .send({
@@ -27,7 +27,7 @@ describe('Register Routes', () => {
       .expect(200)
   })
 
-  test('Should return 200 if company to be edited with success', async () => {
+  it('Should return 200 if company to be edited with success', async () => {
     const company = await request(app)
       .post('/v1/company')
       .send({
@@ -35,9 +35,8 @@ describe('Register Routes', () => {
         name: 'Name Test',
         createWithGoogle: false
       })
-    console.log(company.body.data)
     await request(app)
-      .put(`/v1/company${company.body.data._id}`)
+      .put(`/v1/company/${company.body.data._id}`)
       .send({
         email: 'email-test@gmail.com',
         name: 'Name Test',
@@ -55,7 +54,7 @@ describe('Register Routes', () => {
     expect(company.statusCode).toBe(200)
   })
 
-  test('Should return 200 with get all companies with success', async () => {
+  it('Should return 200 with get all companies with success', async () => {
     const company = await request(app)
       .post('/v1/company')
       .send({
@@ -69,7 +68,7 @@ describe('Register Routes', () => {
     expect(company.body.data).toBeDefined()
   })
 
-  test('Shoul return error 500 if company exists', async () => {
+  it('Shoul return error 500 if company exists', async () => {
     await request(app)
       .post('/v1/company')
       .send({
@@ -90,7 +89,7 @@ describe('Register Routes', () => {
     expect(company.body.message).toBe('Erro do servidor: Já existe uma empresa com este e-mail.')
   })
 
-  test('Should return 400 with not provided name', async () => {
+  it('Should return 400 with not provided name', async () => {
     const company = await request(app)
       .post('/v1/company')
       .send({

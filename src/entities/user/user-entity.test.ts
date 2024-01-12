@@ -1,7 +1,7 @@
 import { type UserData, UserEntity } from './user-entity'
 
 describe('User Entity', () => {
-  test('Should return entity of the user', () => {
+  it('Should return entity of the user', () => {
     const user: UserData = {
       _id: 'anyid',
       email: 'user@email.com',

@@ -29,11 +29,11 @@ describe('User Port Interface', () => {
     }
   })
 
-  test('Should return the message user created with success', async () => {
+  it('Should return the message user created with success', async () => {
     expect(await userPortMock.createUser(user)).toEqual('Usuário criado com sucesso')
   })
 
-  test('Should return the message user edited with success', async () => {
+  it('Should return the message user edited with success', async () => {
     userPortMock.editUser = jest.fn().mockResolvedValue('Usuário editado com sucesso')
     const user: any = {
       _id: '1234567890',

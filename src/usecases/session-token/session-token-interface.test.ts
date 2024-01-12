@@ -20,7 +20,7 @@ describe('User Port Interface', () => {
     }
   })
 
-  test('Should return the message session created with success', async () => {
+  it('Should return the message session created with success', async () => {
     expect(await sessionTokenPortMock.createSessionToken({
       email: 'email@email.com',
       password: 'password',
@@ -30,7 +30,7 @@ describe('User Port Interface', () => {
     }, false)).toEqual('Sessão criada com sucesso')
   })
 
-  test('Should return the message session edited with success', async () => {
+  it('Should return the message session edited with success', async () => {
     sessionData.token = 'stringTokenUpdated'
     sessionData.updatedAt = new Date(1).toLocaleString('pt-BR')
     expect(await sessionTokenPortMock.editSessionToken('sessionData._id', sessionData)).toEqual('Sessão editada com sucesso')

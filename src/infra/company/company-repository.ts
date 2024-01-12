@@ -29,20 +29,12 @@ export class CompanyRepositoryInfra implements ICompanyDataAccess {
 
     if (company) {
       return { data: company }
-    } else {
-      return { message: 'Empresa não encontrada' }
     }
   }
 
   async findCompanyById (companyId: any): Promise<any> {
     const companyCollection = MongoConnection.getCollection('companies')
     const result = await companyCollection.findOne({ _id: new ObjectId(companyId) })
-    return result
-  }
-
-  async findAllcompanies (): Promise<any> {
-    const companyCollection = MongoConnection.getCollection('companies')
-    const result = await companyCollection.find({}).toArray()
     return result
   }
 
@@ -69,19 +61,6 @@ export class CompanyRepositoryInfra implements ICompanyDataAccess {
     if (companyUpdated) {
       updatedCompany._id = _id
       return { message: 'Empresa editada com sucesso', data: updatedCompany }
-    } else {
-      return { message: 'Empresa não encontrada' }
-    }
-  }
-
-  async deleteCompany (_id: string): Promise<any> {
-    const companyCollection = MongoConnection.getCollection('companies')
-    const objectId = new ObjectId(_id)
-    const company = await companyCollection.deleteOne({ _id: objectId })
-    if (company) {
-      return { message: 'Usuário deletado com sucesso', data: await companyCollection.find({}).toArray() }
-    } else {
-      return { message: 'Usuário não encontrado' }
     }
   }
 }

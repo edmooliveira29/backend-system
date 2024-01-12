@@ -1,7 +1,7 @@
 import { SessionTokenEntity } from './session-token'
 
 describe('Session Token Entity', () => {
-  test('Should return entity with session token', () => {
+  it('Should return entity with session token', () => {
     const sessionToken = {
       _id: 'anyid',
       expiresIn: new Date(1).toLocaleString('pt-BR'),

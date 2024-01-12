@@ -16,7 +16,7 @@ export interface UserEdit {
   stateOfTheCountry: string
   zipCode: string
   role: string
-  newPassword: string
+  newPassword: string | boolean
   newPasswordConfirmation: string
   password: string
   lastChangedPassword?: string

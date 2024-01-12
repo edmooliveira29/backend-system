@@ -43,7 +43,7 @@ export class ProductController {
         editAt: formatNowDate()
       }
 
-      const fildsRequired = ['_id', 'name', 'category', 'price', 'quantityInStock']
+      const fildsRequired = ['name', 'category', 'price', 'quantityInStock']
       for (const field of fildsRequired) {
         if (!Object.prototype.hasOwnProperty.call(productHttpRequest.body, field)) {
           return badRequest(new MissingParamError(field))
