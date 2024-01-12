@@ -51,8 +51,6 @@ export class CustomerRepositoryInfra implements ICustomerDataAccess {
 
     if (customer) {
       return { data: customer }
-    } else {
-      return { message: 'Cliente não encontrado' }
     }
   }
 
@@ -68,8 +66,6 @@ export class CustomerRepositoryInfra implements ICustomerDataAccess {
     if (customer) {
       updatedCustomerData._id = _id
       return { data: updatedCustomerData }
-    } else {
-      return { message: 'Cliente não encontrado' }
     }
   }
 
@@ -79,8 +75,6 @@ export class CustomerRepositoryInfra implements ICustomerDataAccess {
     const customerResponse = await customerCollection.deleteOne({ _id: objectId })
     if (customerResponse) {
       return { message: 'Cliente deletado com sucesso' }
-    } else {
-      return { message: 'Cliente não encontrado' }
     }
   }
 }
