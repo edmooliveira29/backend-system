@@ -20,6 +20,7 @@
         "project": "./tsconfig.json"
     },
     "rules": {
+        "@typescript-eslint/prefer-nullish-coalescing": "off",
         "max-len": [
             "error",
             {

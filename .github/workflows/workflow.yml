@@ -6,6 +6,9 @@ on:
 jobs:
   run-lint:
       runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node-version: 
       steps:
         - name: Setup Backend
           uses: actions/checkout@v4
