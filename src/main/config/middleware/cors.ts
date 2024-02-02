@@ -14,18 +14,18 @@ export const corsGeneral = (req: Request, res: Response, next: NextFunction): vo
 
 export const corsOrigin = (req: Request, res: Response, next: NextFunction): void => {
   const requestOrigin = req.get('origin') as string
-  if (allowedOrigins.includes(requestOrigin) || process.env.NODE_ENV === 'test') {
-    res.header('Access-Control-Allow-Origin', requestOrigin)
-  } else {
-    res.status(403).send({ error: 'Origin not allowed' })
-    console.log(`Response: ${res.statusCode}`)
-    console.log(`Request: ${req.method} ${req.url} at ${formatNowDate()};,
-    IP: ${req.socket.remoteAddress}, User Agent: ${req.headers['user-agent']}`)
-    console.log('Request Body:')
-    console.log(JSON.stringify(req.body, null, 4))
-    console.log('Response Body:')
-    console.log('{\n   error: Origin not allowed\n}')
-  }
+  // if (allowedOrigins.includes(requestOrigin) || process.env.NODE_ENV === 'test') {
+  res.header('Access-Control-Allow-Origin', requestOrigin)
+  // } else {
+  //   res.status(403).send({ error: 'Origin not allowed' })
+  //   console.log(`Response: ${res.statusCode}`)
+  //   console.log(`Request: ${req.method} ${req.url} at ${formatNowDate()};,
+  //   IP: ${req.socket.remoteAddress}, User Agent: ${req.headers['user-agent']}`)
+  //   console.log('Request Body:')
+  //   console.log(JSON.stringify(req.body, null, 4))
+  //   console.log('Response Body:')
+  //   console.log('{\n   error: Origin not allowed\n}')
+  // }
 
   next()
 }

@@ -13,7 +13,7 @@ export const ReportFactory = (): ReportController => {
   const customerRepositoryInfra = new CustomerRepositoryInfra()
   const customerUseCase = new CustomerUseCase(customerRepositoryInfra)
   const saleRepositoryInfra = new SaleRepositoryInfra()
-  const saleUseCase = new SaleUseCase(saleRepositoryInfra)
+  const saleUseCase = new SaleUseCase(saleRepositoryInfra, productUseCase)
   const reportUseCase = new ReportUseCase(saleUseCase, customerUseCase, productUseCase)
   const reportController = new ReportController(reportUseCase)
   return reportController
