@@ -15,7 +15,7 @@ export const corsGeneral = (req: Request, res: Response, next: NextFunction): vo
 export const corsOrigin = (req: Request, res: Response, next: NextFunction): void => {
   const requestOrigin = req.get('origin') as string
   if (allowedOrigins.includes(requestOrigin) || process.env.NODE_ENV === 'test') {
-  res.header('Access-Control-Allow-Origin', requestOrigin)
+    res.header('Access-Control-Allow-Origin', requestOrigin)
   } else {
     res.status(403).send({ error: 'Origin not allowed' })
     console.log(`Response: ${res.statusCode}`)

@@ -1,4 +1,5 @@
 import { type SaleEntity } from '../../entities/sale/sale-entity'
+import { type IProductUseCase } from '../product/port/product-port'
 import { type ISaleUseCase } from './port/sale-port'
 import { SaleUseCase } from './sale-usecase'
 
@@ -6,6 +7,7 @@ describe('SaleUseCase', () => {
   let saleUseCase: SaleUseCase
   let mockSaleEntity: SaleEntity
   let mockSaleRepository: jest.Mocked<ISaleUseCase>
+  let mockProductRepository: jest.Mocked<IProductUseCase>
   afterEach(() => {
     jest.clearAllMocks()
   })
@@ -41,8 +43,14 @@ describe('SaleUseCase', () => {
       getQuantityOfSales: jest.fn(),
       getSalesIntheLast6Months: jest.fn()
     }
+    mockProductRepository = {
+      getProducts: jest.fn(),
+      editProduct: jest.fn(),
+      createProduct: jest.fn(),
+      deleteProduct: jest.fn()
+    }
 
-    saleUseCase = new SaleUseCase(mockSaleRepository)
+    saleUseCase = new SaleUseCase(mockSaleRepository, mockProductRepository)
   })
 
   it('createSale should call portRepository.createSale and return success message', async () => {
