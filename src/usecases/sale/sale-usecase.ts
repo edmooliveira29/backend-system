@@ -15,30 +15,37 @@ export class SaleUseCase implements ISaleDataAccess {
     sale.saleNumber = await this.getLastSaleNumber(sale.createdByTheCompanyId)
     let noHasProducts: string = ''
     const productsToUpdated: any[] = []
-
+    let productInRepository: any
     await Promise.all(
-      sale.products.map(async (product: any, index: number) => {
+      sale.products.map(async (productOfSale: any, index: number) => {
         const products = await this.portUseCaseProducts.getProducts(sale.createdByTheCompanyId)
-        const productUpdated = products.data.find((productFilter: any) => {
-          return productFilter._id.toString() === product[`productId-${index}`]._id
+        productInRepository = products.data.find((productFilter: any) => {
+          return productFilter._id.toString() === productOfSale[`productId-${index}`]._id
         })
 
         // ========================== //
-        if (productUpdated.quantityInStock < product[`quantity-${index}`]) {
-          noHasProducts = `O produto '${productUpdated.name}' não tem estoque o suficiente!`
+        if (productInRepository.quantityInStock < productOfSale[`quantity-${index}`]) {
+          noHasProducts = `O produto '${productInRepository.name}' não tem estoque o suficiente!`
         } else {
           const productToUpdate = {
-            ...productUpdated,
-            quantityInStock: productUpdated.quantityInStock - product[`quantity-${index}`]
+            ...productInRepository,
+            quantityInStock: productInRepository.quantityInStock - productOfSale[`quantity-${index}`]
           }
-          productsToUpdated.find((productFilter: any) => {
-            return productFilter._id.toString() === (productToUpdate._id).toString()
+          const isProductInListToUpdate = productsToUpdated.find((productToUpdate: any) => {
+            return productToUpdate._id.toString() === (productToUpdate._id).toString()
           })
-          productsToUpdated.push(productToUpdate)
+          if (isProductInListToUpdate) {
+            if (productToUpdate.quantityInStock - productOfSale[`quantity-${index}`] < 0) {
+              noHasProducts = `O produto '${productInRepository.name}' não tem estoque o suficiente!`
+            }
+            isProductInListToUpdate.quantityInStock = productToUpdate.quantityInStock - productOfSale[`quantity-${index}`]
+          } else {
+            productsToUpdated.push(productToUpdate)
+          }
         }
       })
     )
-    console.log(productsToUpdated)
+
     if (noHasProducts !== '') {
       return {
         message: noHasProducts
