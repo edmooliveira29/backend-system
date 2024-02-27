@@ -1,5 +1,4 @@
 # **Backend Repository Installation**
-![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/edmooliveira29/ed0ba52b68a607aefdcb0993e5559316/raw/jest-coverage-comment__main.json)
 ### **Pre-requisites**
 
 - A linux-based operating system, such as Ubuntu.
