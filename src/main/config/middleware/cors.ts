@@ -2,7 +2,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 import cors from 'cors'
 import { formatNowDate } from '../../../utils/data'
 
-const allowedOrigins = ['https://edmopuc.online', 'http://localhost:3000', 'https://sistemagerenciador.netlify.app/']
+const allowedOrigins = ['https://edmopuc.online', 'http://localhost:3000', 'https://sistemagerenciador.netlify.app']
 
 export const corsGeneral = (req: Request, res: Response, next: NextFunction): void => {
   res.header('Access-Control-Allow-Headers', '*')
